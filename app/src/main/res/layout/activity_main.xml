@@ -12,7 +12,6 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:paddingHorizontal="@dimen/dim16"
         android:paddingTop="14dp"
         android:paddingBottom="@dimen/dim16"
         android:text="@string/playlist_maker"
