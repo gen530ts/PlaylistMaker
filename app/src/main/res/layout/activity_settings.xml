@@ -9,18 +9,35 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/dim12"
-        android:paddingTop="10dp"
-        android:paddingEnd="86dp"
-        android:paddingBottom="@dimen/dim12"
-        android:text="@string/settings"
-        android:textSize="22sp"
-        android:drawablePadding="@dimen/dim12"
-        app:drawableLeftCompat="@drawable/back" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:paddingVertical="4dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/back"
+            android:foreground="?attr/selectableItemBackground"
+            app:srcCompat="@drawable/back" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/dim12"
+            android:paddingTop="10dp"
+            android:paddingEnd="86dp"
+            android:paddingBottom="@dimen/dim12"
+            android:text="@string/settings"
+            android:textSize="22sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,6 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim61"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
@@ -73,8 +91,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dim19"
-            android:layout_marginBottom="@dimen/dim18"
             android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginBottom="@dimen/dim18"
             android:contentDescription="@string/share"
             app:srcCompat="@drawable/share" />
     </LinearLayout>
@@ -83,6 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim61"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -101,15 +120,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dim19"
-            android:layout_marginBottom="@dimen/dim18"
             android:layout_marginEnd="@dimen/dim12"
-            app:srcCompat="@drawable/support"
-            android:contentDescription="@string/support"/>
+            android:layout_marginBottom="@dimen/dim18"
+            android:contentDescription="@string/support"
+            app:srcCompat="@drawable/support" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim61"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
@@ -128,9 +149,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dim19"
-            android:layout_marginBottom="@dimen/dim18"
             android:layout_marginEnd="@dimen/dim12"
-            app:srcCompat="@drawable/agree"
-            android:contentDescription="@string/support"/>
+            android:layout_marginBottom="@dimen/dim18"
+            android:contentDescription="@string/support"
+            app:srcCompat="@drawable/agree" />
     </LinearLayout>
 </LinearLayout>

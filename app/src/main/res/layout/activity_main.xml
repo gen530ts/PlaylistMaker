@@ -31,7 +31,8 @@
         app:cornerRadius="@dimen/dim16"
         app:icon="@drawable/search"
         app:iconGravity="textStart"
-        app:iconTint="@color/black"/>
+        app:iconTint="@color/black"
+        android:foreground="?attr/selectableItemBackground"/>
 
     <Button
         android:id="@+id/button2"
@@ -63,6 +64,7 @@
         app:cornerRadius="@dimen/dim16"
         app:icon="@drawable/settings"
         app:iconGravity="textStart"
-        app:iconTint="@color/yp_black"/>
+        app:iconTint="@color/yp_black"
+        android:foreground="?attr/selectableItemBackground"/>
 
 </LinearLayout>

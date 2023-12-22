@@ -9,4 +9,6 @@
     <string name="support">Написать в поддержку</string>
     <string name="agree">Пользовательское соглашение</string>
     <string name="back">Назад</string>
+    <string name="activity_search">activity_search</string>
+    <string name="activity_media">activity media</string>
 </resources>
