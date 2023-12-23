@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+image_svg
+/.idea/deploymentTargetDropDown.xml
