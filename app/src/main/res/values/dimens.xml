@@ -9,4 +9,6 @@
     <dimen name="dim21">21dp</dimen>
     <dimen name="dim24">24dp</dimen>
     <dimen name="dim61">61dp</dimen>
+    <dimen name="dim56">56dp</dimen>
+    <dimen name="dim22sp">22sp</dimen>
 </resources>

@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/dim56"
         android:orientation="horizontal"
         android:paddingVertical="4dp">
 
@@ -36,12 +36,12 @@
             android:paddingEnd="86dp"
             android:paddingBottom="@dimen/dim12"
             android:text="@string/settings"
-            android:textSize="22sp" />
+            android:textSize="@dimen/dim22sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="@dimen/dim61"
         android:layout_marginTop="@dimen/dim24"
         android:orientation="horizontal">
 
