@@ -9,7 +9,7 @@
     android:paddingEnd="@dimen/dim20">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/headerTextView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim56"
         android:paddingTop="14dp"
@@ -19,13 +19,14 @@
         android:textSize="@dimen/dim22sp" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/searchButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim0"
         android:layout_marginTop="@dimen/dim24"
         android:layout_weight="1"
         android:backgroundTint="@color/white"
         android:text="@string/Search"
+        android:textSize="@dimen/dim22sp"
         android:textAllCaps="false"
         android:textColor="@color/yp_black"
         app:cornerRadius="@dimen/dim16"
@@ -35,13 +36,14 @@
         android:foreground="?attr/selectableItemBackground"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/mediaButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim0"
         android:layout_marginTop="@dimen/dim16"
         android:layout_weight="1"
         android:backgroundTint="@color/yp_white"
         android:text="@string/Media"
+        android:textSize="@dimen/dim22sp"
         android:textAllCaps="false"
         android:textColor="@color/yp_black"
         app:cornerRadius="@dimen/dim16"
@@ -51,7 +53,7 @@
         android:foreground="?attr/selectableItemBackground"/>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/settingsButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim0"
         android:layout_marginTop="@dimen/dim16"
@@ -59,6 +61,7 @@
         android:layout_weight="1"
         android:backgroundTint="@color/yp_white"
         android:text="@string/settings"
+        android:textSize="@dimen/dim22sp"
         android:textAllCaps="false"
         android:textColor="@color/yp_black"
         app:cornerRadius="@dimen/dim16"

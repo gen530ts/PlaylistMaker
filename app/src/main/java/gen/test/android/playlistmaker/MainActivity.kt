@@ -7,10 +7,8 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val btn1 = findViewById<Button>(R.id.button1)
+    private fun setSearchBtnListener(){
+        val searchBtn = findViewById<Button>(R.id.searchButton)
 
         val btn1ClickListener: View.OnClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -18,20 +16,29 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        searchBtn.setOnClickListener(btn1ClickListener)
+    }
+    private fun setMediaBtnListener(){
+        val mediaBtn = findViewById<Button>(R.id.mediaButton)
 
-        btn1.setOnClickListener(btn1ClickListener)
-        val btn2 = findViewById<Button>(R.id.button2)
-
-        btn2.setOnClickListener {
+        mediaBtn.setOnClickListener {
             val intent = Intent(this, MediaActivity::class.java)
             startActivity(intent)
 
         }
-        val btn3 = findViewById<Button>(R.id.button3)
-        btn3.setOnClickListener {
+    }
+    private fun setSettingsBtnListener(){
+        val settingsBtn = findViewById<Button>(R.id.settingsButton)
+        settingsBtn.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
-
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setSearchBtnListener()
+        setMediaBtnListener()
+        setSettingsBtnListener()
     }
 }

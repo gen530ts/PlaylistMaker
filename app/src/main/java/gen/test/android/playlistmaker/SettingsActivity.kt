@@ -6,13 +6,16 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class SettingsActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        val backImg=findViewById<ImageView>(R.id.imageView)
+    private fun setBackListener(){
+        val backImg=findViewById<ImageView>(R.id.backImageView)
         backImg.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_settings)
+        setBackListener()
     }
 }
