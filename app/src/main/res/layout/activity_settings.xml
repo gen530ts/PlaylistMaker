@@ -52,14 +52,8 @@
 
         <TextView
             android:id="@+id/darkTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/dark"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"
-            />
+            style="@style/SettingsPageTxtView"
+            android:text="@string/dark" />
 
         <Space
             android:layout_width="0dp"
@@ -84,13 +78,8 @@
 
         <TextView
             android:id="@+id/shareTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/share"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"/>
+            style="@style/SettingsPageTxtView"
+            android:text="@string/share" />
 
         <Space
             android:layout_width="0dp"
@@ -99,14 +88,9 @@
 
         <ImageView
             android:id="@+id/shareImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim19"
-            android:layout_marginEnd="@dimen/dim12"
-            android:layout_marginBottom="@dimen/dim18"
-            android:contentDescription="@string/share"
+            style="@style/SettingsPageImgView"
             app:srcCompat="@drawable/share"
-            android:foregroundTint="@color/yp_gray"/>
+            android:contentDescription="@string/share" />
     </LinearLayout>
 
     <LinearLayout
@@ -116,13 +100,8 @@
 
         <TextView
             android:id="@+id/supportTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/support"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"/>
+            style="@style/SettingsPageTxtView"
+            android:text="@string/support" />
 
         <Space
             android:layout_width="0dp"
@@ -131,14 +110,10 @@
 
         <ImageView
             android:id="@+id/supportImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim19"
+            style="@style/SettingsPageImgView"
             android:layout_marginEnd="@dimen/dim14"
-            android:layout_marginBottom="@dimen/dim18"
             android:contentDescription="@string/support"
-            app:srcCompat="@drawable/support"
-            android:foregroundTint="@color/yp_gray"/>
+            app:srcCompat="@drawable/support" />
     </LinearLayout>
 
     <LinearLayout
@@ -148,13 +123,8 @@
 
         <TextView
             android:id="@+id/agreeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/agree"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"/>
+            style="@style/SettingsPageTxtView"
+            android:text="@string/agree" />
 
         <Space
             android:layout_width="0dp"
@@ -163,13 +133,8 @@
 
         <ImageView
             android:id="@+id/agreeImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim19"
-            android:layout_marginEnd="@dimen/dim12"
-            android:layout_marginBottom="@dimen/dim18"
+            style="@style/SettingsPageImgView"
             android:contentDescription="@string/support"
-            app:srcCompat="@drawable/agree"
-            android:foregroundTint="@color/yp_gray"/>
+            app:srcCompat="@drawable/agree" />
     </LinearLayout>
 </LinearLayout>
