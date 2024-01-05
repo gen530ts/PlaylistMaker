@@ -13,16 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim56"
         android:orientation="horizontal"
-        android:paddingVertical="@dimen/dim4"
-        android:paddingHorizontal="@dimen/dim4">
+        android:paddingHorizontal="@dimen/dim4"
+        android:paddingVertical="@dimen/dim4">
 
         <ImageView
             android:id="@+id/backImageView"
             android:layout_width="@dimen/dim48"
             android:layout_height="@dimen/dim48"
-            android:padding="@dimen/dim12"
             android:contentDescription="@string/back"
             android:foreground="?attr/selectableItemBackground"
+            android:padding="@dimen/dim12"
             app:srcCompat="@drawable/back" />
 
         <Space
@@ -33,6 +33,7 @@
             android:id="@+id/settingsTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="@font/ys_display_medium"
             android:gravity="center"
             android:paddingStart="@dimen/dim12"
             android:paddingTop="10dp"
@@ -40,10 +41,8 @@
             android:paddingBottom="@dimen/dim12"
             android:text="@string/settings"
             android:textColor="@color/yp_black"
-            android:textSize="@dimen/dim22sp"
-            android:fontFamily="@font/ys_display_medium"
             android:textFontWeight="500"
-            />
+            android:textSize="@dimen/dim22sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,20 +56,25 @@
             style="@style/SettingsPageTxtView"
             android:text="@string/dark" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/darkSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginEnd="@dimen/dim12"
-            android:layout_gravity="center"
-            tools:ignore="TouchTargetSizeCheck"
-            />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/darkSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/dim12"
+                android:foregroundTintMode="screen"
+                android:gravity="center_vertical|end"
+
+                android:scaleX="0.98"
+                app:thumbTint="@color/yp_gray"
+                app:trackTint="@color/yp_light_gray"
+                tools:ignore="TouchTargetSizeCheck" />
+        </FrameLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -91,8 +95,8 @@
         <ImageView
             android:id="@+id/shareImageView"
             style="@style/SettingsPageImgView"
-            app:srcCompat="@drawable/share"
-            android:contentDescription="@string/share" />
+            android:contentDescription="@string/share"
+            app:srcCompat="@drawable/share" />
     </LinearLayout>
 
     <LinearLayout
