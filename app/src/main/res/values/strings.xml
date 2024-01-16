@@ -11,4 +11,13 @@
     <string name="back">Назад</string>
     <string name="activity_search">activity_search</string>
     <string name="activity_media">activity media</string>
+    <string name="chooser_Title">Выберите приложение</string>
+    <string name="txt_Message">https://practicum.yandex.ru/android-developer/</string>
+    <string name="nameEmail">gnd011@yandex.ru</string>
+    <string name="subjectEmail">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="txtEmail">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="linkOferta">https://yandex.ru/legal/practicum_b2b_subscription_offer/</string>
+    <string name="SearchTxtView">Поиск</string>
+    <string name="SearchEditTxt">Поиск</string>
+    <string name="clear_string">clear string</string>
 </resources>
