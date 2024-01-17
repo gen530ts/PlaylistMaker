@@ -24,10 +24,6 @@ class SettingsActivity : AppCompatActivity() {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.putExtra(Intent.EXTRA_TEXT, txtMessage)
             shareIntent.type="text/plain"
-           // shareIntent.putExtra(Intent.EXTRA_COMPONENT_NAME,
-           // shareIntent.putExtra(Intent.EXTRA_PACKAGE_NAME,"com.android.messaging")
-            //shareIntent.putExtra(Intent.EXTRA_PACKAGE_NAME
-           // shareIntent.`package`="com.android.messaging"
             startActivity(Intent.createChooser(shareIntent, chooserTitle))
         }
     }
@@ -37,11 +33,9 @@ class SettingsActivity : AppCompatActivity() {
         support.setOnClickListener {
             val  uri: Uri =Uri.parse("mailto:")
             val shareIntent = Intent(Intent.ACTION_SENDTO,uri)
-           // shareIntent.putExtra(Intent.EXTRA_, resources.getString(R.string.nameEmail))
             shareIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(resources.getString(R.string.nameEmail)) )
             shareIntent.putExtra(Intent.EXTRA_SUBJECT,  resources.getString(R.string.subjectEmail))
             shareIntent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.txtEmail) )
-            //shareIntent.type = "text/plain"
             startActivity(Intent.createChooser(shareIntent, chooserTitle))
         }
     }
@@ -65,27 +59,5 @@ class SettingsActivity : AppCompatActivity() {
     }
 }
 
-//val txtMessage = resources.getString(R.string.txt_Message)
-//shareIntent.putExtra(Intent.EXTRA_TEXT, txtMessage)
-//shareIntent.type = "text/plain"
-//val message = "Привет, Android-разработка — это круто!"
-// val myUri: Uri = Uri.parse("www.google.com")
-// "<p>Visit <a href=\"http://www.google"+
-//  ".com\">google</a> for more info.</p>")
-//shareIntent.putExtra(Intent.EXTRA_HTML_TEXT
-// shareIntent.putExtra(Intent.EXTRA_TEXT, "hi, $myUri")
-// val uri:URI =URI.pa
-//shareIntent.type = "text/plain"
-//shareIntent.component=
-//shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
-//  +
-//    ")
-//shareIntent.putExtra(Intent.EXTRA_TEXT, message)
-
-/*val sendIntent: Intent = Intent().apply {
-action = Intent.ACTION_SEND
-putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
-type = "text/plain"
-}*/
 
 
