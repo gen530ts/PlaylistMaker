@@ -9,8 +9,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
+private const val KEY_DATA = "info"
+
 class SearchActivity : AppCompatActivity() {
-    private var savedState = ""
+    private var searchTxt = ""
     private lateinit var searchEdit: EditText
     private fun clearButtonVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
@@ -39,7 +41,7 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clear.visibility = clearButtonVisibility(s)
-                savedState = s.toString()
+                searchTxt = s.toString()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -58,14 +60,14 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("info", savedState)
+        outState.putString(KEY_DATA, searchTxt)
     }
 
     override fun onRestoreInstanceState(
         savedInstanceState: Bundle,
     ) {
         super.onRestoreInstanceState(savedInstanceState)
-        savedState = savedInstanceState.getString("info").toString()
-        searchEdit.setText(savedState)
+        searchTxt = savedInstanceState.getString(KEY_DATA).toString()
+        searchEdit.setText(searchTxt)
     }
 }

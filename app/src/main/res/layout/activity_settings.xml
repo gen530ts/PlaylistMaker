@@ -40,7 +40,7 @@
             android:paddingTop="10dp"
             android:paddingEnd="86dp"
             android:paddingBottom="@dimen/dim12"
-            android:text="@string/settings"
+            android:text="@string/settings_str"
             android:textColor="@color/yp_black"
             android:textFontWeight="500"
             android:textSize="@dimen/dim22sp" />
@@ -55,7 +55,7 @@
         <TextView
             android:id="@+id/darkTextView"
             style="@style/SettingsPageTxtView"
-            android:text="@string/dark" />
+            android:text="@string/dark_teme" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -66,14 +66,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
+                android:layout_marginTop="@dimen/dim21"
                 android:layout_marginEnd="@dimen/dim12"
-                android:foregroundTintMode="screen"
-                android:gravity="center_vertical|end"
+                android:layout_marginBottom="@dimen/dim18"
 
-                android:scaleX="0.98"
-                app:thumbTint="@color/yp_gray"
-                app:trackTint="@color/yp_light_gray"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:foregroundGravity="center_horizontal"
+
+
+                android:theme="@style/SwitchStyle" />
         </FrameLayout>
 
     </LinearLayout>
