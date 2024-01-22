@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MainPageBtnStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dim0</item>
+        <item name="android:layout_marginTop">@dimen/dim16</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:backgroundTint">@color/yp_white</item>
+        <item name="android:textSize">@dimen/dim22sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/yp_black</item>
+        <item name="cornerRadius">@dimen/dim16</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/yp_black</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+
+    <style name="SettingsPageTxtView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginVertical">@dimen/dim21</item>
+        <item name="android:layout_marginStart">@dimen/dim16</item>
+        <item name="android:textSize">@dimen/dim16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textFontWeight">400</item>
+    </style>
+    <style name="SettingsPageImgView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dim19</item>
+        <item name="android:layout_marginEnd">@dimen/dim12</item>
+        <item name="android:layout_marginBottom">@dimen/dim18</item>
+        <item name="android:foregroundTint">@color/yp_gray</item>
+    </style>
+    <style name="SwitchStyle">
+        <item name="colorSwitchThumbNormal">@color/yp_text_gray</item>
+        <item name="android:colorForeground">@color/yp_light_gray</item>
+        <item name="colorControlActivated">@color/yp_blue</item>
+    </style>
+</resources>

@@ -6,23 +6,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/yp_white">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim56"
         android:orientation="horizontal"
-        android:paddingVertical="@dimen/dim4"
-        android:paddingHorizontal="@dimen/dim4">
+        android:paddingHorizontal="@dimen/dim4"
+        android:paddingVertical="@dimen/dim4">
 
         <ImageView
             android:id="@+id/backImageView"
             android:layout_width="@dimen/dim48"
             android:layout_height="@dimen/dim48"
-            android:padding="@dimen/dim12"
             android:contentDescription="@string/back"
             android:foreground="?attr/selectableItemBackground"
+            android:padding="@dimen/dim12"
             app:srcCompat="@drawable/back" />
 
         <Space
@@ -33,15 +34,16 @@
             android:id="@+id/settingsTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="@font/ys_display_medium"
             android:gravity="center"
             android:paddingStart="@dimen/dim12"
             android:paddingTop="10dp"
             android:paddingEnd="86dp"
             android:paddingBottom="@dimen/dim12"
-            android:text="@string/settings"
+            android:text="@string/settings_str"
             android:textColor="@color/yp_black"
-            android:textSize="@dimen/dim22sp"
-            />
+            android:textFontWeight="500"
+            android:textSize="@dimen/dim22sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,29 +54,28 @@
 
         <TextView
             android:id="@+id/darkTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/dark"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"
-            />
+            style="@style/SettingsPageTxtView"
+            android:text="@string/dark_teme" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/darkSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginEnd="@dimen/dim12"
-            android:layout_gravity="center"
-            tools:ignore="TouchTargetSizeCheck"
-            />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/darkSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginTop="@dimen/dim21"
+                android:layout_marginEnd="@dimen/dim12"
+                android:layout_marginBottom="@dimen/dim18"
+
+                android:foregroundGravity="center_horizontal"
+
+
+                android:theme="@style/SwitchStyle" />
+        </FrameLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -84,13 +85,8 @@
 
         <TextView
             android:id="@+id/shareTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/share"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"/>
+            style="@style/SettingsPageTxtView"
+            android:text="@string/share" />
 
         <Space
             android:layout_width="0dp"
@@ -99,14 +95,9 @@
 
         <ImageView
             android:id="@+id/shareImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim19"
-            android:layout_marginEnd="@dimen/dim12"
-            android:layout_marginBottom="@dimen/dim18"
+            style="@style/SettingsPageImgView"
             android:contentDescription="@string/share"
-            app:srcCompat="@drawable/share"
-            android:foregroundTint="@color/yp_gray"/>
+            app:srcCompat="@drawable/share" />
     </LinearLayout>
 
     <LinearLayout
@@ -116,13 +107,8 @@
 
         <TextView
             android:id="@+id/supportTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/support"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"/>
+            style="@style/SettingsPageTxtView"
+            android:text="@string/support" />
 
         <Space
             android:layout_width="0dp"
@@ -131,14 +117,10 @@
 
         <ImageView
             android:id="@+id/supportImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim19"
+            style="@style/SettingsPageImgView"
             android:layout_marginEnd="@dimen/dim14"
-            android:layout_marginBottom="@dimen/dim18"
             android:contentDescription="@string/support"
-            app:srcCompat="@drawable/support"
-            android:foregroundTint="@color/yp_gray"/>
+            app:srcCompat="@drawable/support" />
     </LinearLayout>
 
     <LinearLayout
@@ -148,13 +130,8 @@
 
         <TextView
             android:id="@+id/agreeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/dim21"
-            android:layout_marginStart="@dimen/dim16"
-            android:text="@string/agree"
-            android:textSize="@dimen/dim16sp"
-            android:textColor="@color/black"/>
+            style="@style/SettingsPageTxtView"
+            android:text="@string/agree" />
 
         <Space
             android:layout_width="0dp"
@@ -163,13 +140,8 @@
 
         <ImageView
             android:id="@+id/agreeImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim19"
-            android:layout_marginEnd="@dimen/dim12"
-            android:layout_marginBottom="@dimen/dim18"
+            style="@style/SettingsPageImgView"
             android:contentDescription="@string/support"
-            app:srcCompat="@drawable/agree"
-            android:foregroundTint="@color/yp_gray"/>
+            app:srcCompat="@drawable/agree" />
     </LinearLayout>
 </LinearLayout>
