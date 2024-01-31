@@ -25,9 +25,9 @@ class SearchActivity : AppCompatActivity() {
         }
     }
     private fun initArr(): ArrayList<Track> {
-        return arrayListOf(Track("Smells Like Teen Spirit Smells Like Teen Spirit Smells Like " +
+        return arrayListOf(Track("Smells Like Teen Spirit" +
                 "Teen Spirit",
-            "Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana ",
+            "Nirvana",
             "5:01",
             "https://is5-ssl.mzstatic.com/image/thumb/Music115/v4/7b/58/c2/7b58c21a-2b51-2bb2-e59a-9bb9b96ad8c3/00602567924166.rgb.jpg/100x100bb.jpg"),
             Track("Billie Jean", "Michael Jackson", "4:35", "https://is5-ssl.mzstatic" +

@@ -1,24 +1,20 @@
 package gen.test.android.playlistmaker
 
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
-class SearchTrackHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val  songView: TextView
-    private val creatorView: TextView
-    private val lengthView: TextView
-    private val coverImgView:ImageView
+class SearchTrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.search_track, parent, false)) {
+    private val  songView: TextView = itemView.findViewById(R.id.songTextView)
+    private val creatorView: TextView = itemView.findViewById(R.id.creatorTextView)
+    private val lengthView: TextView = itemView.findViewById(R.id.lengthTextView)
+    private val coverImgView:ImageView = itemView.findViewById(R.id.coverImageView)
 
-    init {
-        songView = itemView.findViewById(R.id.songTextView)
-        creatorView = itemView.findViewById(R.id.creatorTextView)
-        lengthView = itemView.findViewById(R.id.lengthTextView)
-        coverImgView=itemView.findViewById(R.id.coverImageView)
-    }
+
 
     fun bind(model: Track) {
         songView.text = model.trackName
