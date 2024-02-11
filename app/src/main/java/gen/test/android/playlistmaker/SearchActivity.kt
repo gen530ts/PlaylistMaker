@@ -15,7 +15,7 @@ private const val KEY_DATA = "info"
 
 class SearchActivity : AppCompatActivity() {
     private var searchTxt = ""
-    private lateinit var searchEdit: EditText
+    private var searchEdit: EditText?=null
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
@@ -52,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
         imageBack.setOnClickListener { finish() }
         clear.visibility = View.GONE
         clear.setOnClickListener {
-            searchEdit.text.clear()
+            searchEdit?.text?.clear()
             val manager: InputMethodManager =
                 getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             manager.hideSoftInputFromWindow(window.currentFocus!!.windowToken, 0)
@@ -71,7 +71,7 @@ class SearchActivity : AppCompatActivity() {
                 // empty
             }
         }
-        searchEdit.addTextChangedListener(simpleTextWatcher)
+        searchEdit?.addTextChangedListener(simpleTextWatcher)
     }
 
 
@@ -95,6 +95,6 @@ class SearchActivity : AppCompatActivity() {
     ) {
         super.onRestoreInstanceState(savedInstanceState)
         searchTxt = savedInstanceState.getString(KEY_DATA).toString()
-        searchEdit.setText(searchTxt)
+        searchEdit?.setText(searchTxt)
     }
 }
