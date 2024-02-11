@@ -7,11 +7,12 @@
         <item name="colorOnPrimary">@color/yp_white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/yp_white</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/yp_white</item>
         <item name="colorOnSecondary">@color/yp_black</item>
         <!-- Status bar color. -->
         white
         <!-- Customize your theme here. -->
+        <item name="colorOnSurface">@color/yp_white</item>
         <!--  <item name="android:colorBackground">@color/yp_white</item>-->
       </style>
   </resources>
