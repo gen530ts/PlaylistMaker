@@ -18,4 +18,6 @@
     <string name="txt_email">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="link_oferta">https://yandex.ru/legal/practicum_b2b_subscription_offer/</string>
     <string name="clear_string">clear string</string>
+    <string name="stringNotFound">Ничего не нашлось</string>
+    <string name="stringComProblem">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
 </resources>

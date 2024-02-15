@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -40,39 +42,114 @@
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
-            android:textCursorDrawable="@drawable/cursor_search"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/dim16"
             android:layout_marginVertical="@dimen/dim8"
             android:background="@drawable/shape_edit_text"
             android:drawableStart="@drawable/search_icon_search"
-            android:maxLines="1"
             android:drawablePadding="@dimen/dim8"
             android:ems="10"
             android:fontFamily="@font/ys_display_regular"
+            android:hint="@string/search_str"
             android:inputType="text"
+            android:maxLines="1"
             android:paddingStart="@dimen/dim14"
             android:paddingEnd="40dp"
-            android:hint="@string/search_str"
-            android:textColorHint="?attr/colorOnSecondary"
             android:textColor="@color/yp_black"
-            android:textSize="@dimen/dim16sp" />
+            android:textColorHint="?attr/colorOnSecondary"
+            android:textCursorDrawable="@drawable/cursor_search"
+            android:textSize="@dimen/dim16sp"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
 
-            <ImageView
-                android:id="@+id/clearImageView"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_marginEnd="@dimen/dim4"
-                android:contentDescription="@string/clear_string"
-                android:foregroundGravity="right"
-                android:padding="@dimen/dim18"
-                android:layout_gravity="right"
-                app:srcCompat="@drawable/clear_edit" />
+        <ImageView
+            android:id="@+id/clearImageView"
+            android:layout_width="@dimen/dim52"
+            android:layout_height="@dimen/dim52"
+            android:layout_gravity="right"
+            android:layout_marginEnd="@dimen/dim4"
+            android:contentDescription="@string/clear_string"
+            android:foregroundGravity="right"
+            android:padding="@dimen/dim18"
+            app:srcCompat="@drawable/clear_edit" />
 
     </FrameLayout>
 
-    <view class="androidx.recyclerview.widget.RecyclerView"
-        android:id="@+id/tracksList"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <view
+            android:id="@+id/tracksList"
+            class="androidx.recyclerview.widget.RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
+
+        <LinearLayout
+            android:id="@+id/notFoundLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim120"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="102dp"
+                app:srcCompat="@drawable/notfound" />
+
+            <TextView
+                android:layout_width="312dp"
+                android:layout_height="@dimen/dim20"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dim16"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/stringNotFound"
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/dim19sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/comProblemLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="102dp"
+android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim120"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/comprobl" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dim16"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/stringComProblem"
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/dim19sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/updateRequestBTN"
+                android:layout_width="91dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dim24"
+                android:background="@drawable/restart_search"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="Обновить"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

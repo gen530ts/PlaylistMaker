@@ -3,8 +3,9 @@ package gen.test.android.playlistmaker
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TrackSearchAdapter(private val tracks: List<Track>) : RecyclerView.Adapter<SearchTrackHolder>
+class TrackSearchAdapter : RecyclerView.Adapter<SearchTrackHolder>
     () {
+    var tracks= ArrayList<Track>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchTrackHolder {
 
         return SearchTrackHolder(parent)
@@ -18,5 +19,6 @@ class TrackSearchAdapter(private val tracks: List<Track>) : RecyclerView.Adapter
         return tracks.size
     }
 }
+//private val tracks: List<Track>
 
 
