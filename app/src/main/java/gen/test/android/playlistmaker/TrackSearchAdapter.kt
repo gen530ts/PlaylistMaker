@@ -5,7 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TrackSearchAdapter : RecyclerView.Adapter<SearchTrackHolder>
     () {
-    var tracks= ArrayList<Track>()
+    fun setItems(items: ArrayList<Track>){
+       tracks=items
+    }
+    private var tracks= ArrayList<Track>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchTrackHolder {
 
         return SearchTrackHolder(parent)

@@ -20,13 +20,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 private const val KEY_DATA = "info"
-
+private const val RESPONSE_OK = 200
 class SearchActivity : AppCompatActivity() {
     private var searchTxt = ""
     private var searchEdit: EditText? = null
     private var comProblemLL: LinearLayout? = null
     private var notFoundLL: LinearLayout? = null
-    private var updateRequestBTN: Button? = null
+    private var updateRequestBtn: Button? = null
     private val baseUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -53,52 +53,43 @@ class SearchActivity : AppCompatActivity() {
                 ) {
                     tracks.clear()
                     when (response.code()) {
-                        200 -> {
-
+                        RESPONSE_OK -> {
                             if (response.body()?.results?.isNotEmpty() == true) {
-
                                 tracks.addAll(response.body()?.results!!)
-                                adapter.notifyDataSetChanged()
                                 notFoundLL?.visibility = View.GONE
                                 comProblemLL?.visibility = View.GONE
-                                //showMessage("", "")
                             } else {
                                 notFoundLL?.visibility = View.VISIBLE
                                 comProblemLL?.visibility = View.GONE
-
-
                             }
-
                         }
                         else -> {
                             notFoundLL?.visibility = View.GONE
                             comProblemLL?.visibility = View.VISIBLE
                         }
-
                     }
+                    adapter.notifyDataSetChanged()
                 }
 
                 override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                    tracks.clear()
+                    adapter.notifyDataSetChanged()
                     notFoundLL?.visibility = View.GONE
                     comProblemLL?.visibility = View.VISIBLE
-
                 }
             })
     }
-
 
     private fun setListeners() {
         val clear = findViewById<ImageView>(R.id.clearImageView)
         searchEdit = findViewById(R.id.searchEditText)
         notFoundLL = findViewById(R.id.notFoundLL)
         comProblemLL = findViewById(R.id.comProblemLL)
-        updateRequestBTN = findViewById(R.id.updateRequestBTN)
-        updateRequestBTN?.setOnClickListener {search()}
+        updateRequestBtn = findViewById(R.id.updateRequestBtn)
+        updateRequestBtn?.setOnClickListener {search()}
         searchEdit?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-// ВЫПОЛНЯЙТЕ ПОИСКОВЫЙ ЗАПРОС ЗДЕСЬ
                 search()
-
                 true
             }
             false
@@ -116,21 +107,16 @@ class SearchActivity : AppCompatActivity() {
         }
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-// empty
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clear.visibility = clearButtonVisibility(s)
                 searchTxt = s.toString()
             }
-
             override fun afterTextChanged(s: Editable?) {
-// empty
             }
         }
         searchEdit?.addTextChangedListener(simpleTextWatcher)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,10 +124,8 @@ class SearchActivity : AppCompatActivity() {
         setListeners()
         val recycler = findViewById<RecyclerView>(R.id.tracksList)
         recycler.layoutManager = LinearLayoutManager(this)
-        adapter.tracks = tracks
+        adapter.setItems(tracks)
         recycler.adapter = adapter
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
