@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/coverImageView"
-        app:srcCompat="@drawable/placeholder"
+        app:srcCompat="@drawable/placeholder_track"
         style="@style/SearchTrackCoverIV" />
 
     <LinearLayout

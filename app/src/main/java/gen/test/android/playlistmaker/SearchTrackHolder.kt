@@ -33,7 +33,7 @@ class SearchTrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInfla
         Glide.with(itemView)
             .load(model.artworkUrl100)
             .fitCenter()
-            .placeholder(R.drawable.placeholder)
+            .placeholder(R.drawable.placeholder_track)
             .transform(RoundedCorners(rt))
             .into(coverImgView)
     }
