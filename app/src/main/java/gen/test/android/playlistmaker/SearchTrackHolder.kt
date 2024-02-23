@@ -28,12 +28,12 @@ class SearchTrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInfla
     fun bind(model: Track) {
         songView.text = model.trackName
         creatorView.text = model.artistName
-        lengthView.text=model.trackTime
+        lengthView.text= DateTimeUtil.millisToMmSs((model.trackTimeMillis))
         Log.d("dptopx", "dptopx = $rt;model.trackName = ${model.trackName}")
         Glide.with(itemView)
             .load(model.artworkUrl100)
             .fitCenter()
-            .placeholder(R.drawable.placeholder)
+            .placeholder(R.drawable.placeholder_track)
             .transform(RoundedCorners(rt))
             .into(coverImgView)
     }
