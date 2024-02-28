@@ -22,19 +22,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val KEY_DATA = "info"
 private const val RESPONSE_OK = 200
 class SearchActivity : AppCompatActivity() {
+
+    private lateinit var   searchHistory:SearchHistory
     private var searchTxt = ""
     private var searchEdit: EditText? = null
     private var comProblemLL: LinearLayout? = null
     private var notFoundLL: LinearLayout? = null
     private var updateRequestBtn: Button? = null
-    private val baseUrl = "https://itunes.apple.com"
+    private var historySearchLL: LinearLayout? = null
+    private var tracksListLL: LinearLayout? = null
+    private var clearHistoryBtn: Button? = null
+    private var baseUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     private val musicService = retrofit.create(ItunesAppleApi::class.java)
     private val tracks = ArrayList<Track>()
-    private val adapter = TrackSearchAdapter()
+    private val tracksHistory = ArrayList<Track>()
+    private val adapter = TrackSearchAdapter{searchHistory.add(it) }
+    private val adapterHistory = TrackSearchAdapter{}
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
@@ -56,16 +63,13 @@ class SearchActivity : AppCompatActivity() {
                         RESPONSE_OK -> {
                             if (response.body()?.results?.isNotEmpty() == true) {
                                 tracks.addAll(response.body()?.results!!)
-                                notFoundLL?.visibility = View.GONE
-                                comProblemLL?.visibility = View.GONE
+                                goneAll(tracksListLL)
                             } else {
-                                notFoundLL?.visibility = View.VISIBLE
-                                comProblemLL?.visibility = View.GONE
+                                goneAll(notFoundLL)
                             }
                         }
                         else -> {
-                            notFoundLL?.visibility = View.GONE
-                            comProblemLL?.visibility = View.VISIBLE
+                            goneAll(comProblemLL)
                         }
                     }
                     adapter.notifyDataSetChanged()
@@ -74,10 +78,29 @@ class SearchActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
                     tracks.clear()
                     adapter.notifyDataSetChanged()
-                    notFoundLL?.visibility = View.GONE
-                    comProblemLL?.visibility = View.VISIBLE
+                    goneAll(comProblemLL)
                 }
             })
+    }
+
+    private fun goneAll(view:LinearLayout?){
+        val views = listOf(tracksListLL, notFoundLL, comProblemLL,historySearchLL)
+        views.forEach {
+            when(it){
+                view->it?.visibility = View.VISIBLE
+                else->it?.visibility = View.GONE
+            }
+        }
+    }
+
+            private fun viewHistory(){
+        val lArr=searchHistory.read()
+        if (lArr.isNotEmpty()){
+            tracksHistory.clear()
+            tracksHistory.addAll(lArr)
+            adapterHistory.notifyDataSetChanged()
+            goneAll(historySearchLL)
+        }
     }
 
     private fun setListeners() {
@@ -85,12 +108,13 @@ class SearchActivity : AppCompatActivity() {
         searchEdit = findViewById(R.id.searchEditText)
         notFoundLL = findViewById(R.id.notFoundLL)
         comProblemLL = findViewById(R.id.comProblemLL)
+        tracksListLL = findViewById(R.id.tracksListLL)
         updateRequestBtn = findViewById(R.id.updateRequestBtn)
         updateRequestBtn?.setOnClickListener {search()}
         searchEdit?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 search()
-                true
+               // true
             }
             false
         }
@@ -111,21 +135,39 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clear.visibility = clearButtonVisibility(s)
                 searchTxt = s.toString()
+                if ((searchEdit?.hasFocus() == true) && (s?.isEmpty()==true)) {viewHistory()}
+                else goneAll(null)
             }
             override fun afterTextChanged(s: Editable?) {
             }
         }
         searchEdit?.addTextChangedListener(simpleTextWatcher)
+        searchEdit?.setOnFocusChangeListener{ _, hasFocus ->if(hasFocus&&(searchEdit!!.text.isEmpty()))
+            viewHistory()}
+
+        historySearchLL=findViewById(R.id.historySearchLL)
+        clearHistoryBtn= findViewById(R.id.clearHistoryBtn)
+        clearHistoryBtn?.setOnClickListener {searchHistory.clearHistory()
+        historySearchLL?.visibility=View.GONE}
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         setListeners()
+        searchHistory = SearchHistory((application as App).sharedPrefs)
+
         val recycler = findViewById<RecyclerView>(R.id.tracksList)
         recycler.layoutManager = LinearLayoutManager(this)
         adapter.setItems(tracks)
         recycler.adapter = adapter
+
+        val recyclerHistory = findViewById<RecyclerView>(R.id.historySearchList)
+        recyclerHistory.layoutManager = LinearLayoutManager(this)
+        adapterHistory.setItems(tracksHistory)
+        recyclerHistory.adapter = adapterHistory
+
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -141,3 +183,4 @@ class SearchActivity : AppCompatActivity() {
         searchEdit?.setText(searchTxt)
     }
 }
+

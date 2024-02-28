@@ -3,7 +3,8 @@ package gen.test.android.playlistmaker
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TrackSearchAdapter : RecyclerView.Adapter<SearchTrackHolder>
+class TrackSearchAdapter(private val trackListener: TrackClickListener) : RecyclerView
+.Adapter<SearchTrackHolder>
     () {
     fun setItems(items: ArrayList<Track>){
        tracks=items
@@ -16,10 +17,14 @@ class TrackSearchAdapter : RecyclerView.Adapter<SearchTrackHolder>
 
     override fun onBindViewHolder(holder: SearchTrackHolder, position: Int) {
         holder.bind(tracks[position])
+        holder.itemView.setOnClickListener { trackListener.onTrackClick(tracks[position]) }
     }
 
     override fun getItemCount(): Int {
         return tracks.size
+    }
+    fun interface TrackClickListener {
+        fun onTrackClick(location: Track)
     }
 }
 //private val tracks: List<Track>
