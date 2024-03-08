@@ -20,4 +20,7 @@
     <string name="clear_string">clear string</string>
     <string name="stringNotFound">Ничего не нашлось</string>
     <string name="stringComProblem">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="you_search">Вы искали</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="update_request">Обновить</string>
 </resources>

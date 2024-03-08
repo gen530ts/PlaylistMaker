@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     private val chooserTitle = "Выберите приложение"
@@ -47,7 +48,13 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(agreeIntent, chooserTitle))
         }
     }
-
+    private fun setDarkListener() {
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
+        themeSwitcher.isChecked=(application as App).darkTheme
+        themeSwitcher.setOnCheckedChangeListener { _, checked ->
+            (applicationContext as App).switchTheme(checked)
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -55,6 +62,8 @@ class SettingsActivity : AppCompatActivity() {
         setShareListener()
         setSupportListener()
         setAgreeListener()
+        setDarkListener()
+
     }
 }
 
