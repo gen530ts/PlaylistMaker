@@ -85,4 +85,21 @@
         <item name="android:layout_marginTop">@dimen/dim18</item>
         <item name="android:layout_marginEnd">@dimen/dim12</item>
     </style>
+
+    <style name="right_tv_player">
+        <item name="android:layout_width">235dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="left_tv_player">
+        <item name="android:layout_width">93dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/yp_gray</item>
+    </style>
 </resources>
