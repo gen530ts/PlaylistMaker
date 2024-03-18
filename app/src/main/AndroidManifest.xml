@@ -22,7 +22,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!-- android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" -->
         <activity
             android:name=".MediaActivity"
             android:exported="false">

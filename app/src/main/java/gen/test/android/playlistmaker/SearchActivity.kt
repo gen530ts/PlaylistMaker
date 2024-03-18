@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val KEY_DATA = "info"
 private const val RESPONSE_OK = 200
-const val KEY_PLAYER_ACTIVITY = "kpa"
+
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var   searchHistory:SearchHistory
@@ -73,7 +73,6 @@ class SearchActivity : AppCompatActivity() {
                     when (response.code()) {
                         RESPONSE_OK -> {
                             if (response.body()?.results?.isNotEmpty() == true) {
-                                //Log.d("mytag", "Retrofit:${response.raw().body().toString()}")
                                 tracks.addAll(response.body()?.results!!)
                                 goneAll(tracksListLL)
                             } else {
