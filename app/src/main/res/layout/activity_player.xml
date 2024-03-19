@@ -66,6 +66,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="82dp"
         android:layout_marginBottom="@dimen/dim24"
+        app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/placeholder_player"
         app:layout_constraintBottom_toTopOf="@id/trackTV"
         app:layout_constraintEnd_toStartOf="@id/rightBorder"
