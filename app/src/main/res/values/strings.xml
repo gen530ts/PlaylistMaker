@@ -23,4 +23,10 @@
     <string name="you_search">Вы искали</string>
     <string name="clear_history">Очистить историю</string>
     <string name="update_request">Обновить</string>
+    <string name="duration_track">Длительность</string>
+    <string name="album_track">Альбом</string>
+    <string name="year_track">Год</string>
+    <string name="genre_track">Жанр</string>
+    <string name="country_track">Страна</string>
+    <string name="test_time_play">0:30</string>
 </resources>

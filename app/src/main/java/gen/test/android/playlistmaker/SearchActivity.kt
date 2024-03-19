@@ -1,5 +1,6 @@
 package gen.test.android.playlistmaker
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +14,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val KEY_DATA = "info"
 private const val RESPONSE_OK = 200
+
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var   searchHistory:SearchHistory
@@ -40,8 +43,16 @@ class SearchActivity : AppCompatActivity() {
     private val musicService = retrofit.create(ItunesAppleApi::class.java)
     private val tracks = ArrayList<Track>()
     private val tracksHistory = ArrayList<Track>()
-    private val adapter = TrackSearchAdapter{searchHistory.add(it) }
-    private val adapterHistory = TrackSearchAdapter{}
+    private val adapter = TrackSearchAdapter{searchHistory.add(it)
+        startPlayerActivity(it)}
+    private val adapterHistory = TrackSearchAdapter{startPlayerActivity(it)}
+
+
+    private fun startPlayerActivity(track:Track){
+        val intent=Intent(this, PlayerActivity::class.java)
+        intent.putExtra(KEY_PLAYER_ACTIVITY, Gson().toJson(track))
+        startActivity(intent)
+    }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
