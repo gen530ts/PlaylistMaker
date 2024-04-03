@@ -25,16 +25,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val KEY_DATA = "info"
 private const val RESPONSE_OK = 200
+private const val CLICK_DEBOUNCE_DELAY = 1000L
+private const val SEARCH_DEBOUNCE_DELAY = 2000L
 
 class SearchActivity : AppCompatActivity() {
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
-    }
+
     private lateinit var   searchHistory:SearchHistory
     private var isClickAllowed = true
     private val handler = Handler(Looper.getMainLooper())
     private val searchRunnable = Runnable { search() }
+    private val debounceRunnable = Runnable { isClickAllowed = true }
     private var searchTxt = ""
     private var searchEdit: EditText? = null
     private var comProblemLL: LinearLayout? = null
@@ -57,6 +57,12 @@ class SearchActivity : AppCompatActivity() {
     private val adapterHistory = TrackSearchAdapter{startPlayerActivity(it)}
    private lateinit var manager: InputMethodManager
 
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(searchRunnable)
+        handler.removeCallbacks(debounceRunnable)
+    }
+
     private fun searchDebounce(length: Int?) {
         handler.removeCallbacks(searchRunnable)
         if((length != null)&&(length>2)) handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
@@ -66,7 +72,7 @@ class SearchActivity : AppCompatActivity() {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+            handler.postDelayed(debounceRunnable, CLICK_DEBOUNCE_DELAY)
         }
         return current
     }

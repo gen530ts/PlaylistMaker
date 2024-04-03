@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.gson.Gson
 
-const val ROUNDED_CORNERS_PLAYER = 8f
+private const val ROUNDED_CORNERS_PLAYER = 8f
 const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
 
 class PlayerActivity : AppCompatActivity() {
@@ -30,12 +30,12 @@ class PlayerActivity : AppCompatActivity() {
     private var playerState = STATE_DEFAULT
     private lateinit var playBtn: ImageButton
     private lateinit var timePlayTV: TextView
-    private var mediaPlayer = MediaPlayer()
+    private val mediaPlayer = MediaPlayer()
     private val handler = Handler(Looper.getMainLooper())
-    private  val updateUIRunnable = object: Runnable {
+    private val updateUIRunnable = object : Runnable {
         override fun run() {
-        timePlayTV.text=Utils.millisToMmSs(mediaPlayer.currentPosition)
-        handler.postDelayed(this, UPDATE_UI)
+            timePlayTV.text = Utils.millisToMmSs(mediaPlayer.currentPosition)
+            handler.postDelayed(this, UPDATE_UI)
         }
     }
 
@@ -50,7 +50,7 @@ class PlayerActivity : AppCompatActivity() {
             playBtn.setImageResource(R.drawable.play_btn)
             playerState = STATE_PREPARED
             handler.removeCallbacks(updateUIRunnable)
-            timePlayTV.text=getString(R.string.test_time_play)
+            timePlayTV.text = getString(R.string.test_time_play)
         }
     }
 
@@ -138,7 +138,7 @@ class PlayerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_player)
         setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
         playBtn = findViewById(R.id.playIB)
-        timePlayTV=findViewById(R.id.timePlayTV)
+        timePlayTV = findViewById(R.id.timePlayTV)
         setBackListener()
     }
 
