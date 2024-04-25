@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker
+package gen.test.android.playlistmaker.presentation
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -13,6 +13,9 @@ import androidx.constraintlayout.widget.Group
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.gson.Gson
+import gen.test.android.playlistmaker.R
+import gen.test.android.playlistmaker.Track
+import gen.test.android.playlistmaker.Utils
 
 private const val ROUNDED_CORNERS_PLAYER = 8f
 const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
