@@ -2,6 +2,8 @@ package gen.test.android.playlistmaker
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -23,16 +25,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val KEY_DATA = "info"
 private const val RESPONSE_OK = 200
+private const val CLICK_DEBOUNCE_DELAY = 1000L
+private const val SEARCH_DEBOUNCE_DELAY = 2000L
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var   searchHistory:SearchHistory
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { search() }
+    private val debounceRunnable = Runnable { isClickAllowed = true }
     private var searchTxt = ""
     private var searchEdit: EditText? = null
     private var comProblemLL: LinearLayout? = null
     private var notFoundLL: LinearLayout? = null
     private var updateRequestBtn: Button? = null
     private var historySearchLL: LinearLayout? = null
+    private var progressSearchLL: LinearLayout? = null
     private var tracksListLL: LinearLayout? = null
     private var clearHistoryBtn: Button? = null
     private var baseUrl = "https://itunes.apple.com"
@@ -43,10 +52,30 @@ class SearchActivity : AppCompatActivity() {
     private val musicService = retrofit.create(ItunesAppleApi::class.java)
     private val tracks = ArrayList<Track>()
     private val tracksHistory = ArrayList<Track>()
-    private val adapter = TrackSearchAdapter{searchHistory.add(it)
-        startPlayerActivity(it)}
+    private val adapter = TrackSearchAdapter{if(clickDebounce()){searchHistory.add(it)
+        startPlayerActivity(it)}}
     private val adapterHistory = TrackSearchAdapter{startPlayerActivity(it)}
+   private lateinit var manager: InputMethodManager
 
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(searchRunnable)
+        handler.removeCallbacks(debounceRunnable)
+    }
+
+    private fun searchDebounce(length: Int?) {
+        handler.removeCallbacks(searchRunnable)
+        if((length != null)&&(length>2)) handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+    private fun clickDebounce() : Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed(debounceRunnable, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
 
     private fun startPlayerActivity(track:Track){
         val intent=Intent(this, PlayerActivity::class.java)
@@ -63,6 +92,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun search() {
+        goneAll(progressSearchLL)
+        manager.hideSoftInputFromWindow(window.currentFocus!!.windowToken, 0)
         musicService.search(searchEdit?.text.toString())
             .enqueue(object : Callback<TrackResponse> {
                 override fun onResponse(
@@ -95,7 +126,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun goneAll(view:LinearLayout?){
-        val views = listOf(tracksListLL, notFoundLL, comProblemLL,historySearchLL)
+        val views = listOf(tracksListLL, notFoundLL, comProblemLL,historySearchLL,progressSearchLL)
         views.forEach {
             when(it){
                 view->it?.visibility = View.VISIBLE
@@ -121,6 +152,7 @@ class SearchActivity : AppCompatActivity() {
         comProblemLL = findViewById(R.id.comProblemLL)
         tracksListLL = findViewById(R.id.tracksListLL)
         updateRequestBtn = findViewById(R.id.updateRequestBtn)
+        progressSearchLL=findViewById(R.id.progressLL)
         updateRequestBtn?.setOnClickListener {search()}
         searchEdit?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -136,8 +168,7 @@ class SearchActivity : AppCompatActivity() {
             searchEdit?.text?.clear()
             tracks.clear()
             adapter.notifyDataSetChanged()
-            val manager: InputMethodManager =
-                getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+
             manager.hideSoftInputFromWindow(window.currentFocus!!.windowToken, 0)
         }
         val simpleTextWatcher = object : TextWatcher {
@@ -148,6 +179,7 @@ class SearchActivity : AppCompatActivity() {
                 searchTxt = s.toString()
                 if ((searchEdit?.hasFocus() == true) && (s?.isEmpty()==true)) {viewHistory()}
                 else goneAll(null)
+                searchDebounce(s?.length)
             }
             override fun afterTextChanged(s: Editable?) {
             }
@@ -167,6 +199,8 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
         setListeners()
         searchHistory = SearchHistory((application as App).sharedPrefs)
+        manager =
+        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
         val recycler = findViewById<RecyclerView>(R.id.tracksList)
         recycler.layoutManager = LinearLayoutManager(this)

@@ -138,10 +138,11 @@
         android:layout_height="83dp"
         android:layout_marginBottom="@dimen/dim12"
         android:background="@drawable/round_button"
+        android:clickable="false"
         android:src="@drawable/play_btn"
+        app:layout_constraintBottom_toTopOf="@id/timePlayTV"
         app:layout_constraintEnd_toStartOf="@id/rightBorder"
-        app:layout_constraintStart_toEndOf="@id/leftBorder"
-        app:layout_constraintBottom_toTopOf="@id/timePlayTV" />
+        app:layout_constraintStart_toEndOf="@id/leftBorder" />
 
     <TextView
         android:id="@+id/timeTvLbl"
