@@ -1,6 +1,5 @@
 package gen.test.android.playlistmaker.presentation
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.google.gson.Gson
 import gen.test.android.playlistmaker.R
-import gen.test.android.playlistmaker.Track
 import gen.test.android.playlistmaker.Utils
+import gen.test.android.playlistmaker.data.GetTrackUseCaseImpl
+import gen.test.android.playlistmaker.data.PlayerInteractorImpl
+import gen.test.android.playlistmaker.domain.models.PlayerState
 
 private const val ROUNDED_CORNERS_PLAYER = 8f
 const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
@@ -23,52 +23,42 @@ const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
 class PlayerActivity : AppCompatActivity() {
 
     companion object {
-        private const val STATE_DEFAULT = 0
-        private const val STATE_PREPARED = 1
-        private const val STATE_PLAYING = 2
-        private const val STATE_PAUSED = 3
         private const val UPDATE_UI = 300L
     }
 
-    private var playerState = STATE_DEFAULT
+    private val playerInteractor = PlayerInteractorImpl()
+    private val getTrack=GetTrackUseCaseImpl()
     private lateinit var playBtn: ImageButton
     private lateinit var timePlayTV: TextView
-    private val mediaPlayer = MediaPlayer()
+
     private val handler = Handler(Looper.getMainLooper())
     private val updateUIRunnable = object : Runnable {
         override fun run() {
-            timePlayTV.text = Utils.millisToMmSs(mediaPlayer.currentPosition)
+            timePlayTV.text = Utils.millisToMmSs(playerInteractor.getCurrentPosition())
             handler.postDelayed(this, UPDATE_UI)
         }
     }
 
     private fun preparePlayer(src: String) {
-        mediaPlayer.setDataSource(src)
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener {
-            playBtn.isEnabled = true
-            playerState = STATE_PREPARED
-        }
-        mediaPlayer.setOnCompletionListener {
+        playerInteractor.preparePlayer(src,{playBtn.isEnabled = true},{
             playBtn.setImageResource(R.drawable.play_btn)
-            playerState = STATE_PREPARED
             handler.removeCallbacks(updateUIRunnable)
             timePlayTV.text = getString(R.string.test_time_play)
-        }
+        })
     }
 
     private fun startPlayer() {
-        mediaPlayer.start()
-        playBtn.setImageResource(R.drawable.pause_btn)
-        playerState = STATE_PLAYING
-        handler.post(updateUIRunnable)
+        playerInteractor.play {
+            playBtn.setImageResource(R.drawable.pause_btn)
+            handler.post(updateUIRunnable)
+        }
     }
 
     private fun pausePlayer() {
-        mediaPlayer.pause()
-        playBtn.setImageResource(R.drawable.play_btn)
-        playerState = STATE_PAUSED
-        handler.removeCallbacks(updateUIRunnable)
+        playerInteractor.pause {
+            playBtn.setImageResource(R.drawable.play_btn)
+            handler.removeCallbacks(updateUIRunnable)
+        }
     }
 
     private fun setBackListener() {
@@ -79,13 +69,14 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun playbackControl() {
-        when (playerState) {
-            STATE_PLAYING -> {
+        when (playerInteractor.state) {
+            PlayerState.STATE_PLAYING -> {
                 pausePlayer()
             }
-            STATE_PREPARED, STATE_PAUSED -> {
+            PlayerState.STATE_PREPARED, PlayerState.STATE_PAUSED -> {
                 startPlayer()
             }
+            else -> {}
         }
     }
 
@@ -94,7 +85,7 @@ class PlayerActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val json = bundle!!.getString(KEY_PLAYER_ACTIVITY)
-        val track = Gson().fromJson(json, Track::class.java)
+        val track = getTrack.execute(json)
 
         playBtn = findViewById(R.id.playIB)
         if (track.previewUrl != null) {
@@ -143,6 +134,7 @@ class PlayerActivity : AppCompatActivity() {
         playBtn = findViewById(R.id.playIB)
         timePlayTV = findViewById(R.id.timePlayTV)
         setBackListener()
+
     }
 
     override fun onPause() {
@@ -153,6 +145,6 @@ class PlayerActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(updateUIRunnable)
-        mediaPlayer.release()
+        playerInteractor.release()
     }
 }
