@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker
+package gen.test.android.playlistmaker.domain.models
 
 data class Track(
     val trackName: String,

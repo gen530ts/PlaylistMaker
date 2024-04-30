@@ -11,10 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import gen.test.android.playlistmaker.Creator
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.Utils
-import gen.test.android.playlistmaker.data.GetTrackUseCaseImpl
-import gen.test.android.playlistmaker.data.PlayerInteractorImpl
 import gen.test.android.playlistmaker.domain.models.PlayerState
 
 private const val ROUNDED_CORNERS_PLAYER = 8f
@@ -26,8 +25,8 @@ class PlayerActivity : AppCompatActivity() {
         private const val UPDATE_UI = 300L
     }
 
-    private val playerInteractor = PlayerInteractorImpl()
-    private val getTrack=GetTrackUseCaseImpl()
+    private val playerInteractor = Creator.getPlayerInteractor
+    private val getTrack=Creator.getTrack
     private lateinit var playBtn: ImageButton
     private lateinit var timePlayTV: TextView
 
@@ -69,7 +68,7 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun playbackControl() {
-        when (playerInteractor.state) {
+        when (playerInteractor.getState()) {
             PlayerState.STATE_PLAYING -> {
                 pausePlayer()
             }
@@ -85,7 +84,8 @@ class PlayerActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val json = bundle!!.getString(KEY_PLAYER_ACTIVITY)
-        val track = getTrack.execute(json)
+        //if(json==null) finish()
+        val track = getTrack.execute(json!!)
 
         playBtn = findViewById(R.id.playIB)
         if (track.previewUrl != null) {

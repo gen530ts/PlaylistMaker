@@ -1,11 +1,11 @@
 package gen.test.android.playlistmaker.data
 
 import android.media.MediaPlayer
-import gen.test.android.playlistmaker.domain.api.PlayerInteractor
+import android.util.Log
+import gen.test.android.playlistmaker.domain.api.Player
 import gen.test.android.playlistmaker.domain.models.PlayerState
 
-class PlayerInteractorImpl : PlayerInteractor {
-
+class PlayerImpl : Player {
     private val mediaPlayer = MediaPlayer()
     override var state: PlayerState = PlayerState.STATE_DEFAULT
 
@@ -21,8 +21,9 @@ class PlayerInteractorImpl : PlayerInteractor {
         src: String, cbPrepared: () -> Unit,
         cbCompletion: () -> Unit
     ) {
+        Log.d("mylog", "src=$src ")
         mediaPlayer.setDataSource(src)
-        mediaPlayer.prepareAsync()
+        mediaPlayer.prepare()
         mediaPlayer.setOnPreparedListener {
             state = PlayerState.STATE_PREPARED
             cbPrepared()
@@ -31,18 +32,15 @@ class PlayerInteractorImpl : PlayerInteractor {
             state = PlayerState.STATE_PREPARED
             cbCompletion()
         }
-
     }
 
-    override fun play(callback: () -> Unit) {
+    override fun play() {
         mediaPlayer.start()
         state = PlayerState.STATE_PLAYING
-        callback()
     }
 
-    override fun pause(callback: () -> Unit) {
+    override fun pause() {
         mediaPlayer.pause()
         state = PlayerState.STATE_PAUSED
-        callback()
     }
 }
