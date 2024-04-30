@@ -25,7 +25,7 @@ class PlayerActivity : AppCompatActivity() {
         private const val UPDATE_UI = 300L
     }
 
-    private val playerInteractor = Creator.getPlayerInteractor
+    private val playerInteractor = Creator.providePlayerInteractor()
     private val getTrack=Creator.getTrack
     private lateinit var playBtn: ImageButton
     private lateinit var timePlayTV: TextView

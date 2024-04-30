@@ -1,7 +1,6 @@
 package gen.test.android.playlistmaker.data
 
 import android.media.MediaPlayer
-import android.util.Log
 import gen.test.android.playlistmaker.domain.api.Player
 import gen.test.android.playlistmaker.domain.models.PlayerState
 
@@ -21,9 +20,8 @@ class PlayerImpl : Player {
         src: String, cbPrepared: () -> Unit,
         cbCompletion: () -> Unit
     ) {
-        Log.d("mylog", "src=$src ")
         mediaPlayer.setDataSource(src)
-        mediaPlayer.prepare()
+        mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener {
             state = PlayerState.STATE_PREPARED
             cbPrepared()
