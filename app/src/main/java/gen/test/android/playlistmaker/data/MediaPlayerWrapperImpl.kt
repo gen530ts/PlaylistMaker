@@ -1,10 +1,10 @@
 package gen.test.android.playlistmaker.data
 
 import android.media.MediaPlayer
-import gen.test.android.playlistmaker.domain.api.Player
+import gen.test.android.playlistmaker.domain.api.MediaPlayerWrapper
 import gen.test.android.playlistmaker.domain.models.PlayerState
 
-class PlayerImpl : Player {
+class MediaPlayerWrapperImpl : MediaPlayerWrapper {
     private val mediaPlayer = MediaPlayer()
     override var state: PlayerState = PlayerState.STATE_DEFAULT
 

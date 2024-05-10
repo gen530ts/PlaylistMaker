@@ -1,11 +1,11 @@
 package gen.test.android.playlistmaker.domain
 
-import gen.test.android.playlistmaker.domain.api.Player
+import gen.test.android.playlistmaker.domain.api.MediaPlayerWrapper
 import gen.test.android.playlistmaker.domain.api.PlayerInteractor
 import gen.test.android.playlistmaker.domain.models.PlayerState
 
 class PlayerInteractorImpl(
-    private val player: Player
+    private val player: MediaPlayerWrapper
 ) : PlayerInteractor {
     override fun getState(): PlayerState {
         return player.state
