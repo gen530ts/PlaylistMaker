@@ -2,6 +2,7 @@ package gen.test.android.playlistmaker
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import gen.test.android.playlistmaker.domain.models.Track
 
 const val SEARCH_HISTORY_KEY = "search_history_key"
 

@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import gen.test.android.playlistmaker.domain.models.Track
+import gen.test.android.playlistmaker.presentation.KEY_PLAYER_ACTIVITY
+import gen.test.android.playlistmaker.presentation.PlayerActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -77,7 +80,7 @@ class SearchActivity : AppCompatActivity() {
         return current
     }
 
-    private fun startPlayerActivity(track:Track){
+    private fun startPlayerActivity(track: Track){
         val intent=Intent(this, PlayerActivity::class.java)
         intent.putExtra(KEY_PLAYER_ACTIVITY, Gson().toJson(track))
         startActivity(intent)
