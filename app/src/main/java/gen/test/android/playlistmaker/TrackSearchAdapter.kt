@@ -2,7 +2,7 @@ package gen.test.android.playlistmaker
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import gen.test.android.playlistmaker.domain.models.Track
+import gen.test.android.playlistmaker.domain.player.models.Track
 
 class TrackSearchAdapter(private val trackListener: TrackClickListener) : RecyclerView
 .Adapter<SearchTrackHolder>
