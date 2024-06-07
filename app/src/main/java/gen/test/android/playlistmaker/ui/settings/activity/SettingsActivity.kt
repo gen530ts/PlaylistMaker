@@ -10,7 +10,7 @@ import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.ui.settings.view_model.SettingsViewModel
 
 class SettingsActivity : AppCompatActivity() {
-    //private val chooserTitle = "Выберите приложение"
+    
     private val settingsViewModel by lazy {
         ViewModelProvider(
             this,
@@ -44,11 +44,11 @@ class SettingsActivity : AppCompatActivity() {
     private fun setDarkListener() {
         val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
         settingsViewModel.getThemeLiveData().observe(this) {
-           // (applicationContext as App).switchTheme(it.isDark)
+           
             themeSwitcher.isChecked =  it.isDark
         }
         settingsViewModel.getTheme()
-       // themeSwitcher.isChecked = settingsViewModel.getTheme()
+       
         themeSwitcher.setOnCheckedChangeListener { _, checked ->
             settingsViewModel.switchTheme(checked)
         }
@@ -59,9 +59,7 @@ class SettingsActivity : AppCompatActivity() {
 
 
 
-    /*(application as App).darkTheme
-    themeSwitcher.setOnCheckedChangeListener { _, checked ->
-        (applicationContext as App).switchTheme(checked)*/
+    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +69,10 @@ class SettingsActivity : AppCompatActivity() {
         setSupportListener()
         setAgreeListener()
         setDarkListener()
-        //-----------------------
-/*        val viewModel = ViewModelProvider(this, SettingsViewModel.getViewModelFactory())[SettingsViewModel::class.java]*/
-        //viewModel.st()
-        //-------------
+        
+
+        
+        
     }
 }
 

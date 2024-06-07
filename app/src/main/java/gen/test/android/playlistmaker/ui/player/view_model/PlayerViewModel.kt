@@ -2,7 +2,6 @@ package gen.test.android.playlistmaker.ui.player.view_model
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -51,7 +50,7 @@ class PlayerViewModel : ViewModel() {
     val handler = Handler(Looper.getMainLooper())
     val updateUIRunnable = object : Runnable {
         override fun run() {
-            //PlayerActivity.timePlayTV.text
+            
             modUI.value = ModifyUI.TimePlayTV(
                 Utils.millisToMmSs(
                     playerInteractor
@@ -64,18 +63,18 @@ class PlayerViewModel : ViewModel() {
 
     fun preparePlayer(src: String) {
         if (isStart) {
-            Log.d("mytag", "+++preparePlayer: +++")
+            
             playerInteractor.preparePlayer(src, { modUI.value = ModifyUI.PlayBtn(true) }, {
-                //playBtn.setImageResource(R.drawable.play_btn)
+                
                 modUI.value = ModifyUI.PlayBtnImagePlay(true)
                 handler.removeCallbacks(updateUIRunnable)
-                //timePlayTV.text = getString(R.string.test_time_play)
-                //TODO("timePlayTV.text")
-                modUI.value = ModifyUI.TimePlayTV("")
+                
+                
+                modUI.value = ModifyUI.TimePlayTV("0:00")
             })
             isStart=false
         }
-        //handler.post { updateUIRunnable }.
+        
         modUI.value = ModifyUI.TimePlayTV(
             Utils.millisToMmSs(
                 playerInteractor
@@ -86,7 +85,7 @@ class PlayerViewModel : ViewModel() {
 
     private fun startPlayer() {
         playerInteractor.play {
-            //playBtn.setImageResource(R.drawable.pause_btn)
+            
             modUI.value = ModifyUI.PlayBtnImagePlay(false)
             handler.post(updateUIRunnable)
         }
@@ -94,7 +93,7 @@ class PlayerViewModel : ViewModel() {
 
     fun pausePlayer() {
         playerInteractor.pause {
-            //playBtn.setImageResource(R.drawable.play_btn)
+            
             modUI.value = ModifyUI.PlayBtnImagePlay(true)
             handler.removeCallbacks(updateUIRunnable)
         }

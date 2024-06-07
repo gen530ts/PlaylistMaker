@@ -23,12 +23,4 @@ class TrackSearchInteractorImpl(private val repository: SearchRepository) :
 
 }
 
-/*
-is Resource.ComProblem ->
-{
-    consumer.consume(null, errorMessage = "")
-}
-is Resource.NotFound ->
-{
-    consumer.consume(null, errorType = SearchErrorType.NotFound)
-}*/
+

@@ -1,7 +1,6 @@
 package gen.test.android.playlistmaker.ui.player.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -36,7 +35,7 @@ class PlayerActivity : AppCompatActivity() {
         val bundle = intent.extras
         val json = bundle!!.getString(KEY_PLAYER_ACTIVITY)
         playBtn = findViewById(R.id.playIB)
-       // playBtn = findViewById(R.id.playIB)
+       
         timePlayTV = findViewById(R.id.timePlayTV)
 
 
@@ -58,7 +57,7 @@ class PlayerActivity : AppCompatActivity() {
             }
             trackTV.text = it.trackName
             artistTV.text = it.artistName
-            //Log.d("mytag", "+++timeTv.text = ${Utils.millisToMmSs(it.trackTimeMillis)}")
+            
             timeTv.text = Utils.millisToMmSs(it.trackTimeMillis)
             if (it.collectionName.isNullOrEmpty()) {
                 albumGr.visibility = View.GONE
@@ -82,9 +81,9 @@ class PlayerActivity : AppCompatActivity() {
         viewModel.getModUI().observe(this) {
             when (it) {
                 is ModifyUI.TimePlayTV -> {
-                    Log.d("mytag", "+++viewModel.getModUI().observe  it.txt = ${it.txt}+++")
+                    
                     timePlayTV.text = it.txt
-                //ifEmpty { getString(R.string.test_time_play) }
+                
                 }
                 is ModifyUI.PlayBtn -> {
                     playBtn.isEnabled = it.isEn
@@ -119,7 +118,7 @@ class PlayerActivity : AppCompatActivity() {
    override fun onDestroy() {
         super.onDestroy()
        viewModel.handler.removeCallbacks(viewModel.updateUIRunnable)
-       Log.d("mytag", "+++onDestroy:+++ ")
+       
 
     }
 }

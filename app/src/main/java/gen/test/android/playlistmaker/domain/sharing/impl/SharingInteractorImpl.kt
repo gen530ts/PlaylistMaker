@@ -10,16 +10,7 @@ class SharingInteractorImpl(
     private val sharingRepository: SharingRepository
 ): SharingInteractor {
 
-    companion object{
-        /*private const val SHARE_APP_MESSAGE = "https://practicum.yandex.ru/android-developer/"
-        private const val CHOOSER_TITLE="Выберите приложение"
-        //private const val SHARE_TYPE = "text/plain"
-        private const val SUPPORT_NAME_EMAIL="gnd011@yandex.ru"
-        private const val SUPPORT_SUBJECT_EMAIL="Сообщение разработчикам и разработчицам приложения Playlist Maker"
-        private const val SUPPORT_TXT_EMAIL="Спасибо разработчикам и разработчицам за крутое приложение!"
-        private const val LINK_OFERTA="https://yandex.ru/legal/practicum_b2b_subscription_offer/"*/
 
-    }
     override fun shareApp() {
         externalNavigator.shareLink(getShareAppLink())
     }

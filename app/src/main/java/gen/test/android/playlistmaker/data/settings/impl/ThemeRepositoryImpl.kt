@@ -7,7 +7,7 @@ import gen.test.android.playlistmaker.domain.settings.model.ThemeSettings
 
 class ThemeRepositoryImpl(
     private val application:Application,
-    //private val themeSettingsDTO:ThemeSettings
+    
     )
     : ThemeRepository {
 

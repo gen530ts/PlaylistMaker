@@ -3,7 +3,7 @@ package gen.test.android.playlistmaker.ui.search.view_model
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,13 +17,13 @@ import gen.test.android.playlistmaker.domain.search.TrackSearchInteractor
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 
-//private const val SEARCH_DEBOUNCE_DELAY = 2000L
+
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
 
-        //private val SEARCH_REQUEST_TOKEN = Any()
+        
         fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 SearchViewModel(this[APPLICATION_KEY] as Application)
@@ -33,7 +33,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private val searchRunnable = Runnable { search(searchTxt) }
 
-    // private var latestSearchText: String? = null
+    
     private var searchTxt = ""
     private val interactorHistory =
         Creator.provideHistoryInteractor((application as App).sharedPrefs)
@@ -50,7 +50,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         handler.removeCallbacks(searchRunnable)
         this.searchTxt = str
         if (str.length > 2) {
-            //searchTxt=str
+            
             handler.postDelayed(
                 searchRunnable,
                 SEARCH_DEBOUNCE_DELAY
@@ -59,7 +59,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun search(str: String) {
-        Log.d("mytag", "+++fun search: str=$str +++")
+        
         renderState(SearchTrackState.Loading)
         interactorSearch.searchTrack(str, object : TrackSearchInteractor.TrackSearchConsumer {
             override fun consume(foundTracks: ArrayList<TrackSearch>?, isError: Boolean) {

@@ -15,8 +15,8 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
         val shareIntent = Intent(Intent.ACTION_SEND)
         val shareIntent1 = Intent.createChooser(shareIntent, chooserTitle)
         shareIntent1.putExtra(Intent.EXTRA_TEXT, shareApp)
-        shareIntent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-       // shareIntent1.type = "text/plain"
+        shareIntent1.addFlags(FLAG_ACTIVITY_NEW_TASK)
+       
         context.applicationContext.startActivity(shareIntent1)
     }
 

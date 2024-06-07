@@ -31,6 +31,6 @@ class TrackSearchAdapter(private val trackListener: TrackClickListener) : Recycl
         fun onTrackClick(location: TrackSearch)
     }
 }
-//private val tracks: List<Track>
+
 
 

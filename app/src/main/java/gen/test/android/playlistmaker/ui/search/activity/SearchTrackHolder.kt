@@ -25,7 +25,7 @@ class SearchTrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInfla
         songView.text = model.trackName
         creatorView.text = model.artistName
         lengthView.text= Utils.millisToMmSs((model.trackTimeMillis))
-        //Log.d("dptopx", "dptopx = $rt;model.trackName = ${model.trackName}")
+        
         Glide.with(itemView)
             .load(model.artworkUrl100)
             .fitCenter()

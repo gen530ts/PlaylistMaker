@@ -57,7 +57,7 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        //handler.removeCallbacks(searchRunnable)
+        
         handler.removeCallbacks(debounceRunnable)
     }
 
@@ -104,10 +104,10 @@ class SearchActivity : AppCompatActivity() {
 
     private fun viewHistory() {
         val lArr = viewModel.historyRead()
-        //val lArr = searchHistory.read()
+        
         if (lArr.isNotEmpty()) {
-            adapterHistory.clearItems()//TODO("Remove")
-            adapterHistory.setItems(lArr)//TODO("Remove")
+            adapterHistory.clearItems()
+            adapterHistory.setItems(lArr)
             adapterHistory.notifyDataSetChanged()
             goneAll(historySearchLL)
         }
@@ -125,7 +125,7 @@ class SearchActivity : AppCompatActivity() {
         searchEdit?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 search()
-                // true
+                
             }
             false
         }
@@ -134,7 +134,7 @@ class SearchActivity : AppCompatActivity() {
         clear.visibility = View.GONE
         clear.setOnClickListener {
             searchEdit?.text?.clear()
-            adapter.clearItems()//TODO("Remove")
+            adapter.clearItems()
             adapter.notifyDataSetChanged()
 
             manager.hideSoftInputFromWindow(window.currentFocus!!.windowToken, 0)
@@ -145,11 +145,11 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clear.visibility = clearButtonVisibility(s)
-               // searchTxt = s.toString()
+               
                 if ((searchEdit?.hasFocus() == true) && (s?.isEmpty() == true)) {
                     viewHistory()
                 }
-                //else goneAll(null)
+                
                 viewModel.searchDebounce(s?.toString() ?: "")
             }
 
@@ -166,7 +166,7 @@ class SearchActivity : AppCompatActivity() {
         clearHistoryBtn = findViewById(R.id.clearHistoryBtn)
         clearHistoryBtn?.setOnClickListener {
             viewModel.historyClear()
-            //searchHistory.clearHistory()
+            
             historySearchLL?.visibility = View.GONE
         }
     }
@@ -195,8 +195,8 @@ class SearchActivity : AppCompatActivity() {
 
     private fun showContent(movies: ArrayList<TrackSearch>) {
         goneAll(tracksListLL)
-        adapter.clearItems()//TODO("Remove")
-        adapter.setItems(movies)//TODO("Remove")
+        adapter.clearItems()
+        adapter.setItems(movies)
         adapter.notifyDataSetChanged()
     }
     private fun showHistory(movies: Collection<TrackSearch>) {
@@ -214,17 +214,17 @@ class SearchActivity : AppCompatActivity() {
             SearchViewModel.getViewModelFactory()
         )[SearchViewModel::class.java]
         setListeners()
-       // searchHistory = SearchHistory((application as App).sharedPrefs)
+       
         manager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
         val recycler = findViewById<RecyclerView>(R.id.tracksList)
         recycler.layoutManager = LinearLayoutManager(this)
-       // adapter.setItems(tracks)//TODO("Remove")
+       
         recycler.adapter = adapter
 
         val recyclerHistory = findViewById<RecyclerView>(R.id.historySearchList)
         recyclerHistory.layoutManager = LinearLayoutManager(this)
-       // adapterHistory.setItems(tracksHistory)//TODO("Remove")
+       
         recyclerHistory.adapter = adapterHistory
         viewModel.observeState().observe(this) {
             render(it)
@@ -235,65 +235,17 @@ class SearchActivity : AppCompatActivity() {
 
 }
 
-/*musicService.search(searchEdit?.text.toString())
-.enqueue(object : Callback<TrackSearchResponse> {
-    override fun onResponse(
-        call: Call<TrackSearchResponse>,
-        response: Response<TrackSearchResponse>,
-    ) {
-        tracks.clear()
-        when (response.code()) {
-            RESPONSE_OK -> {
-                if (response.body()?.results?.isNotEmpty() == true) {
-                    tracks.addAll(response.body()?.results!!)
-                    goneAll(tracksListLL)
-                } else {
-                    goneAll(notFoundLL)
-                }
-            }
-            else -> {
-                goneAll(comProblemLL)
-            }
-        }
-        adapter.notifyDataSetChanged()
-    }
 
-    override fun onFailure(call: Call<TrackSearchResponse>, t: Throwable) {
-        tracks.clear()
-        adapter.notifyDataSetChanged()
-        goneAll(comProblemLL)
-    }
-})*/
 
-/*movies.map { Track(it.trackName,it.artistName,it.trackTimeMillis,it
-    .artworkUrl100,it.trackId,it.collectionName,it.releaseDate,it.primaryGenreName,it
-    .country,it.previewUrl) }*/
 
-/*private var baseUrl = "https://itunes.apple.com"
-private val retrofit = Retrofit.Builder()
-    .baseUrl(baseUrl)
-    .addConverterFactory(GsonConverterFactory.create())
-  .build()
-private val musicService = retrofit.create(ItunesAppleApi::class.java)*/
-//private const val RESPONSE_OK = 200
-//// goneAll(progressSearchLL)
-//searchHistory.add(it)
-// private val tracks = ArrayList<TrackSearch>()//TODO("Remove")
-//  private val tracksHistory = ArrayList<TrackSearch>()//TODO("Remove")
-/*
-override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    */
-/*outState.putString(KEY_DATA, searchTxt)*//*
 
-}
 
-override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-    super.onRestoreInstanceState(savedInstanceState)
-    */
-/*searchTxt = savedInstanceState.getString(KEY_DATA).toString()
-    searchEdit?.setText(searchTxt)*//*
 
-}*/
-//private lateinit var searchHistory: SearchHistory
-//private const val KEY_DATA = "info"
+
+
+
+
+
+
+
+
