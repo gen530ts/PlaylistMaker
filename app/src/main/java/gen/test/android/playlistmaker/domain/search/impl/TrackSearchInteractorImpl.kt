@@ -16,11 +16,13 @@ class TrackSearchInteractorImpl(private val repository: SearchRepository) :
                 is Resource.Success -> {
                     consumer.consume(resource.data as ArrayList<TrackSearch>, false)
                 }
+                is Resource.NotFound -> {
+                    consumer.consume(ArrayList(), false)
+                }
                 else -> {consumer.consume(null, true)}
             }
         }
     }
-
 }
 
 

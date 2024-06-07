@@ -63,21 +63,21 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         renderState(SearchTrackState.Loading)
         interactorSearch.searchTrack(str, object : TrackSearchInteractor.TrackSearchConsumer {
             override fun consume(foundTracks: ArrayList<TrackSearch>?, isError: Boolean) {
-                val tracks = ArrayList<TrackSearch>()
-                if (foundTracks != null) {
-                    tracks.addAll(foundTracks)
+                if(isError){
+                    renderState(SearchTrackState.Error)
+                    return
                 }
                 if (foundTracks != null) {
                     when {
-                        isError -> renderState(SearchTrackState.Error)
                         foundTracks.isEmpty() -> renderState(SearchTrackState.Empty)
-                        else -> {
+                        foundTracks.isNotEmpty() -> {
+                            val tracks = ArrayList<TrackSearch>()
+                            tracks.addAll(foundTracks)
                             renderState(SearchTrackState.Content(movies = tracks))
                         }
                     }
                 }
             }
-
         })
     }
 
