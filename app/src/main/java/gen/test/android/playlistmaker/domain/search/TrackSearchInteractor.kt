@@ -6,6 +6,6 @@ interface TrackSearchInteractor {
     fun searchTrack(expression: String, consumer: TrackSearchConsumer)
     interface TrackSearchConsumer
     {
-        fun consume(foundMovies: ArrayList<TrackSearch>?, isError: Boolean)
+        fun consume(foundTracks: ArrayList<TrackSearch>?, isError: Boolean)
     }
 }

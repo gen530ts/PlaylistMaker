@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker
+package gen.test.android.playlistmaker.ui.search.activity
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

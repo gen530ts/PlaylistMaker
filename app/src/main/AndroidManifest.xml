@@ -23,7 +23,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MediaActivity"
+            android:name=".ui.media.activity.MediaActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

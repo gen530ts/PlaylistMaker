@@ -19,25 +19,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import gen.test.android.playlistmaker.R
-import gen.test.android.playlistmaker.TrackSearchAdapter
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import gen.test.android.playlistmaker.ui.player.activity.KEY_PLAYER_ACTIVITY
 import gen.test.android.playlistmaker.ui.player.activity.PlayerActivity
 import gen.test.android.playlistmaker.ui.search.view_model.SearchViewModel
 
-private const val KEY_DATA = "info"
+
 private const val CLICK_DEBOUNCE_DELAY = 1000L
-private const val SEARCH_DEBOUNCE_DELAY = 2000L
+
 
 class SearchActivity : AppCompatActivity() {
 
-    //private lateinit var searchHistory: SearchHistory
+
     private var isClickAllowed = true
     private val handler = Handler(Looper.getMainLooper())
-    private val searchRunnable = Runnable { search() }
+
     private val debounceRunnable = Runnable { isClickAllowed = true }
-    private var searchTxt = ""
+
     private var searchEdit: EditText? = null
     private var comProblemLL: LinearLayout? = null
     private var notFoundLL: LinearLayout? = null
@@ -58,17 +57,11 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        handler.removeCallbacks(searchRunnable)
+        //handler.removeCallbacks(searchRunnable)
         handler.removeCallbacks(debounceRunnable)
     }
 
-    private fun searchDebounce(length: Int?) {
-        handler.removeCallbacks(searchRunnable)
-        if ((length != null) && (length > 2)) handler.postDelayed(
-            searchRunnable,
-            SEARCH_DEBOUNCE_DELAY
-        )
-    }
+
 
     private fun clickDebounce(): Boolean {
         val current = isClickAllowed
@@ -152,11 +145,12 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clear.visibility = clearButtonVisibility(s)
-                searchTxt = s.toString()
+               // searchTxt = s.toString()
                 if ((searchEdit?.hasFocus() == true) && (s?.isEmpty() == true)) {
                     viewHistory()
-                } else goneAll(null)
-                searchDebounce(s?.length)
+                }
+                //else goneAll(null)
+                viewModel.searchDebounce(s?.toString() ?: "")
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -238,16 +232,7 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(KEY_DATA, searchTxt)
-    }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        searchTxt = savedInstanceState.getString(KEY_DATA).toString()
-        searchEdit?.setText(searchTxt)
-    }
 }
 
 /*musicService.search(searchEdit?.text.toString())
@@ -295,3 +280,20 @@ private val musicService = retrofit.create(ItunesAppleApi::class.java)*/
 //searchHistory.add(it)
 // private val tracks = ArrayList<TrackSearch>()//TODO("Remove")
 //  private val tracksHistory = ArrayList<TrackSearch>()//TODO("Remove")
+/*
+override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    */
+/*outState.putString(KEY_DATA, searchTxt)*//*
+
+}
+
+override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    super.onRestoreInstanceState(savedInstanceState)
+    */
+/*searchTxt = savedInstanceState.getString(KEY_DATA).toString()
+    searchEdit?.setText(searchTxt)*//*
+
+}*/
+//private lateinit var searchHistory: SearchHistory
+//private const val KEY_DATA = "info"

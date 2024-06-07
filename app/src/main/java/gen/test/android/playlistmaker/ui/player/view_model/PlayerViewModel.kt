@@ -2,6 +2,7 @@ package gen.test.android.playlistmaker.ui.player.view_model
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -63,6 +64,7 @@ class PlayerViewModel : ViewModel() {
 
     fun preparePlayer(src: String) {
         if (isStart) {
+            Log.d("mytag", "+++preparePlayer: +++")
             playerInteractor.preparePlayer(src, { modUI.value = ModifyUI.PlayBtn(true) }, {
                 //playBtn.setImageResource(R.drawable.play_btn)
                 modUI.value = ModifyUI.PlayBtnImagePlay(true)
@@ -73,6 +75,13 @@ class PlayerViewModel : ViewModel() {
             })
             isStart=false
         }
+        //handler.post { updateUIRunnable }.
+        modUI.value = ModifyUI.TimePlayTV(
+            Utils.millisToMmSs(
+                playerInteractor
+                    .getCurrentPosition()
+            )
+        )
     }
 
     private fun startPlayer() {

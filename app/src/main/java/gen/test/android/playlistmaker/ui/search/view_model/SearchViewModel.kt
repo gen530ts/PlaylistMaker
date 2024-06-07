@@ -3,6 +3,7 @@ package gen.test.android.playlistmaker.ui.search.view_model
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,10 +17,13 @@ import gen.test.android.playlistmaker.domain.search.TrackSearchInteractor
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 
+//private const val SEARCH_DEBOUNCE_DELAY = 2000L
+
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
-        private val SEARCH_REQUEST_TOKEN = Any()
+
+        //private val SEARCH_REQUEST_TOKEN = Any()
         fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 SearchViewModel(this[APPLICATION_KEY] as Application)
@@ -27,7 +31,12 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    private val interactorHistory=Creator.provideHistoryInteractor((application as App).sharedPrefs)
+    private val searchRunnable = Runnable { search(searchTxt) }
+
+    // private var latestSearchText: String? = null
+    private var searchTxt = ""
+    private val interactorHistory =
+        Creator.provideHistoryInteractor((application as App).sharedPrefs)
     private val interactorSearch = Creator.provideSearchInteractor(getApplication())
     private val handler = Handler(Looper.getMainLooper())
     private val stateLiveData = MutableLiveData<SearchTrackState>()
@@ -36,20 +45,34 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         stateLiveData.postValue(state)
     }
 
+    fun searchDebounce(str: String) {
+        if (str == this.searchTxt) return
+        handler.removeCallbacks(searchRunnable)
+        this.searchTxt = str
+        if (str.length > 2) {
+            //searchTxt=str
+            handler.postDelayed(
+                searchRunnable,
+                SEARCH_DEBOUNCE_DELAY
+            )
+        }
+    }
+
     fun search(str: String) {
+        Log.d("mytag", "+++fun search: str=$str +++")
         renderState(SearchTrackState.Loading)
         interactorSearch.searchTrack(str, object : TrackSearchInteractor.TrackSearchConsumer {
-            override fun consume(foundMovies: ArrayList<TrackSearch>?, isError: Boolean) {
-                val movies = ArrayList<TrackSearch>()
-                if (foundMovies != null) {
-                    movies.addAll(foundMovies)
+            override fun consume(foundTracks: ArrayList<TrackSearch>?, isError: Boolean) {
+                val tracks = ArrayList<TrackSearch>()
+                if (foundTracks != null) {
+                    tracks.addAll(foundTracks)
                 }
-                if (foundMovies != null) {
+                if (foundTracks != null) {
                     when {
                         isError -> renderState(SearchTrackState.Error)
-                        foundMovies.isEmpty() -> renderState(SearchTrackState.Empty)
+                        foundTracks.isEmpty() -> renderState(SearchTrackState.Empty)
                         else -> {
-                            renderState(SearchTrackState.Content(movies = movies))
+                            renderState(SearchTrackState.Content(movies = tracks))
                         }
                     }
                 }
@@ -57,13 +80,20 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
         })
     }
-    fun historyAdd(track:TrackSearch){
+
+    fun historyAdd(track: TrackSearch) {
         interactorHistory.add(track)
     }
-    fun historyRead():ArrayList<TrackSearch>{
-       return interactorHistory.read()
+
+    fun historyRead(): ArrayList<TrackSearch> {
+        return interactorHistory.read()
     }
-    fun historyClear(){
+
+    fun historyClear() {
         interactorHistory.clear()
+    }
+
+    override fun onCleared() {
+        handler.removeCallbacks(searchRunnable)
     }
 }

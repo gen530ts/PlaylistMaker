@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker
+package gen.test.android.playlistmaker.data.search
 
 import gen.test.android.playlistmaker.data.search.model.TrackSearchResponse
 import retrofit2.Call

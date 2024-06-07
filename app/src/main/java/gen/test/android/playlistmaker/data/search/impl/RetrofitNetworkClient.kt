@@ -3,7 +3,7 @@ package gen.test.android.playlistmaker.data.search.impl
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import gen.test.android.playlistmaker.ItunesAppleApi
+import gen.test.android.playlistmaker.data.search.ItunesAppleApi
 import gen.test.android.playlistmaker.data.search.NetworkClient
 import gen.test.android.playlistmaker.data.search.model.Response
 import gen.test.android.playlistmaker.data.search.model.TrackSearchRequest
