@@ -4,8 +4,8 @@ import android.media.MediaPlayer
 import gen.test.android.playlistmaker.domain.player.MediaPlayerWrapper
 import gen.test.android.playlistmaker.domain.player.models.PlayerState
 
-class MediaPlayerWrapperImpl : MediaPlayerWrapper {
-    private val mediaPlayer = MediaPlayer()
+class MediaPlayerWrapperImpl(private val mediaPlayer: MediaPlayer) : MediaPlayerWrapper {
+
     override var state: PlayerState = PlayerState.STATE_DEFAULT
 
     override fun getCurrentPosition(): Int {

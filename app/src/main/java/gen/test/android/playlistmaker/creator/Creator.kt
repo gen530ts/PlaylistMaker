@@ -3,6 +3,8 @@ package gen.test.android.playlistmaker.creator
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.media.MediaPlayer
+import com.google.gson.Gson
 import gen.test.android.playlistmaker.data.player.impl.GetTrackRepositoryImpl
 import gen.test.android.playlistmaker.data.player.impl.MediaPlayerWrapperImpl
 import gen.test.android.playlistmaker.data.search.HistoryRepository
@@ -38,7 +40,7 @@ object Creator {
     }
 
     private fun providePlayer(): MediaPlayerWrapper {
-        return MediaPlayerWrapperImpl()
+        return MediaPlayerWrapperImpl(MediaPlayer())
     }
 
     private fun provideExternalNavigator(context: Context): ExternalNavigator {
@@ -72,7 +74,7 @@ object Creator {
     }
 
     private fun getHistoryRepository(shPref:SharedPreferences): HistoryRepository {
-        return HistoryRepositoryImpl(HistoryManagerImpl(shPref))
+        return HistoryRepositoryImpl(HistoryManagerImpl(shPref, Gson()))
     }
 
     fun provideHistoryInteractor(shPref:SharedPreferences): HistoryInteractor {

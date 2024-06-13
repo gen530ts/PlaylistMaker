@@ -1,14 +1,15 @@
 package gen.test.android.playlistmaker.data.search.impl
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.google.gson.Gson
-
 import gen.test.android.playlistmaker.data.search.HistoryManager
 import gen.test.android.playlistmaker.data.search.model.TrackSearchDto
 
 const val SEARCH_HISTORY_KEY = "search_history_key"
 
-class HistoryManagerImpl(private val shPf: SharedPreferences): HistoryManager {
+class HistoryManagerImpl(private val shPf: SharedPreferences, private val gson: Gson) :
+    HistoryManager {
     override fun add(track: TrackSearchDto) {
         val arr = read()
         if (arr.isNotEmpty()) {
@@ -27,19 +28,22 @@ class HistoryManagerImpl(private val shPf: SharedPreferences): HistoryManager {
 
     override fun read(): ArrayList<TrackSearchDto> {
         val json = shPf.getString(SEARCH_HISTORY_KEY, null) ?: return arrayListOf()
-        return Gson().fromJson(json, Array<TrackSearchDto>::class.java).toMutableList() as
+        return gson.fromJson(json, Array<TrackSearchDto>::class.java).toMutableList() as
                 ArrayList<TrackSearchDto>
     }
 
     override fun clear() {
-        shPf.edit()
+        /*shPf.edit()
             .putString(SEARCH_HISTORY_KEY, "[]")
-            .apply()
+            .apply()*/
+        shPf.edit { putString(SEARCH_HISTORY_KEY, "[]") }
     }
+
     private fun write(track: ArrayList<TrackSearchDto>) {
-        val json = Gson().toJson(track)
-        shPf.edit()
+        val json = gson.toJson(track)
+        /*shPf.edit()
             .putString(SEARCH_HISTORY_KEY, json)
-            .apply()
+            .apply()*/
+        shPf.edit { putString(SEARCH_HISTORY_KEY, json) }
     }
 }

@@ -1,12 +1,12 @@
 package gen.test.android.playlistmaker.ui.player.activity
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -60,12 +60,14 @@ class PlayerActivity : AppCompatActivity() {
             
             timeTv.text = Utils.millisToMmSs(it.trackTimeMillis)
             if (it.collectionName.isNullOrEmpty()) {
-                albumGr.visibility = View.GONE
+                //albumGr.visibility = View.GONE
+                albumGr.isVisible=false
             } else {
                 albumTv.text = it.collectionName
             }
             if (it.releaseDate.isNullOrEmpty() || ((it.releaseDate.length) < 5)) {
-                yearGr.visibility = View.GONE
+               // yearGr.visibility = View.GONE
+                yearGr.isVisible=false
             } else {
                 yearTv.text = it.releaseDate.substring(0, 4)
             }

@@ -1,5 +1,5 @@
 package gen.test.android.playlistmaker.domain.settings.model
-
-data class ThemeSettings(
+@JvmInline
+value class ThemeSettings(
      val isDark: Boolean
 )
