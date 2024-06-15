@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.switchmaterial.SwitchMaterial
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.ui.settings.view_model.SettingsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : AppCompatActivity() {
     
-    private val settingsViewModel by lazy {
+    /*private val settingsViewModel by lazy {
         ViewModelProvider(
             this,
             SettingsViewModel.getViewModelFactory()
         )[SettingsViewModel::class.java]
-    }
+    }*/
+    private val settingsViewModel by viewModel<SettingsViewModel>()
     private fun setBackListener() {
         val backImg = findViewById<ImageView>(R.id.backImageView)
         backImg.setOnClickListener {

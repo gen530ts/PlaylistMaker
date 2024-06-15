@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import gen.test.android.playlistmaker.data.player.impl.GetTrackRepositoryImpl
 import gen.test.android.playlistmaker.data.player.impl.MediaPlayerWrapperImpl
 import gen.test.android.playlistmaker.data.search.HistoryRepository
+import gen.test.android.playlistmaker.data.search.ItunesAppleApi
 import gen.test.android.playlistmaker.data.search.SearchRepository
 import gen.test.android.playlistmaker.data.search.impl.HistoryManagerImpl
 import gen.test.android.playlistmaker.data.search.impl.HistoryRepositoryImpl
@@ -31,6 +32,8 @@ import gen.test.android.playlistmaker.domain.settings.ThemeInteractor
 import gen.test.android.playlistmaker.domain.settings.impl.ThemeInteractorImpl
 import gen.test.android.playlistmaker.domain.sharing.SharingInteractor
 import gen.test.android.playlistmaker.domain.sharing.impl.SharingInteractorImpl
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 object Creator {
     val getTrack: GetTrackUseCase = GetTrackUseCaseImpl(GetTrackRepositoryImpl())
@@ -66,7 +69,13 @@ object Creator {
     }
 
     private fun getSearchRepository(context: Context): SearchRepository {
-        return SearchRepositoryImpl(RetrofitNetworkClient(context))
+        val baseUrl = "https://itunes.apple.com"
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val musicService = retrofit.create(ItunesAppleApi::class.java)
+        return SearchRepositoryImpl(RetrofitNetworkClient(context,musicService))
     }
 
     fun provideSearchInteractor(context: Context): TrackSearchInteractor {
