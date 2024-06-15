@@ -13,7 +13,6 @@ import gen.test.android.playlistmaker.data.search.impl.RetrofitNetworkClient
 import gen.test.android.playlistmaker.data.sharing.ExternalNavigator
 import gen.test.android.playlistmaker.data.sharing.impl.ExternalNavigatorImpl
 import gen.test.android.playlistmaker.domain.player.MediaPlayerWrapper
-import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -37,7 +36,7 @@ val dataModule = module {
 
     factory { MediaPlayer() }
 
-    factory { androidApplication() }
+//    factory { androidApplication() }
 
     single<HistoryManager>{
         HistoryManagerImpl(get(), get())

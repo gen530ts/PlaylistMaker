@@ -33,17 +33,13 @@ class HistoryManagerImpl(private val shPf: SharedPreferences, private val gson: 
     }
 
     override fun clear() {
-        /*shPf.edit()
-            .putString(SEARCH_HISTORY_KEY, "[]")
-            .apply()*/
+        
         shPf.edit { putString(SEARCH_HISTORY_KEY, "[]") }
     }
 
     private fun write(track: ArrayList<TrackSearchDto>) {
         val json = gson.toJson(track)
-        /*shPf.edit()
-            .putString(SEARCH_HISTORY_KEY, json)
-            .apply()*/
+        
         shPf.edit { putString(SEARCH_HISTORY_KEY, json) }
     }
 }

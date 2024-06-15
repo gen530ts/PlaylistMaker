@@ -16,8 +16,8 @@ private const val UPDATE_UI = 300L
 
 class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val getTrack: GetTrackUseCase) :
     ViewModel() {
-    //private val playerInteractor = Creator.providePlayerInteractor()
-    //private val getTrack = Creator.getTrack
+
+
 
     private val trackLD = MutableLiveData<TrackUI>()
     fun getTrackLD(): LiveData<TrackUI> = trackLD

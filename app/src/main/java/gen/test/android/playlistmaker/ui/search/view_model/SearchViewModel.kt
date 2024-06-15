@@ -19,9 +19,8 @@ interactorSearch:TrackSearchInteractor) : ViewModel() {
 
     
     private var searchTxt = ""
-    /*private val interactorHistory =
-        Creator.provideHistoryInteractor((application as App).sharedPrefs)*/
-   // private val interactorSearch = Creator.provideSearchInteractor(getApplication())
+    
+
     private val handler = Handler(Looper.getMainLooper())
     private val stateLiveData = MutableLiveData<SearchTrackState>()
     fun observeState(): LiveData<SearchTrackState> = stateLiveData
@@ -82,15 +81,4 @@ interactorSearch:TrackSearchInteractor) : ViewModel() {
     }
 }
 
-/*
-class SearchViewModel(application: Application) : AndroidViewModel(application) {
-    companion object {
 
-
-
-        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                SearchViewModel(this[APPLICATION_KEY] as Application)
-            }
-        }
-    }*/

@@ -11,12 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : AppCompatActivity() {
     
-    /*private val settingsViewModel by lazy {
-        ViewModelProvider(
-            this,
-            SettingsViewModel.getViewModelFactory()
-        )[SettingsViewModel::class.java]
-    }*/
+    
     private val settingsViewModel by viewModel<SettingsViewModel>()
     private fun setBackListener() {
         val backImg = findViewById<ImageView>(R.id.backImageView)

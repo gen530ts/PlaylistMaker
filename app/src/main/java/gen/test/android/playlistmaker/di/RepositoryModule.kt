@@ -38,4 +38,3 @@ val repositoryModule = module {
 
 }
 
-//HistoryManagerImpl(get(),get())

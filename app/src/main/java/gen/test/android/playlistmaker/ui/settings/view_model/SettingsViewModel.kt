@@ -45,20 +45,4 @@ class SettingsViewModel(
     }
 }
 
-/*
-companion object {
-    fun getViewModelFactory(): ViewModelProvider.Factory =
-        object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val application = checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
-                return SettingsViewModel(
-                    Creator.provideThemeInteractor(application),
-                    Creator.provideSharingInteractor(application.applicationContext)
-                ) as T
-            }
-        }
-}*/
+
