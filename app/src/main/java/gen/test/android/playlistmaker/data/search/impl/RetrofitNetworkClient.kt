@@ -7,18 +7,9 @@ import gen.test.android.playlistmaker.data.search.ItunesAppleApi
 import gen.test.android.playlistmaker.data.search.NetworkClient
 import gen.test.android.playlistmaker.data.search.model.Response
 import gen.test.android.playlistmaker.data.search.model.TrackSearchRequest
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitNetworkClient(private val context: Context) : NetworkClient {
-    private var baseUrl = "https://itunes.apple.com"
+class RetrofitNetworkClient(private val context: Context,private val musicService:ItunesAppleApi) : NetworkClient {
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val musicService = retrofit.create(ItunesAppleApi::class.java)
     override fun doRequest(dto: Any): Response {
         if(!isConnected())
         {

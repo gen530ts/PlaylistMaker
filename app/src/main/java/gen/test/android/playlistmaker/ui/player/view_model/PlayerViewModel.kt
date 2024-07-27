@@ -6,16 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gen.test.android.playlistmaker.Utils
-import gen.test.android.playlistmaker.creator.Creator
+import gen.test.android.playlistmaker.domain.player.GetTrackUseCase
+import gen.test.android.playlistmaker.domain.player.PlayerInteractor
 import gen.test.android.playlistmaker.domain.player.models.PlayerState
 import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.model.TrackUI
 
 private const val UPDATE_UI = 300L
 
-class PlayerViewModel : ViewModel() {
-    val playerInteractor = Creator.providePlayerInteractor()
-    private val getTrack = Creator.getTrack
+class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val getTrack: GetTrackUseCase) :
+    ViewModel() {
+
+
 
     private val trackLD = MutableLiveData<TrackUI>()
     fun getTrackLD(): LiveData<TrackUI> = trackLD

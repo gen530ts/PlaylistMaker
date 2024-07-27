@@ -7,19 +7,20 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.Utils
 import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val ROUNDED_CORNERS_PLAYER = 8f
 const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
 
 class PlayerActivity : AppCompatActivity() {
-    private lateinit var viewModel: PlayerViewModel
+
+    private val viewModel by viewModel<PlayerViewModel>()
     private lateinit var playBtn: ImageButton
     private lateinit var timePlayTV: TextView
 
@@ -60,13 +61,13 @@ class PlayerActivity : AppCompatActivity() {
             
             timeTv.text = Utils.millisToMmSs(it.trackTimeMillis)
             if (it.collectionName.isNullOrEmpty()) {
-                //albumGr.visibility = View.GONE
+
                 albumGr.isVisible=false
             } else {
                 albumTv.text = it.collectionName
             }
             if (it.releaseDate.isNullOrEmpty() || ((it.releaseDate.length) < 5)) {
-               // yearGr.visibility = View.GONE
+
                 yearGr.isVisible=false
             } else {
                 yearTv.text = it.releaseDate.substring(0, 4)
@@ -105,10 +106,9 @@ class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        viewModel = ViewModelProvider(
-            this
-        )[PlayerViewModel::class.java]
-        setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
+        
+
+            setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
         setBackListener()
     }
 

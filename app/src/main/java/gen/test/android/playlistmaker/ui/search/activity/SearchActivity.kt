@@ -13,7 +13,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -23,6 +22,7 @@ import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import gen.test.android.playlistmaker.ui.player.activity.KEY_PLAYER_ACTIVITY
 import gen.test.android.playlistmaker.ui.player.activity.PlayerActivity
 import gen.test.android.playlistmaker.ui.search.view_model.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 private const val CLICK_DEBOUNCE_DELAY = 1000L
@@ -52,7 +52,8 @@ class SearchActivity : AppCompatActivity() {
     }
     private val adapterHistory = TrackSearchAdapter { startPlayerActivity(it) }
     private lateinit var manager: InputMethodManager
-    private lateinit var viewModel: SearchViewModel
+
+    private val viewModel by viewModel<SearchViewModel>()
 
     override fun onDestroy() {
         super.onDestroy()
@@ -138,24 +139,7 @@ class SearchActivity : AppCompatActivity() {
 
             manager.hideSoftInputFromWindow(window.currentFocus!!.windowToken, 0)
         }
-        /*val simpleTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                clear.visibility = clearButtonVisibility(s)
-               
-                if ((searchEdit?.hasFocus() == true) && (s?.isEmpty() == true)) {
-                    viewHistory()
-                }
-                
-                viewModel.searchDebounce(s?.toString() ?: "")
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-        }
-        searchEdit?.addTextChangedListener(simpleTextWatcher)*/
+        
         searchEdit?.addTextChangedListener(
             onTextChanged = { charSequence,_,_,_-> clear.visibility = clearButtonVisibility(charSequence)
 
@@ -217,10 +201,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        viewModel = ViewModelProvider(
-            this,
-            SearchViewModel.getViewModelFactory()
-        )[SearchViewModel::class.java]
+        
         setListeners()
        
         manager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
