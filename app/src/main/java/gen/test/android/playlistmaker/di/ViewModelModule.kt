@@ -1,5 +1,7 @@
 package gen.test.android.playlistmaker.di
 
+import gen.test.android.playlistmaker.ui.media.view_model.FavTracksViewModel
+import gen.test.android.playlistmaker.ui.media.view_model.PlayListsViewModel
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
 import gen.test.android.playlistmaker.ui.search.view_model.SearchViewModel
 import gen.test.android.playlistmaker.ui.settings.view_model.SettingsViewModel
@@ -18,5 +20,13 @@ val viewModelModule = module {
 
     viewModel {
         SettingsViewModel(get(),get())
+    }
+
+    viewModel {
+        FavTracksViewModel()
+    }
+
+    viewModel {
+        PlayListsViewModel()
     }
 }
