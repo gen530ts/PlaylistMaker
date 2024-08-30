@@ -3,7 +3,6 @@ package gen.test.android.playlistmaker.ui.media.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
-import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.ActivityMediaBinding
 
 class MediaActivity : AppCompatActivity() {
@@ -20,17 +19,7 @@ class MediaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setBackListener()
-        binding.viewPager.adapter = MediaViewPagerAdapter(supportFragmentManager,
-            lifecycle)
 
-        tabMediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            when(position) {
-                0 -> tab.text = getString(R.string.fav_tracks)
-                1 -> tab.text = getString(R.string.play_lists)
-            }
-        }
-        tabMediator.attach()
 
     }
     override fun onDestroy() {
