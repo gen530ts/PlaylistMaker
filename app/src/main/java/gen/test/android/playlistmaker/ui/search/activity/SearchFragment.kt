@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -15,10 +16,8 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.FragmentSearchBinding
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
@@ -115,7 +114,7 @@ class SearchFragment : Fragment() {
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
-            View.GONE
+            GONE
         } else {
             View.VISIBLE
         }
@@ -132,7 +131,7 @@ class SearchFragment : Fragment() {
         views.forEach {
             when (it) {
                 view -> it.visibility = View.VISIBLE
-                else -> it.visibility = View.GONE
+                else -> it.visibility = GONE
             }
         }
     }
@@ -165,8 +164,8 @@ class SearchFragment : Fragment() {
             false
         }
         val imageBack = binding.backImageView//findViewById<ImageView>(R.id.backImageView)
-        imageBack.setOnClickListener { findNavController().navigate(R.id.action_searchFragment_to_mediaFragment) }
-        clear.visibility = View.GONE
+        imageBack.setOnClickListener { /*findNavController().navigate(R.id.action_searchFragment_to_mediaFragment)*/ }
+        clear.visibility = GONE
         clear.setOnClickListener {
             searchEdit.text?.clear()
             adapter.clearItems()
@@ -194,7 +193,7 @@ class SearchFragment : Fragment() {
         clearHistoryBtn.setOnClickListener {
             viewModel.historyClear()
 
-            historySearchLL.visibility = View.GONE
+            historySearchLL.visibility = GONE
         }
     }
 

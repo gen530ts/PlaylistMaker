@@ -36,4 +36,7 @@
     <string name="media_empty">Ваша медиатека пуста</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="itemMenu1">item1</string>
+    <string name="itemMenu2">item2</string>
+    <string name="itemMenu3">item3</string>
 </resources>

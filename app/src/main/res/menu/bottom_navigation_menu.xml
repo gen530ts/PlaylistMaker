@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mediaFragment"
+
+        android:title="@string/itemMenu1" />
+    <item
+        android:id="@+id/searchFragment"
+
+        android:title="@string/itemMenu2" />
+    <item
+        android:id="@+id/settingsFragment"
+
+        android:title="@string/itemMenu3" />
+</menu>
+
+<!--    android:icon="@drawable/ic_text"-->
