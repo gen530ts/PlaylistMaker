@@ -14,12 +14,7 @@ class MediaFragment : Fragment() {
     private lateinit var binding: FragmentMediaBinding
 
     private lateinit var tabMediator: TabLayoutMediator
-    private fun setBackListener() {
-        //val backImg = findViewById<ImageView>(R.id.backImageView)
-        binding.backImageView.setOnClickListener {
-//            findNavController().navigate(R.id.action_mediaFragment_to_searchFragment)
-        }
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

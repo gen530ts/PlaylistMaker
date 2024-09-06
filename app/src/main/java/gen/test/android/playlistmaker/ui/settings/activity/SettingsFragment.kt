@@ -13,10 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SettingsFragment : Fragment() {
     private val settingsViewModel by viewModel<SettingsViewModel>()
     private lateinit var binding: FragmentSettingsBinding
-    private fun setBackListener() {
-        val backImg = binding.backImageView//findViewById<ImageView>(R.id.backImageView)
-        backImg.setOnClickListener {}
-    }
+
 
     private fun setShareListener() {
         val share = binding.shareImageView//findViewById<TextView>(R.id.shareTextView)
@@ -58,7 +55,6 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBackListener()
         setShareListener()
         setSupportListener()
         setAgreeListener()

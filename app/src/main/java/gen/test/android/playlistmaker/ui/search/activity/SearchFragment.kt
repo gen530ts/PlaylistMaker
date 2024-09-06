@@ -1,6 +1,5 @@
 package gen.test.android.playlistmaker.ui.search.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,15 +13,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.FragmentSearchBinding
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import gen.test.android.playlistmaker.ui.player.activity.KEY_PLAYER_ACTIVITY
-import gen.test.android.playlistmaker.ui.player.activity.PlayerActivity
 import gen.test.android.playlistmaker.ui.search.view_model.SearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -107,9 +108,16 @@ class SearchFragment : Fragment() {
     }
 
     private fun startPlayerActivity(track: TrackSearch) {
-        val intent = Intent(requireContext(), PlayerActivity::class.java)
-        intent.putExtra(KEY_PLAYER_ACTIVITY, Gson().toJson(track))
-        startActivity(intent)
+
+
+        findNavController().navigate(
+            R.id.action_searchFragment_to_playerActivity,
+            bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track)))
+
+
+        /*val intent = Intent(requireContext(), PlayerActivity::class.java)
+        intent.putExtra(, Gson().toJson(track))
+        startActivity(intent)*/
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -163,8 +171,9 @@ class SearchFragment : Fragment() {
             }
             false
         }
-        val imageBack = binding.backImageView//findViewById<ImageView>(R.id.backImageView)
-        imageBack.setOnClickListener { /*findNavController().navigate(R.id.action_searchFragment_to_mediaFragment)*/ }
+       // val imageBack = binding.backImageView//findViewById<ImageView>(R.id.backImageView)
+        //imageBack.setOnClickListener { findNavController().navigate(R.id
+        //.action_searchFragment_to_mediaFragment) }
         clear.visibility = GONE
         clear.setOnClickListener {
             searchEdit.text?.clear()

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.player.activity.PlayerActivity"
+
     tools:ignore="ContentDescription">
 
     <androidx.constraintlayout.widget.Guideline
@@ -217,3 +217,5 @@
         app:layout_constraintEnd_toStartOf="@id/rightBtmBorder"
         tools:text="Англия" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--tools:context=".ui.player.activity.PlayerActivity"-->

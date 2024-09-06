@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/dim16"
             android:layout_marginStart="@dimen/dim16"
+            android:visibility="gone"
             app:srcCompat="@drawable/back_icon_search" />
 
         <TextView

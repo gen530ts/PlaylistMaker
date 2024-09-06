@@ -19,7 +19,7 @@
             android:layout_width="@dimen/dim48"
             android:layout_height="@dimen/dim48"
             android:contentDescription="@string/back"
-
+            android:visibility="gone"
             android:padding="@dimen/dim12"
             app:srcCompat="@drawable/back" />
 

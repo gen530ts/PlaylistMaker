@@ -16,14 +16,7 @@
         android:paddingHorizontal="@dimen/dim4"
         android:paddingVertical="@dimen/dim4">
 
-        <ImageView
-            android:id="@+id/backImageView"
-            android:layout_width="@dimen/dim48"
-            android:layout_height="@dimen/dim48"
-            android:contentDescription="@string/back"
 
-            android:padding="@dimen/dim12"
-            app:srcCompat="@drawable/back" />
 
         <Space
             android:layout_width="wrap_content"

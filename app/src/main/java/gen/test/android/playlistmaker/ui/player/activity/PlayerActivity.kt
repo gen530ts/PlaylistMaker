@@ -1,5 +1,6 @@
 package gen.test.android.playlistmaker.ui.player.activity
 
+//import androidx.navigation.Navigation.findNavController
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -27,7 +28,14 @@ class PlayerActivity : AppCompatActivity() {
     private fun setBackListener() {
         val back = findViewById<ImageButton>(R.id.backButton)
         back.setOnClickListener {
-            finish()
+            this.onBackPressedDispatcher.onBackPressed()
+            //finish()
+           // findNavController(RootActivity(),R.id.nav_graph).navigateUp()
+            /*val navHostFragment = RootActivity().supportFragmentManager.findFragmentById(R.id
+                .rootFragmentContainerView) as NavHostFragment
+            val navController = navHostFragment.navController
+            navController.navigateUp()*/
+            //val navController
         }
     }
 

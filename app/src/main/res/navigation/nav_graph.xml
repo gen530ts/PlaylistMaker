@@ -17,12 +17,20 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
 
+        <action
+            android:id="@+id/action_searchFragment_to_playerActivity"
+            app:destination="@id/playerActivity" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="gen.test.android.playlistmaker.ui.settings.activity.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <activity
+        android:id="@+id/playerActivity"
+        android:name="gen.test.android.playlistmaker.ui.player.activity.PlayerActivity"
+        android:label="fragment_fav_tracks"
+        tools:layout="@layout/activity_player" />
 </navigation>
 
 <!--<action
