@@ -36,7 +36,6 @@ val dataModule = module {
 
     factory { MediaPlayer() }
 
-//    factory { androidApplication() }
 
     single<HistoryManager>{
         HistoryManagerImpl(get(), get())

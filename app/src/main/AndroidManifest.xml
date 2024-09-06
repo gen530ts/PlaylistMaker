@@ -36,32 +36,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".ui.media.activity.MediaActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.search.activity.SearchActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.settings.activity.SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.activity.MainActivity"
-            android:exported="false">
 
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
     </application>
 
 </manifest>

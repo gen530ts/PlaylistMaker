@@ -17,13 +17,5 @@ class RootActivity : AppCompatActivity() {
                     as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
-        /*if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                this.add(
-                    R.id.rootFragmentContainerView,
-                    MediaFragment()
-                )
-            }
-        }*/
     }
 }

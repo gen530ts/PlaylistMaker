@@ -27,7 +27,7 @@ class MediaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setBackListener()
+
         binding.viewPager.adapter = MediaViewPagerAdapter(childFragmentManager,
             lifecycle)
 
@@ -46,14 +46,4 @@ class MediaFragment : Fragment() {
     }
 }
 
-/*lifecycle
-parentFragmentManager.commit {
-    replace(
-// Указали, в каком контейнере работаем
-        R.id.rootFragmentContainerView,
-// Создали фрагмент
-        SettingsFragment(),
-// Указали тег фрагмента
-        "tag"
-    )
-}*/
+

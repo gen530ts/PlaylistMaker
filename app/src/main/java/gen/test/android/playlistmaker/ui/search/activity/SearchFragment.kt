@@ -51,12 +51,12 @@ class SearchFragment : Fragment() {
         manager = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as
                 InputMethodManager
 
-        val recycler = binding.tracksList//findViewById<RecyclerView>(R.id.tracksList)
+        val recycler = binding.tracksList
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
         recycler.adapter = adapter
 
-        val recyclerHistory = binding.historySearchList//findViewById<RecyclerView>(R.id.historySearchList)
+        val recyclerHistory = binding.historySearchList
         recyclerHistory.layoutManager = LinearLayoutManager(requireContext())
 
         recyclerHistory.adapter = adapterHistory
@@ -114,10 +114,6 @@ class SearchFragment : Fragment() {
             R.id.action_searchFragment_to_playerActivity,
             bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track)))
 
-
-        /*val intent = Intent(requireContext(), PlayerActivity::class.java)
-        intent.putExtra(, Gson().toJson(track))
-        startActivity(intent)*/
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -156,13 +152,13 @@ class SearchFragment : Fragment() {
     }
 
     private fun setListeners() {
-        val clear = binding.clearImageView//findViewById<ImageView>(R.id.clearImageView)
-        searchEdit = binding.searchEditText//findViewById(R.id.searchEditText)
-        notFoundLL = binding.notFoundLL//findViewById(R.id.notFoundLL)
-        comProblemLL = binding.comProblemLL//findViewById(R.id.comProblemLL)
-        tracksListLL = binding.tracksListLL//findViewById(R.id.tracksListLL)
-        updateRequestBtn = binding.updateRequestBtn//findViewById(R.id.updateRequestBtn)
-        progressSearchLL = binding.progressLL//findViewById(R.id.progressLL)
+        val clear = binding.clearImageView
+        searchEdit = binding.searchEditText
+        notFoundLL = binding.notFoundLL
+        comProblemLL = binding.comProblemLL
+        tracksListLL = binding.tracksListLL
+        updateRequestBtn = binding.updateRequestBtn
+        progressSearchLL = binding.progressLL
         updateRequestBtn.setOnClickListener { search() }
         searchEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -171,9 +167,9 @@ class SearchFragment : Fragment() {
             }
             false
         }
-       // val imageBack = binding.backImageView//findViewById<ImageView>(R.id.backImageView)
-        //imageBack.setOnClickListener { findNavController().navigate(R.id
-        //.action_searchFragment_to_mediaFragment) }
+
+
+
         clear.visibility = GONE
         clear.setOnClickListener {
             searchEdit.text?.clear()
@@ -197,8 +193,8 @@ class SearchFragment : Fragment() {
                 viewHistory()
         }
 
-        historySearchLL = binding.historySearchLL//findViewById(R.id.historySearchLL)
-        clearHistoryBtn = binding.clearHistoryBtn//findViewById(R.id.clearHistoryBtn)
+        historySearchLL = binding.historySearchLL
+        clearHistoryBtn = binding.clearHistoryBtn
         clearHistoryBtn.setOnClickListener {
             viewModel.historyClear()
 

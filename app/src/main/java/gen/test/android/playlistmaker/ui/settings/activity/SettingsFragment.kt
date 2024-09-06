@@ -16,15 +16,15 @@ class SettingsFragment : Fragment() {
 
 
     private fun setShareListener() {
-        val share = binding.shareImageView//findViewById<TextView>(R.id.shareTextView)
+        val share = binding.shareImageView
         share.setOnClickListener {settingsViewModel.sharingApp() }
     }
     private fun setSupportListener() {
-        val support = binding.supportImageView//findViewById<TextView>(R.id.supportTextView)
+        val support = binding.supportImageView
         support.setOnClickListener {settingsViewModel.openSupport() }
     }
     private fun setAgreeListener() {
-        val agree = binding.agreeImageView//findViewById<TextView>(R.id.agreeTextView)
+        val agree = binding.agreeImageView
         agree.setOnClickListener {settingsViewModel.openTerms() }
     }
 
@@ -33,7 +33,7 @@ class SettingsFragment : Fragment() {
 
 
     private fun setDarkListener() {
-        val themeSwitcher = binding.themeSwitcher//findViewById<SwitchMaterial>(R.id.themeSwitcher)
+        val themeSwitcher = binding.themeSwitcher
         settingsViewModel.getThemeLiveData().observe(viewLifecycleOwner) {
 
             themeSwitcher.isChecked =  it.isDark
