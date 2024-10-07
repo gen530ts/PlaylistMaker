@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/colorPrimary">
+    android:background="?attr/colorPrimary"
+    tools:context=".ui.settings.activity.SettingsFragment">
 
 
     <LinearLayout
@@ -17,14 +16,7 @@
         android:paddingHorizontal="@dimen/dim4"
         android:paddingVertical="@dimen/dim4">
 
-        <ImageView
-            android:id="@+id/backImageView"
-            android:layout_width="@dimen/dim48"
-            android:layout_height="@dimen/dim48"
-            android:contentDescription="@string/back"
-            android:visibility="gone"
-            android:padding="@dimen/dim12"
-            app:srcCompat="@drawable/back" />
+
 
         <Space
             android:layout_width="wrap_content"

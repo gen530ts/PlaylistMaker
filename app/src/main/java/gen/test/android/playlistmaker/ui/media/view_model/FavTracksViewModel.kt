@@ -7,7 +7,7 @@ import gen.test.android.playlistmaker.utils.ScreenState
 
 class FavTracksViewModel : ViewModel() {
     private val liveData = MutableLiveData<ScreenState<Int>>(ScreenState.Warning)
-        //Success(8))
+
 
     fun observeData(): LiveData<ScreenState<Int>> = liveData
 }

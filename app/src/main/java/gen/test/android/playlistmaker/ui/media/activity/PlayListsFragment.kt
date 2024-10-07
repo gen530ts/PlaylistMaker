@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import gen.test.android.playlistmaker.utils.ScreenState
 import gen.test.android.playlistmaker.databinding.FragmentPlayListsBinding
 import gen.test.android.playlistmaker.ui.media.view_model.PlayListsViewModel
+import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayListsFragment : Fragment() {
@@ -44,8 +44,6 @@ class PlayListsFragment : Fragment() {
             playListsBt.isVisible = false
             playListsIV.isVisible = false
             playListsTV.text = it.data
-            /*favTracksTV.text=it.toString()
-            favTracksIV.isVisible = false*/
         }
     }
 
@@ -55,5 +53,4 @@ class PlayListsFragment : Fragment() {
             playListsIV.isVisible = true
         }
     }
-
 }

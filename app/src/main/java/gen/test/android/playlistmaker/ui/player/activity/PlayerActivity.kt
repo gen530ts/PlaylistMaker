@@ -1,5 +1,6 @@
 package gen.test.android.playlistmaker.ui.player.activity
 
+
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -27,7 +28,7 @@ class PlayerActivity : AppCompatActivity() {
     private fun setBackListener() {
         val back = findViewById<ImageButton>(R.id.backButton)
         back.setOnClickListener {
-            finish()
+            this.onBackPressedDispatcher.onBackPressed()
         }
     }
 
