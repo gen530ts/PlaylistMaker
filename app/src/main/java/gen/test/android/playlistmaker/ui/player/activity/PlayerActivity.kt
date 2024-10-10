@@ -37,7 +37,6 @@ class PlayerActivity : AppCompatActivity() {
         val bundle = intent.extras
         val json = bundle!!.getString(KEY_PLAYER_ACTIVITY)
         playBtn = findViewById(R.id.playIB)
-       
         timePlayTV = findViewById(R.id.timePlayTV)
 
 
@@ -107,9 +106,7 @@ class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        
-
-            setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
+        setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
         setBackListener()
     }
 
@@ -120,7 +117,7 @@ class PlayerActivity : AppCompatActivity() {
 
    override fun onDestroy() {
         super.onDestroy()
-       viewModel.handler.removeCallbacks(viewModel.updateUIRunnable)
+/*       viewModel.handler.removeCallbacks(viewModel.updateUIRunnable)*/
        
 
     }
