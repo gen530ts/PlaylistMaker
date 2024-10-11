@@ -6,17 +6,19 @@ import gen.test.android.playlistmaker.data.search.model.TrackSearchRequest
 import gen.test.android.playlistmaker.data.search.model.TrackSearchResponse
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import gen.test.android.playlistmaker.utils.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
-    override fun searchTrack(expression: String): Resource<List<TrackSearch>> {
+    override fun searchTrack(expression: String): Flow<Resource<List<TrackSearch>>> = flow  {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
-        return when (response.resultCode) {
+        when (response.resultCode) {
             200 -> {
 
                 if ((response as TrackSearchResponse).results.isEmpty()) {
-                    Resource.NotFound()
+                   emit(Resource.NotFound())
                 } else {
-                    Resource.Success(
+                    emit(Resource.Success(
                         response.results.map
                         {
                             TrackSearch(
@@ -32,13 +34,45 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                                 it.previewUrl
                             )
                         }
-                    )
+                    ))
                 }
             }
             else -> {
-                Resource.ComProblem()
+                emit(Resource.ComProblem())
             }
         }
     }
 
 }
+
+/*val response = networkClient.doRequest(TrackSearchRequest(expression))
+return when (response.resultCode) {
+    200 -> {
+
+        if ((response as TrackSearchResponse).results.isEmpty()) {
+            Resource.NotFound()
+        } else {
+            Resource.Success(
+                response.results.map
+                {
+                    TrackSearch(
+                        it.trackName,
+                        it.artistName,
+                        it.trackTimeMillis,
+                        it.artworkUrl100,
+                        it.trackId,
+                        it.collectionName,
+                        it.releaseDate,
+                        it.primaryGenreName,
+                        it.country,
+                        it.previewUrl
+                    )
+                }
+            )
+        }
+    }
+    else -> {
+        Resource.ComProblem()
+    }
+}*/
+
