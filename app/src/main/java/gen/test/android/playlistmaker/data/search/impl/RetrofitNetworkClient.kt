@@ -32,13 +32,7 @@ class RetrofitNetworkClient(private val context: Context,private val musicServic
                 Response().apply { resultCode = 500 }
             }
         }
-        /*val response = musicService.search(dto.expression).execute()
-        val body = response.body()
-        return body?.apply{
-            resultCode = response.code()
-        } ?: Response().apply{
-                resultCode = response.code()
-            }*/
+
     }
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

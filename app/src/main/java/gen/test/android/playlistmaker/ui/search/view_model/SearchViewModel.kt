@@ -41,10 +41,7 @@ class SearchViewModel(
         this.searchTxt = str
         if (str.length > 2) {
 
-/*            handler.postDelayed(
-                searchRunnable,
-                SEARCH_DEBOUNCE_DELAY
-            )*/
+
             searchJob = viewModelScope.launch {
                 delay(SEARCH_DEBOUNCE_DELAY)
                 search(searchTxt)
@@ -91,31 +88,6 @@ class SearchViewModel(
         searchJob?.cancel()
     }
 }
-//processResult(pair.first, pair.second)
-/*interactorSearch.searchTrack(str, object : TrackSearchInteractor.TrackSearchConsumer {
-    override fun consume(foundTracks: ArrayList<TrackSearch>?, isError: Boolean) {
-        if(isError){
-            renderState(SearchTrackState.Error)
-            return
-        }
-        if (foundTracks != null) {
-            when {
-                foundTracks.isEmpty() -> renderState(SearchTrackState.Empty)
-                foundTracks.isNotEmpty() -> {
-                    val tracks = ArrayList<TrackSearch>()
-                    tracks.addAll(foundTracks)
-                    renderState(SearchTrackState.Content(movies = tracks))
-                }
-            }
-        }
-    }
-})*/
 
-/*else if ((pair.first != null) && (pair.first!!.isEmpty())) {
-    renderState(SearchTrackState.Empty)
-} else {
-    val tracks = ArrayList<TrackSearch>()
-    tracks.addAll(pair.first!!)
-    renderState(SearchTrackState.Content(movies = tracks))
-}*/
+
 

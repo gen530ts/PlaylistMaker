@@ -65,19 +65,7 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
         playerInteractor.release()
     }
 
-    /*val handler = Handler(Looper.getMainLooper())
-    val updateUIRunnable = object : Runnable {
-        override fun run() {
-            
-            modUI.value = ModifyUI.TimePlayTV(
-                Utils.millisToMmSs(
-                    playerInteractor
-                        .getCurrentPosition()
-                )
-            )
-            handler.postDelayed(this, UPDATE_UI)
-        }
-    }*/
+
 
     fun preparePlayer(src: String) {
         if (isStart) {

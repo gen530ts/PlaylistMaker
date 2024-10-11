@@ -8,8 +8,3 @@ interface TrackSearchInteractor {
 
 }
 
-/*
-interface TrackSearchConsumer
-{
-    fun consume(foundTracks: ArrayList<TrackSearch>?, isError: Boolean)
-}*/

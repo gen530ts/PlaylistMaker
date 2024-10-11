@@ -95,21 +95,7 @@ class SearchFragment : Fragment() {
 
     private val viewModel by viewModel<SearchViewModel>()
 
-    /*override fun onDestroy() {
-        super.onDestroy()
 
-        handler.removeCallbacks(debounceRunnable)
-    }*/
-
-
-    /*private fun clickDebounce(): Boolean {
-        val current = isClickAllowed
-        if (isClickAllowed) {
-            isClickAllowed = false
-            handler.postDelayed(debounceRunnable, CLICK_DEBOUNCE_DELAY)
-        }
-        return current
-    }*/
     private fun clickDebounce(): Boolean {
         val current = isClickAllowed
         if (isClickAllowed) {

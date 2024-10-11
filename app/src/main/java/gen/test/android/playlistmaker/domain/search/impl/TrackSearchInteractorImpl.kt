@@ -26,18 +26,7 @@ class TrackSearchInteractorImpl(private val repository: SearchRepository) : Trac
 
 
 
-// private val executor = Executors.newCachedThreadPool()
-/*executor.execute{
-    when(val resource = repository.searchTrack(expression))
-    {
-        is Resource.Success -> {
-            consumer.consume(resource.data as ArrayList<TrackSearch>, false)
-        }
-        is Resource.NotFound -> {
-            consumer.consume(ArrayList(), false)
-        }
-        else -> {consumer.consume(null, true)}
-    }
-}*/
+
+
 
 

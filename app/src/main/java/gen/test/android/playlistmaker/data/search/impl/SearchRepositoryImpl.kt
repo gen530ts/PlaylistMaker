@@ -45,34 +45,4 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
 
 }
 
-/*val response = networkClient.doRequest(TrackSearchRequest(expression))
-return when (response.resultCode) {
-    200 -> {
-
-        if ((response as TrackSearchResponse).results.isEmpty()) {
-            Resource.NotFound()
-        } else {
-            Resource.Success(
-                response.results.map
-                {
-                    TrackSearch(
-                        it.trackName,
-                        it.artistName,
-                        it.trackTimeMillis,
-                        it.artworkUrl100,
-                        it.trackId,
-                        it.collectionName,
-                        it.releaseDate,
-                        it.primaryGenreName,
-                        it.country,
-                        it.previewUrl
-                    )
-                }
-            )
-        }
-    }
-    else -> {
-        Resource.ComProblem()
-    }
-}*/
 

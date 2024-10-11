@@ -115,10 +115,5 @@ class PlayerActivity : AppCompatActivity() {
         viewModel.pausePlayer()
     }
 
-   override fun onDestroy() {
-        super.onDestroy()
-/*       viewModel.handler.removeCallbacks(viewModel.updateUIRunnable)*/
-       
 
-    }
 }
