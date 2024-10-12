@@ -1,5 +1,6 @@
 package gen.test.android.playlistmaker.data.search.impl
 
+import android.util.Log
 import gen.test.android.playlistmaker.data.search.NetworkClient
 import gen.test.android.playlistmaker.data.search.SearchRepository
 import gen.test.android.playlistmaker.data.search.model.TrackSearchRequest
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.flow
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
     override fun searchTrack(expression: String): Flow<Resource<List<TrackSearch>>> = flow  {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
+        Log.d("mytag","SearchRepositoryImpl.response.resultCode=${response.resultCode}")
         when (response.resultCode) {
             200 -> {
 

@@ -28,6 +28,7 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
     fun getModUI(): LiveData<ModifyUI> = modUI
     private var isStart=true
     private fun startTimer() {
+        timerJob?.cancel()
         timerJob = viewModelScope.launch{
             while (true)
             {
@@ -101,7 +102,6 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
         playerInteractor.pause {
             
             modUI.value = ModifyUI.PlayBtnImagePlay(true)
-            //handler.removeCallbacks(updateUIRunnable)
             timerJob?.cancel()
         }
     }

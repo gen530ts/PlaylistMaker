@@ -183,7 +183,7 @@ class SearchFragment : Fragment() {
                         .windowToken, 0
                 )
             } catch (e: Exception) {
-                Log.d("mytag", e.toString())
+                Log.d("mytag", "hideSoftInput: $e")
             }
 
         }
