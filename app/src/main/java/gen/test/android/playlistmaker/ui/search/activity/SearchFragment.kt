@@ -1,8 +1,8 @@
 package gen.test.android.playlistmaker.ui.search.activity
 
+//import android.os.Handler
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -25,6 +26,8 @@ import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import gen.test.android.playlistmaker.ui.player.activity.KEY_PLAYER_ACTIVITY
 import gen.test.android.playlistmaker.ui.search.view_model.SearchViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -38,8 +41,10 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSearchBinding.inflate(inflater,
-            container, false)
+        binding = FragmentSearchBinding.inflate(
+            inflater,
+            container, false
+        )
         return binding.root
     }
 
@@ -67,9 +72,9 @@ class SearchFragment : Fragment() {
 
 
     private var isClickAllowed = true
-    private val handler = Handler(Looper.getMainLooper())
+    //private val handler = Handler(Looper.getMainLooper())
 
-    private val debounceRunnable = Runnable { isClickAllowed = true }
+    //private val debounceRunnable = Runnable { isClickAllowed = true }
 
     private lateinit var searchEdit: EditText
     private lateinit var comProblemLL: LinearLayout
@@ -86,23 +91,19 @@ class SearchFragment : Fragment() {
         }
     }
     private val adapterHistory = TrackSearchAdapter { startPlayerActivity(it) }
-    private lateinit var manager: InputMethodManager
+    private var manager: InputMethodManager? = null
 
     private val viewModel by viewModel<SearchViewModel>()
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        handler.removeCallbacks(debounceRunnable)
-    }
-
 
 
     private fun clickDebounce(): Boolean {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed(debounceRunnable, CLICK_DEBOUNCE_DELAY)
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
         }
         return current
     }
@@ -112,7 +113,8 @@ class SearchFragment : Fragment() {
 
         findNavController().navigate(
             R.id.action_searchFragment_to_playerActivity,
-            bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track)))
+            bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track))
+        )
 
     }
 
@@ -125,7 +127,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun search() {
-        manager.hideSoftInputFromWindow(requireActivity().window.currentFocus!!.windowToken, 0)
+        manager?.hideSoftInputFromWindow(requireActivity().window.currentFocus!!.windowToken, 0)
         viewModel.search(searchEdit.text.toString())
     }
 
@@ -175,18 +177,27 @@ class SearchFragment : Fragment() {
             searchEdit.text?.clear()
             adapter.clearItems()
             adapter.notifyDataSetChanged()
+            try {
+                manager?.hideSoftInputFromWindow(
+                    requireActivity().window.currentFocus!!
+                        .windowToken, 0
+                )
+            } catch (e: Exception) {
+                Log.d("mytag", "hideSoftInput: $e")
+            }
 
-            manager.hideSoftInputFromWindow(requireActivity().window.currentFocus!!.windowToken, 0)
         }
 
         searchEdit.addTextChangedListener(
-            onTextChanged = { charSequence,_,_,_-> clear.visibility = clearButtonVisibility(charSequence)
+            onTextChanged = { charSequence, _, _, _ ->
+                clear.visibility = clearButtonVisibility(charSequence)
 
                 if (searchEdit.hasFocus() && (charSequence?.isEmpty() == true)) {
                     viewHistory()
                 }
 
-                viewModel.searchDebounce(charSequence?.toString() ?: "")}
+                viewModel.searchDebounce(charSequence?.toString() ?: "")
+            }
         )
         searchEdit.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && (searchEdit.text.isEmpty()))
@@ -230,6 +241,7 @@ class SearchFragment : Fragment() {
         adapter.setItems(movies)
         adapter.notifyDataSetChanged()
     }
+
     private fun showHistory(movies: Collection<TrackSearch>) {
         goneAll(historySearchLL)
         adapterHistory.clearItems()

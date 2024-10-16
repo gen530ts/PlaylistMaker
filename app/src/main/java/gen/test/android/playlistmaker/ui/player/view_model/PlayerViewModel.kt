@@ -1,16 +1,18 @@
 package gen.test.android.playlistmaker.ui.player.view_model
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import gen.test.android.playlistmaker.Utils
 import gen.test.android.playlistmaker.domain.player.GetTrackUseCase
 import gen.test.android.playlistmaker.domain.player.PlayerInteractor
 import gen.test.android.playlistmaker.domain.player.models.PlayerState
 import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.model.TrackUI
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 private const val UPDATE_UI = 300L
 
@@ -18,14 +20,29 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
     ViewModel() {
 
 
-
+    private var timerJob: Job? = null
     private val trackLD = MutableLiveData<TrackUI>()
     fun getTrackLD(): LiveData<TrackUI> = trackLD
 
     private val modUI = MutableLiveData<ModifyUI>()
     fun getModUI(): LiveData<ModifyUI> = modUI
-
     private var isStart=true
+    private fun startTimer() {
+        timerJob?.cancel()
+        timerJob = viewModelScope.launch{
+            while (true)
+            {
+                delay(UPDATE_UI)
+                modUI.value = ModifyUI.TimePlayTV(
+                    Utils.millisToMmSs(
+                        playerInteractor
+                            .getCurrentPosition()
+                    )
+                )
+            }
+        }
+    }
+
 
 
     fun prepare(json: String) {
@@ -49,19 +66,7 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
         playerInteractor.release()
     }
 
-    val handler = Handler(Looper.getMainLooper())
-    val updateUIRunnable = object : Runnable {
-        override fun run() {
-            
-            modUI.value = ModifyUI.TimePlayTV(
-                Utils.millisToMmSs(
-                    playerInteractor
-                        .getCurrentPosition()
-                )
-            )
-            handler.postDelayed(this, UPDATE_UI)
-        }
-    }
+
 
     fun preparePlayer(src: String) {
         if (isStart) {
@@ -69,9 +74,8 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
             playerInteractor.preparePlayer(src, { modUI.value = ModifyUI.PlayBtn(true) }, {
                 
                 modUI.value = ModifyUI.PlayBtnImagePlay(true)
-                handler.removeCallbacks(updateUIRunnable)
-                
-                
+               // handler.removeCallbacks(updateUIRunnable)
+                timerJob?.cancel()
                 modUI.value = ModifyUI.TimePlayTV("0:00")
             })
             isStart=false
@@ -89,7 +93,8 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
         playerInteractor.play {
             
             modUI.value = ModifyUI.PlayBtnImagePlay(false)
-            handler.post(updateUIRunnable)
+            //handler.post(updateUIRunnable)
+            startTimer()
         }
     }
 
@@ -97,7 +102,7 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor,private val
         playerInteractor.pause {
             
             modUI.value = ModifyUI.PlayBtnImagePlay(true)
-            handler.removeCallbacks(updateUIRunnable)
+            timerJob?.cancel()
         }
     }
 

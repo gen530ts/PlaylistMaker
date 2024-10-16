@@ -4,25 +4,29 @@ import gen.test.android.playlistmaker.data.search.SearchRepository
 import gen.test.android.playlistmaker.domain.search.TrackSearchInteractor
 import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import gen.test.android.playlistmaker.utils.Resource
-import java.util.concurrent.Executors
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class TrackSearchInteractorImpl(private val repository: SearchRepository) :
-    TrackSearchInteractor {
-    private val executor = Executors.newCachedThreadPool()
-    override fun searchTrack(expression: String, consumer: TrackSearchInteractor.TrackSearchConsumer) {
-        executor.execute{
-            when(val resource = repository.searchTrack(expression))
-            {
+class TrackSearchInteractorImpl(private val repository: SearchRepository) : TrackSearchInteractor {
+
+    override fun searchTrack(expression: String): Flow<Pair<List<TrackSearch>?, Boolean>> {
+        return repository.searchTrack(expression).map { result ->
+            when (result) {
                 is Resource.Success -> {
-                    consumer.consume(resource.data as ArrayList<TrackSearch>, false)
+                    Pair(result.data, false)
                 }
                 is Resource.NotFound -> {
-                    consumer.consume(ArrayList(), false)
+                    Pair(ArrayList(), false)
                 }
-                else -> {consumer.consume(null, true)}
+                else -> {Pair(null, true)}
             }
         }
     }
 }
+
+
+
+
+
 
 
