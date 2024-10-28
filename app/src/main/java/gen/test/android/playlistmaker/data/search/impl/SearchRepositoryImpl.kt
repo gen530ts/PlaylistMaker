@@ -1,6 +1,5 @@
 package gen.test.android.playlistmaker.data.search.impl
 
-import android.util.Log
 import gen.test.android.playlistmaker.data.db.TrackDatabase
 import gen.test.android.playlistmaker.data.search.NetworkClient
 import gen.test.android.playlistmaker.data.search.SearchRepository
@@ -17,7 +16,6 @@ class SearchRepositoryImpl(
     ) : SearchRepository {
     override fun searchTrack(expression: String): Flow<Resource<List<Track>>> = flow  {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
-        Log.d("mytag","SearchRepositoryImpl.response.resultCode=${response.resultCode}")
         when (response.resultCode) {
             200 -> {
 
@@ -39,7 +37,6 @@ class SearchRepositoryImpl(
                                 it.primaryGenreName,
                                 it.country,
                                 it.previewUrl,
-                                //if(it.trackId.)
                                 isFavorite = listFavorites.contains(it.trackId)
                             )
                         }

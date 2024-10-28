@@ -23,8 +23,6 @@ class FavTracksViewModel(
                     liveData.postValue(ScreenState.Warning)
                 } else {
                     val temp = it.map { track -> track.copy(isFavorite = true) }.reversed()
-                    //temp=temp.
-                    // sortedByDescending { tr -> tr.isFavorite}.sortedByDescending { tr -> tr. })
                     liveData.postValue(ScreenState.Success(temp))
                 }
             }

@@ -19,13 +19,7 @@ class SearchViewModel(
     interactorSearch: TrackSearchInteractor
 ) : ViewModel() {
 
-    //private val searchRunnable = Runnable { search(searchTxt) }
-
-
     private var searchTxt = ""
-
-
-    //private val handler = Handler(Looper.getMainLooper())
     private val stateLiveData = MutableLiveData<SearchTrackState>()
     fun observeState(): LiveData<SearchTrackState> = stateLiveData
     private fun renderState(state: SearchTrackState) {
@@ -36,7 +30,6 @@ class SearchViewModel(
 
     fun searchDebounce(str: String) {
         if (str == this.searchTxt) return
-        //handler.removeCallbacks(searchRunnable)
         searchJob?.cancel()
         this.searchTxt = str
         if (str.length > 2) {
@@ -80,7 +73,6 @@ class SearchViewModel(
            val lHistory= interactorHistory.read()
             renderState(SearchTrackState.History(lHistory))
         }
-        //return interactorHistory.read()
     }
 
     fun historyClear() {
@@ -89,7 +81,6 @@ class SearchViewModel(
     }
 
     override fun onCleared() {
-        // handler.removeCallbacks(searchRunnable)
         searchJob?.cancel()
     }
 }
