@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.FragmentSearchBinding
+import gen.test.android.playlistmaker.domain.models.Track
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
-import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import gen.test.android.playlistmaker.ui.player.activity.KEY_PLAYER_ACTIVITY
 import gen.test.android.playlistmaker.ui.search.view_model.SearchViewModel
 import kotlinx.coroutines.delay
@@ -108,7 +108,7 @@ class SearchFragment : Fragment() {
         return current
     }
 
-    private fun startPlayerActivity(track: TrackSearch) {
+    private fun startPlayerActivity(track: Track) {
 
 
         findNavController().navigate(
@@ -142,7 +142,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun viewHistory() {
+    /*private fun viewHistory() {
         val lArr = viewModel.historyRead()
 
         if (lArr.isNotEmpty()) {
@@ -151,7 +151,7 @@ class SearchFragment : Fragment() {
             adapterHistory.notifyDataSetChanged()
             goneAll(historySearchLL)
         }
-    }
+    }*/
 
     private fun setListeners() {
         val clear = binding.clearImageView
@@ -193,7 +193,8 @@ class SearchFragment : Fragment() {
                 clear.visibility = clearButtonVisibility(charSequence)
 
                 if (searchEdit.hasFocus() && (charSequence?.isEmpty() == true)) {
-                    viewHistory()
+                    //viewHistory()
+                    viewModel.historyRead()
                 }
 
                 viewModel.searchDebounce(charSequence?.toString() ?: "")
@@ -201,7 +202,8 @@ class SearchFragment : Fragment() {
         )
         searchEdit.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && (searchEdit.text.isEmpty()))
-                viewHistory()
+                //viewHistory()
+        viewModel.historyRead()
         }
 
         historySearchLL = binding.historySearchLL
@@ -209,7 +211,7 @@ class SearchFragment : Fragment() {
         clearHistoryBtn.setOnClickListener {
             viewModel.historyClear()
 
-            historySearchLL.visibility = GONE
+
         }
     }
 
@@ -235,17 +237,22 @@ class SearchFragment : Fragment() {
         goneAll(notFoundLL)
     }
 
-    private fun showContent(movies: ArrayList<TrackSearch>) {
+    private fun showContent(movies: ArrayList<Track>) {
         goneAll(tracksListLL)
         adapter.clearItems()
         adapter.setItems(movies)
         adapter.notifyDataSetChanged()
     }
 
-    private fun showHistory(movies: Collection<TrackSearch>) {
+    private fun showHistory(movies: Collection<Track>) {
         goneAll(historySearchLL)
-        adapterHistory.clearItems()
-        adapterHistory.setItems(movies as ArrayList<TrackSearch>)
-        adapterHistory.notifyDataSetChanged()
+        if(movies.isNotEmpty()){
+            adapterHistory.clearItems()
+            adapterHistory.setItems(movies as ArrayList<Track>)
+            adapterHistory.notifyDataSetChanged()
+        }else historySearchLL.visibility = GONE
+
+        //
+
     }
 }

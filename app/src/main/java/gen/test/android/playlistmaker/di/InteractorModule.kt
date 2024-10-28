@@ -1,5 +1,7 @@
 package gen.test.android.playlistmaker.di
 
+import gen.test.android.playlistmaker.domain.db.FavoriteInteractor
+import gen.test.android.playlistmaker.domain.db.impl.FavoriteInteractorImpl
 import gen.test.android.playlistmaker.domain.player.GetTrackUseCase
 import gen.test.android.playlistmaker.domain.player.PlayerInteractor
 import gen.test.android.playlistmaker.domain.player.impl.GetTrackUseCaseImpl
@@ -38,5 +40,9 @@ val interactorModule = module {
 
     single<SharingInteractor>{
         SharingInteractorImpl(get(),get())
+    }
+
+    single<FavoriteInteractor> {
+        FavoriteInteractorImpl(get())
     }
 }

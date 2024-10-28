@@ -50,25 +50,27 @@ class PlayerActivity : AppCompatActivity() {
         val genreTv = findViewById<TextView>(R.id.genreTv)
         val countryTv = findViewById<TextView>(R.id.countryTv)
         val iv = findViewById<ImageView>(R.id.playerIV)
+        val ibFavorite = findViewById<ImageButton>(R.id.favoriteIB)
+        ibFavorite.setOnClickListener { viewModel.onFavoriteClicked() }
 
         viewModel.getTrackLD().observe(this) {
             if (it.previewUrl != null) {
-               viewModel.preparePlayer(it.previewUrl)
+                viewModel.preparePlayer(it.previewUrl)
                 playBtn.setOnClickListener { viewModel.playbackControl() }
             }
             trackTV.text = it.trackName
             artistTV.text = it.artistName
-            
+
             timeTv.text = Utils.millisToMmSs(it.trackTimeMillis)
             if (it.collectionName.isNullOrEmpty()) {
 
-                albumGr.isVisible=false
+                albumGr.isVisible = false
             } else {
                 albumTv.text = it.collectionName
             }
             if (it.releaseDate.isNullOrEmpty() || ((it.releaseDate.length) < 5)) {
 
-                yearGr.isVisible=false
+                yearGr.isVisible = false
             } else {
                 yearTv.text = it.releaseDate.substring(0, 4)
             }
@@ -84,9 +86,9 @@ class PlayerActivity : AppCompatActivity() {
         viewModel.getModUI().observe(this) {
             when (it) {
                 is ModifyUI.TimePlayTV -> {
-                    
+
                     timePlayTV.text = it.txt
-                
+
                 }
                 is ModifyUI.PlayBtn -> {
                     playBtn.isEnabled = it.isEn
@@ -97,6 +99,12 @@ class PlayerActivity : AppCompatActivity() {
                     else playBtn.setImageResource(R.drawable.pause_btn)
                 }
             }
+        }
+        viewModel.getFavorite().observe(this) {
+            ibFavorite.setImageResource(
+                if (it) R.drawable.is_favorite
+                else R.drawable.isnot_favorite
+            )
         }
         if (json != null) {
             viewModel.prepare(json)

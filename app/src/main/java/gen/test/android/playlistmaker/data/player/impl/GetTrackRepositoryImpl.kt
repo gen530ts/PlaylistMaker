@@ -2,8 +2,8 @@ package gen.test.android.playlistmaker.data.player.impl
 
 import com.google.gson.Gson
 import gen.test.android.playlistmaker.data.player.models.TrackDto
+import gen.test.android.playlistmaker.domain.models.Track
 import gen.test.android.playlistmaker.domain.player.GetTrackRepository
-import gen.test.android.playlistmaker.domain.player.models.Track
 
 class GetTrackRepositoryImpl : GetTrackRepository {
     override fun execute(json: String): Track {
@@ -18,7 +18,8 @@ class GetTrackRepositoryImpl : GetTrackRepository {
             releaseDate = trackDto.releaseDate,
             primaryGenreName = trackDto.primaryGenreName,
             country = trackDto.country,
-            previewUrl = trackDto.previewUrl
+            previewUrl = trackDto.previewUrl,
+            isFavorite = trackDto.isFavorite
         )
     }
 }
