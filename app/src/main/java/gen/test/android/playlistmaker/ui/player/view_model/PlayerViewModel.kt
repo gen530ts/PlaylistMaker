@@ -1,6 +1,5 @@
 package gen.test.android.playlistmaker.ui.player.view_model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,17 +55,11 @@ class PlayerViewModel(
         if (track != null) {
             viewModelScope.launch {
                 if (isFavorite.value == true) {
-                    Log.d("FavC", "track.isFavorite")
                     favoriteInteractor.delTrackFavorite(track)
                 } else {
-                    Log.d("FavC", "track.isNotFavorite")
                     favoriteInteractor.addTrackFavorite(track)
                 }
-
-                //(isFavorite.value).also { isFavorite.value = !it }
                 isFavorite.value = !isFavorite.value!!
-                // trackLD.value=track.copy(isFavorite =! track.isFavorite)
-                //isFavorite.value?.let { isFavorite.value = !it }
             }
         }
     }
@@ -78,19 +71,7 @@ class PlayerViewModel(
             isFavorite.value = trackLD.value!!.isFavorite
         }
 
-        /*val track = getTrack.execute(json)
-        trackLD.value = TrackUI(
-            track.trackName,
-            track.artistName,
-            track.trackTimeMillis,
-            track.artworkUrl100,
-            track.trackId,
-            track.collectionName,
-            track.releaseDate,
-            track.primaryGenreName,
-            track.country,
-            track.previewUrl
-        )*/
+
     }
 
     override fun onCleared() {
@@ -105,7 +86,6 @@ class PlayerViewModel(
             playerInteractor.preparePlayer(src, { modUI.value = ModifyUI.PlayBtn(true) }, {
 
                 modUI.value = ModifyUI.PlayBtnImagePlay(true)
-                // handler.removeCallbacks(updateUIRunnable)
                 timerJob?.cancel()
                 modUI.value = ModifyUI.TimePlayTV("0:00")
             })
@@ -124,7 +104,6 @@ class PlayerViewModel(
         playerInteractor.play {
 
             modUI.value = ModifyUI.PlayBtnImagePlay(false)
-            //handler.post(updateUIRunnable)
             startTimer()
         }
     }

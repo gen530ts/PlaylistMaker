@@ -1,6 +1,6 @@
 package gen.test.android.playlistmaker.ui.search.activity
 
-//import android.os.Handler
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -72,10 +72,6 @@ class SearchFragment : Fragment() {
 
 
     private var isClickAllowed = true
-    //private val handler = Handler(Looper.getMainLooper())
-
-    //private val debounceRunnable = Runnable { isClickAllowed = true }
-
     private lateinit var searchEdit: EditText
     private lateinit var comProblemLL: LinearLayout
     private lateinit var notFoundLL: LinearLayout
@@ -142,16 +138,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    /*private fun viewHistory() {
-        val lArr = viewModel.historyRead()
-
-        if (lArr.isNotEmpty()) {
-            adapterHistory.clearItems()
-            adapterHistory.setItems(lArr)
-            adapterHistory.notifyDataSetChanged()
-            goneAll(historySearchLL)
-        }
-    }*/
 
     private fun setListeners() {
         val clear = binding.clearImageView
@@ -202,7 +188,6 @@ class SearchFragment : Fragment() {
         )
         searchEdit.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && (searchEdit.text.isEmpty()))
-                //viewHistory()
         viewModel.historyRead()
         }
 
@@ -251,8 +236,5 @@ class SearchFragment : Fragment() {
             adapterHistory.setItems(movies as ArrayList<Track>)
             adapterHistory.notifyDataSetChanged()
         }else historySearchLL.visibility = GONE
-
-        //
-
     }
 }
