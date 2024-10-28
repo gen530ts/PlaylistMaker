@@ -56,6 +56,7 @@ val dataModule = module {
     }
 
     single {
+        //androidContext().deleteDatabase("database.db");
         Room.databaseBuilder(androidContext(),
             TrackDatabase::class.java, "database.db")
             .build()

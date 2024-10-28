@@ -23,6 +23,10 @@ class FavoriteRepositoryImpl(
 
     override suspend fun delTrackFavorite(track: Track) {
 
+        /*runBlocking   { trackDatabase.trackDao().deleteTrack(trackDbConvertor.map
+            (trackSearch)) }*/
+        /* trackDatabase.queryExecutor.execute { trackDatabase.trackDao().deleteTrack(trackDbConvertor.map
+             (trackSearch)) }*/
         trackDatabase.trackDao().deleteTrack(trackDbConvertor.map(track).trackId)
     }
 

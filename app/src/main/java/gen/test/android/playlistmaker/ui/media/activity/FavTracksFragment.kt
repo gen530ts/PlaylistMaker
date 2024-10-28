@@ -2,6 +2,7 @@ package gen.test.android.playlistmaker.ui.media.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,7 @@ class FavTracksFragment : Fragment() {
                 is ScreenState.Warning -> showWarningScreen()
             }
         }
+        Log.d("mytag","FavTracksFragment.onViewCreated")
 
     }
 
@@ -76,6 +78,7 @@ class FavTracksFragment : Fragment() {
     }
 
     private fun startPlayerActivity(track: Track) {
+        Log.d("tf","track.isFavorite=${track.isFavorite}")
         findNavController().navigate(
             R.id.action_mediaFragment_to_playerActivity,
             bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track))
