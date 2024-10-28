@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import gen.test.android.playlistmaker.domain.models.Track
 import gen.test.android.playlistmaker.domain.search.HistoryInteractor
 import gen.test.android.playlistmaker.domain.search.TrackSearchInteractor
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
-import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -59,7 +59,7 @@ class SearchViewModel(
                     if (pair.second) {
                         renderState(SearchTrackState.Error)
                     } else if ((pair.first != null)&& (pair.first!!.isNotEmpty())) {
-                        val tracks = ArrayList<TrackSearch>()
+                        val tracks = ArrayList<Track>()
                         tracks.addAll(pair.first!!)
                         renderState(SearchTrackState.Content(movies = tracks))
                     } else {
@@ -71,16 +71,21 @@ class SearchViewModel(
     }
 
 
-    fun historyAdd(track: TrackSearch) {
+    fun historyAdd(track: Track) {
         interactorHistory.add(track)
     }
 
-    fun historyRead(): ArrayList<TrackSearch> {
-        return interactorHistory.read()
+    fun historyRead() {
+        viewModelScope.launch {
+           val lHistory= interactorHistory.read()
+            renderState(SearchTrackState.History(lHistory))
+        }
+        //return interactorHistory.read()
     }
 
     fun historyClear() {
         interactorHistory.clear()
+        renderState(SearchTrackState.History(arrayListOf()))
     }
 
     override fun onCleared() {

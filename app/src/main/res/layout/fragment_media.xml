@@ -46,7 +46,6 @@
         android:background="?attr/colorPrimary"
         android:textAlignment="center"
         app:tabIndicatorColor="?attr/colorOnPrimary"
-
         app:tabRippleColor="@color/yp_gray"
         app:tabTextAppearance="@style/TablayoutMediaStyle"
         app:tabTextColor="?attr/colorOnPrimary" />

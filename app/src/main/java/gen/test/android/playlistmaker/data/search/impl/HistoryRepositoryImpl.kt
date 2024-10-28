@@ -1,12 +1,16 @@
 package gen.test.android.playlistmaker.data.search.impl
 
+import gen.test.android.playlistmaker.data.db.TrackDatabase
 import gen.test.android.playlistmaker.data.search.HistoryManager
 import gen.test.android.playlistmaker.data.search.HistoryRepository
 import gen.test.android.playlistmaker.data.search.model.TrackSearchDto
-import gen.test.android.playlistmaker.domain.search.model.TrackSearch
+import gen.test.android.playlistmaker.domain.models.Track
 
-class HistoryRepositoryImpl(private val historyManager: HistoryManager) : HistoryRepository {
-    override fun add(track: TrackSearch) {
+class HistoryRepositoryImpl(
+    private val historyManager: HistoryManager,
+    private val trackDatabase: TrackDatabase,
+) : HistoryRepository {
+    override fun add(track: Track) {
         historyManager.add(
             TrackSearchDto(
                 track.trackName,
@@ -23,19 +27,24 @@ class HistoryRepositoryImpl(private val historyManager: HistoryManager) : Histor
         )
     }
 
-    override fun read(): ArrayList<TrackSearch> {
-        return historyManager.read().map { TrackSearch(
-            it.trackName,
-            it.artistName,
-            it.trackTimeMillis,
-            it.artworkUrl100,
-            it.trackId,
-            it.collectionName,
-            it.releaseDate,
-            it.primaryGenreName,
-            it.country,
-            it.previewUrl
-        ) } as ArrayList<TrackSearch>
+    override suspend fun read(): ArrayList<Track> {
+        val listFavorites = trackDatabase.trackDao().getTrackId()
+
+        return historyManager.read().map {
+            Track(
+                it.trackName,
+                it.artistName,
+                it.trackTimeMillis,
+                it.artworkUrl100,
+                it.trackId,
+                it.collectionName,
+                it.releaseDate,
+                it.primaryGenreName,
+                it.country,
+                it.previewUrl,
+                isFavorite = listFavorites.contains(it.trackId)
+            )
+        } as ArrayList<Track>
     }
 
     override fun clear() {
