@@ -3,15 +3,14 @@ package gen.test.android.playlistmaker.ui.player.activity
 
 import android.os.Bundle
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.Utils
+import gen.test.android.playlistmaker.databinding.ActivityPlayerBinding
 import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +21,7 @@ const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
 class PlayerActivity : AppCompatActivity() {
 
     private val viewModel by viewModel<PlayerViewModel>()
+    private lateinit var binding: ActivityPlayerBinding
     private lateinit var playBtn: ImageButton
     private lateinit var timePlayTV: TextView
 
@@ -36,52 +36,41 @@ class PlayerActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val json = bundle!!.getString(KEY_PLAYER_ACTIVITY)
-        playBtn = findViewById(R.id.playIB)
-        timePlayTV = findViewById(R.id.timePlayTV)
-
-
-        val trackTV = findViewById<TextView>(R.id.trackTV)
-        val artistTV = findViewById<TextView>(R.id.artistTV)
-        val timeTv = findViewById<TextView>(R.id.timeTv)
-        val albumGr = findViewById<Group>(R.id.albumGroup)
-        val albumTv = findViewById<TextView>(R.id.albumTv)
-        val yearGr = findViewById<Group>(R.id.yearGroup)
-        val yearTv = findViewById<TextView>(R.id.yearTv)
-        val genreTv = findViewById<TextView>(R.id.genreTv)
-        val countryTv = findViewById<TextView>(R.id.countryTv)
-        val iv = findViewById<ImageView>(R.id.playerIV)
-        val ibFavorite = findViewById<ImageButton>(R.id.favoriteIB)
-        ibFavorite.setOnClickListener { viewModel.onFavoriteClicked() }
+        playBtn = binding.playIB
+        timePlayTV = binding.timePlayTV
 
         viewModel.getTrackLD().observe(this) {
             if (it.previewUrl != null) {
                 viewModel.preparePlayer(it.previewUrl)
                 playBtn.setOnClickListener { viewModel.playbackControl() }
             }
-            trackTV.text = it.trackName
-            artistTV.text = it.artistName
+            binding.apply {
+                trackTV.text = it.trackName
+                artistTV.text = it.artistName
+                genreTv.text = it.primaryGenreName
+                countryTv.text = it.country
+                timeTv.text = Utils.millisToMmSs(it.trackTimeMillis)
+                favoriteIB.setOnClickListener { viewModel.onFavoriteClicked() }
+            }
 
-            timeTv.text = Utils.millisToMmSs(it.trackTimeMillis)
             if (it.collectionName.isNullOrEmpty()) {
-
-                albumGr.isVisible = false
+                binding.albumGroup.isVisible = false
             } else {
-                albumTv.text = it.collectionName
+                binding.albumTv.text = it.collectionName
             }
             if (it.releaseDate.isNullOrEmpty() || ((it.releaseDate.length) < 5)) {
 
-                yearGr.isVisible = false
+                binding.yearGroup.isVisible = false
             } else {
-                yearTv.text = it.releaseDate.substring(0, 4)
+                binding.yearTv.text = it.releaseDate.substring(0, 4)
             }
-            genreTv.text = it.primaryGenreName
-            countryTv.text = it.country
+
             Glide.with(this)
                 .load(it.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
                 .fitCenter()
                 .placeholder(R.drawable.placeholder_player)
                 .transform(RoundedCorners(rc))
-                .into(iv)
+                .into(binding.playerIV)
         }
         viewModel.getModUI().observe(this) {
             when (it) {
@@ -101,7 +90,7 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
         viewModel.getFavorite().observe(this) {
-            ibFavorite.setImageResource(
+            binding.favoriteIB.setImageResource(
                 if (it) R.drawable.is_favorite
                 else R.drawable.isnot_favorite
             )
@@ -113,7 +102,8 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player)
+        binding = ActivityPlayerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
         setBackListener()
     }
@@ -122,6 +112,5 @@ class PlayerActivity : AppCompatActivity() {
         super.onPause()
         viewModel.pausePlayer()
     }
-
 
 }

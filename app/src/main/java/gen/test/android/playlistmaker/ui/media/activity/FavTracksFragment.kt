@@ -25,7 +25,7 @@ class FavTracksFragment : Fragment() {
 
     private val viewModel: FavTracksViewModel by viewModel()
     private lateinit var binding: FragmentFavTracksBinding
-    private lateinit var recycler:RecyclerView
+    private lateinit var recycler: RecyclerView
     private lateinit var adapter: TrackSearchAdapter
 
     override fun onCreateView(
@@ -41,7 +41,7 @@ class FavTracksFragment : Fragment() {
         recycler = binding.tracksList
         recycler.layoutManager = LinearLayoutManager(requireContext())
         adapter = TrackSearchAdapter { startPlayerActivity(it) }
-        recycler.adapter=adapter
+        recycler.adapter = adapter
         viewModel.observeData().observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Success -> showDataScreen(it)
@@ -55,23 +55,24 @@ class FavTracksFragment : Fragment() {
         super.onResume()
         viewModel.findFavorites()
     }
+
     @SuppressLint("NotifyDataSetChanged")
-    private fun showDataScreen(tr: ScreenState.Success<List<Track>>) {
+    private fun showDataScreen(tracks: ScreenState.Success<List<Track>>) {
         binding.apply {
-            dataLL.isVisible=true
-            emptyCL.isVisible=false
+            dataLL.isVisible = true
+            emptyCL.isVisible = false
         }
         adapter.clearItems()
-        val temp=ArrayList<Track>()
-        temp.addAll(tr.data)
-        adapter.setItems(temp)
+        val tempTracks = ArrayList<Track>()
+        tempTracks.addAll(tracks.data)
+        adapter.setItems(tempTracks)
         adapter.notifyDataSetChanged()
     }
 
     private fun showWarningScreen() {
         binding.apply {
-            dataLL.isVisible=false
-            emptyCL.isVisible=true
+            dataLL.isVisible = false
+            emptyCL.isVisible = true
         }
     }
 

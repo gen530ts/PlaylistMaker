@@ -13,5 +13,3 @@ interface TrackDao {
     @Query("SELECT trackId FROM track_table")
     suspend fun getTrackId(): List<Int>
 }
-
-//@Delete(entity = TrackDB::class) DESC
