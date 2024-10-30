@@ -1,9 +1,9 @@
 package gen.test.android.playlistmaker.domain.search
 
-import gen.test.android.playlistmaker.domain.search.model.TrackSearch
+import gen.test.android.playlistmaker.domain.models.Track
 
 interface HistoryInteractor {
-    fun add(track: TrackSearch)
-    fun read(): ArrayList<TrackSearch>
+    fun add(track: Track)
+   suspend fun read(): ArrayList<Track>
     fun clear()
 }

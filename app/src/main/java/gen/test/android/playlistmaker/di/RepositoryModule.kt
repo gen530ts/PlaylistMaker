@@ -1,5 +1,7 @@
 package gen.test.android.playlistmaker.di
 
+import gen.test.android.playlistmaker.data.db.FavoriteRepositoryImpl
+import gen.test.android.playlistmaker.data.db.TrackDbConvertor
 import gen.test.android.playlistmaker.data.player.impl.GetTrackRepositoryImpl
 import gen.test.android.playlistmaker.data.search.HistoryRepository
 import gen.test.android.playlistmaker.data.search.SearchRepository
@@ -8,6 +10,7 @@ import gen.test.android.playlistmaker.data.search.impl.SearchRepositoryImpl
 import gen.test.android.playlistmaker.data.settings.impl.ThemeRepositoryImpl
 import gen.test.android.playlistmaker.data.sharing.SharingRepository
 import gen.test.android.playlistmaker.data.sharing.impl.SharingRepositoryImpl
+import gen.test.android.playlistmaker.domain.db.FavoriteRepository
 import gen.test.android.playlistmaker.domain.player.GetTrackRepository
 import gen.test.android.playlistmaker.domain.settings.ThemeRepository
 import org.koin.android.ext.koin.androidApplication
@@ -21,11 +24,11 @@ val repositoryModule = module {
     }
 
     single<HistoryRepository> {
-        HistoryRepositoryImpl(get())
+        HistoryRepositoryImpl(get(),get())
     }
 
     single<SearchRepository> {
-        SearchRepositoryImpl(get())
+        SearchRepositoryImpl(get(),get())
     }
 
     single<ThemeRepository> {
@@ -35,6 +38,10 @@ val repositoryModule = module {
     single<SharingRepository> {
         SharingRepositoryImpl(androidContext())
     }
+
+    factory { TrackDbConvertor() }
+
+    single<FavoriteRepository> { FavoriteRepositoryImpl(get(), get()) }
 
 }
 

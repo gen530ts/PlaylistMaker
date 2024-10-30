@@ -2,18 +2,18 @@ package gen.test.android.playlistmaker.ui.search.activity
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import gen.test.android.playlistmaker.domain.search.model.TrackSearch
+import gen.test.android.playlistmaker.domain.models.Track
 
 class TrackSearchAdapter(private val trackListener: TrackClickListener) : RecyclerView
 .Adapter<SearchTrackHolder>
     () {
-    fun setItems(items: ArrayList<TrackSearch>){
+    fun setItems(items: ArrayList<Track>){
        tracks=items
     }
     fun clearItems(){
         tracks.clear()
     }
-    private var tracks= ArrayList<TrackSearch>()
+    private var tracks= ArrayList<Track>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchTrackHolder {
 
         return SearchTrackHolder(parent)
@@ -28,7 +28,7 @@ class TrackSearchAdapter(private val trackListener: TrackClickListener) : Recycl
         return tracks.size
     }
     fun interface TrackClickListener {
-        fun onTrackClick(location: TrackSearch)
+        fun onTrackClick(location: Track)
     }
 }
 

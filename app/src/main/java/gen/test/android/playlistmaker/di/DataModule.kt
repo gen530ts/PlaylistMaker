@@ -2,8 +2,10 @@ package gen.test.android.playlistmaker.di
 
 import android.content.Context
 import android.media.MediaPlayer
+import androidx.room.Room
 import com.google.gson.Gson
 import gen.test.android.playlistmaker.SHARED_PREFERENCES
+import gen.test.android.playlistmaker.data.db.TrackDatabase
 import gen.test.android.playlistmaker.data.player.impl.MediaPlayerWrapperImpl
 import gen.test.android.playlistmaker.data.search.HistoryManager
 import gen.test.android.playlistmaker.data.search.ItunesAppleApi
@@ -51,6 +53,12 @@ val dataModule = module {
 
     single<ExternalNavigator>{
         ExternalNavigatorImpl(androidContext())
+    }
+
+    single {
+        Room.databaseBuilder(androidContext(),
+            TrackDatabase::class.java, "database.db")
+            .build()
     }
 
 

@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.Utils
-import gen.test.android.playlistmaker.domain.search.model.TrackSearch
+import gen.test.android.playlistmaker.domain.models.Track
 
 class SearchTrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(
     R.layout.search_track, parent, false)) {
@@ -21,7 +21,7 @@ class SearchTrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInfla
 
 
 
-    fun bind(model: TrackSearch) {
+    fun bind(model: Track) {
         songView.text = model.trackName
         creatorView.text = model.artistName
         lengthView.text= Utils.millisToMmSs((model.trackTimeMillis))

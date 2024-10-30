@@ -1,6 +1,6 @@
-package gen.test.android.playlistmaker.domain.player.models
+package gen.test.android.playlistmaker.ui.models
 
-data class Track(
+data class TrackUI(
     val trackName: String,
     val artistName: String,
     val trackTimeMillis: Int,
@@ -11,4 +11,4 @@ data class Track(
     val primaryGenreName:String,
     val country:String,
     val previewUrl:String?
-    )
+)

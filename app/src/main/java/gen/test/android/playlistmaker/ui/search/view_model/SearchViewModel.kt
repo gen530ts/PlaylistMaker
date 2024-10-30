@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import gen.test.android.playlistmaker.domain.models.Track
 import gen.test.android.playlistmaker.domain.search.HistoryInteractor
 import gen.test.android.playlistmaker.domain.search.TrackSearchInteractor
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
-import gen.test.android.playlistmaker.domain.search.model.TrackSearch
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,13 +19,7 @@ class SearchViewModel(
     interactorSearch: TrackSearchInteractor
 ) : ViewModel() {
 
-    //private val searchRunnable = Runnable { search(searchTxt) }
-
-
     private var searchTxt = ""
-
-
-    //private val handler = Handler(Looper.getMainLooper())
     private val stateLiveData = MutableLiveData<SearchTrackState>()
     fun observeState(): LiveData<SearchTrackState> = stateLiveData
     private fun renderState(state: SearchTrackState) {
@@ -36,7 +30,6 @@ class SearchViewModel(
 
     fun searchDebounce(str: String) {
         if (str == this.searchTxt) return
-        //handler.removeCallbacks(searchRunnable)
         searchJob?.cancel()
         this.searchTxt = str
         if (str.length > 2) {
@@ -59,7 +52,7 @@ class SearchViewModel(
                     if (pair.second) {
                         renderState(SearchTrackState.Error)
                     } else if ((pair.first != null)&& (pair.first!!.isNotEmpty())) {
-                        val tracks = ArrayList<TrackSearch>()
+                        val tracks = ArrayList<Track>()
                         tracks.addAll(pair.first!!)
                         renderState(SearchTrackState.Content(movies = tracks))
                     } else {
@@ -71,20 +64,23 @@ class SearchViewModel(
     }
 
 
-    fun historyAdd(track: TrackSearch) {
+    fun historyAdd(track: Track) {
         interactorHistory.add(track)
     }
 
-    fun historyRead(): ArrayList<TrackSearch> {
-        return interactorHistory.read()
+    fun historyRead() {
+        viewModelScope.launch {
+           val lHistory= interactorHistory.read()
+            renderState(SearchTrackState.History(lHistory))
+        }
     }
 
     fun historyClear() {
         interactorHistory.clear()
+        renderState(SearchTrackState.History(arrayListOf()))
     }
 
     override fun onCleared() {
-        // handler.removeCallbacks(searchRunnable)
         searchJob?.cancel()
     }
 }
