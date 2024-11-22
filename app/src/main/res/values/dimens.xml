@@ -29,4 +29,6 @@
     <dimen name="dim173">173dp</dimen>
     <dimen name="dim19sp">19sp</dimen>
     <dimen name="dim10">10dp</dimen>
+    <dimen name="dim32">32dp</dimen>
+    <dimen name="dim312">312dp</dimen>
 </resources>

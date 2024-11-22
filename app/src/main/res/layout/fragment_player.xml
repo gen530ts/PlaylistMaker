@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/playerFragmentContainerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -237,16 +233,39 @@
             tools:text="Англия" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/addPlBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#323233"
+        android:background="@drawable/bottomsheet_bg"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottomsheet_head"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/ys_display_regular"
+            android:gravity="center"
+            android:text="@string/add_to_pl"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/dim19sp" />
 
         <Button
             android:id="@+id/playListsBt"
@@ -270,7 +289,6 @@
             android:id="@+id/listPlBotSh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/dim20" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -282,6 +300,6 @@
     <!--
         tools:visibility="gone"-->
 
-<!--
+    <!--
 
-    />-->
+        />-->

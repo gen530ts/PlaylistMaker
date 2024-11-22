@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker.ui.media.view_model
+package gen.test.android.playlistmaker.ui.favtracks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

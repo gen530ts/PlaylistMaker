@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +22,7 @@ import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.FragmentSearchBinding
 import gen.test.android.playlistmaker.domain.models.Track
 import gen.test.android.playlistmaker.domain.search.model.SearchTrackState
-import gen.test.android.playlistmaker.ui.player.activity.KEY_PLAYER_ACTIVITY
+import gen.test.android.playlistmaker.ui.player.activity.PlayerFragment
 import gen.test.android.playlistmaker.ui.search.view_model.SearchViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -66,7 +65,9 @@ class SearchFragment : Fragment() {
         recyclerHistory.adapter = adapterHistory
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
+
         }
+        Log.d("mytag", "onViewCreated:SearchFragment ")
     }
 
 
@@ -95,7 +96,7 @@ class SearchFragment : Fragment() {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            viewLifecycleOwner.lifecycleScope.launch {
+            lifecycleScope.launch {
                 delay(CLICK_DEBOUNCE_DELAY)
                 isClickAllowed = true
             }
@@ -107,10 +108,11 @@ class SearchFragment : Fragment() {
 
 
         findNavController().navigate(
-            R.id.action_searchFragment_to_playerActivity,
-            bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track))
+            R.id.action_searchFragment_to_playerFragment,
+            //bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track))
+        PlayerFragment.createArgs(Gson().toJson(track))
         )
-
+        //findNavController().saveState()
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -198,12 +200,17 @@ class SearchFragment : Fragment() {
     }
 
     private fun render(state: SearchTrackState) {
+
         when (state) {
             is SearchTrackState.Content -> showContent(state.movies)
             is SearchTrackState.Empty -> showEmpty()
             is SearchTrackState.Error -> showError()
             is SearchTrackState.Loading -> showLoading()
-            is SearchTrackState.History -> showHistory(state.movies)
+            is SearchTrackState.History ->{
+                showHistory(state.movies)
+                viewModel.resetLD()
+            }
+            is SearchTrackState.Default ->{}
         }
     }
 
@@ -224,6 +231,7 @@ class SearchFragment : Fragment() {
         adapter.clearItems()
         adapter.setItems(movies)
         adapter.notifyDataSetChanged()
+        Log.d("mytag", "--------------fun showContent movies:${movies.toString().take(40)}")
     }
 
     private fun showHistory(movies: Collection<Track>) {

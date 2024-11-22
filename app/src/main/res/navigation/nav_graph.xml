@@ -6,23 +6,25 @@
     app:startDestination="@id/mediaFragment">
     <fragment
         android:id="@+id/mediaFragment"
-        android:name="gen.test.android.playlistmaker.ui.media.activity.MediaFragment"
+        android:name="gen.test.android.playlistmaker.ui.media.MediaFragment"
         android:label="fragment_media"
         tools:layout="@layout/fragment_media" >
 
         <action
-            android:id="@+id/action_mediaFragment_to_playerActivity"
-            app:destination="@id/playerActivity" />
+            android:id="@+id/action_mediaFragment_to_createPlayListFragment"
+            app:destination="@id/createPlayListFragment" />
+        <action
+            android:id="@+id/action_mediaFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="gen.test.android.playlistmaker.ui.search.activity.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
-
         <action
-            android:id="@+id/action_searchFragment_to_playerActivity"
-            app:destination="@id/playerActivity" />
+            android:id="@+id/action_searchFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -36,11 +38,31 @@
         tools:layout="@layout/activity_player" />
     <fragment
         android:id="@+id/favTracksFragment"
-        android:name="gen.test.android.playlistmaker.ui.media.activity.FavTracksFragment"
-        android:label="FavTracksFragment" >
+        android:name="gen.test.android.playlistmaker.ui.favtracks.FavTracksFragment"
+        android:label="FavTracksFragment"
+        tools:layout="@layout/fragment_fav_tracks">
         <action
-            android:id="@+id/action_favTracksFragment_to_playerActivity"
-            app:destination="@id/playerActivity" />
+            android:id="@+id/action_favTracksFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playListsFragment"
+        android:name="gen.test.android.playlistmaker.ui.playlists.PlayListsFragment"
+        android:label="PlayListsFragment"
+        tools:layout="@layout/fragment_play_lists"/>
+    <fragment
+        android:id="@+id/createPlayListFragment"
+        android:name="gen.test.android.playlistmaker.ui.createplaylist.CreatePlayListFragment"
+        android:label="CreatePlayListFragment"
+        tools:layout="@layout/fragment_create_play_list"/>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="gen.test.android.playlistmaker.ui.player.activity.PlayerFragment"
+        android:label="PlayerFragment"
+        tools:layout="@layout/fragment_player">
+        <action
+            android:id="@+id/action_playerFragment_to_createPlayListFragment"
+            app:destination="@id/createPlayListFragment" />
     </fragment>
 </navigation>
 
