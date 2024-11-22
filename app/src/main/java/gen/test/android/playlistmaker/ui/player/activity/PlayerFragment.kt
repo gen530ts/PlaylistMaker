@@ -1,7 +1,6 @@
 package gen.test.android.playlistmaker.ui.player.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +27,6 @@ import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
 import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class PlayerFragment : Fragment() {
     companion object {
@@ -51,7 +48,6 @@ class PlayerFragment : Fragment() {
         val back = binding.backButton
         //findViewById<ImageButton>(R.id.backButton)
         back.setOnClickListener {
-            //requireActivity().onBackPressedDispatcher.onBackPressed()
             findNavController().popBackStack()
         }
     }
@@ -59,13 +55,11 @@ class PlayerFragment : Fragment() {
     private fun setInfo(rc: Int) {
 
         val json = requireArguments().getString(KEY_PLAYER_FRAGMENT)
-        //= bundle!!.getString(KEY_PLAYER_ACTIVITY)
         playBtn = binding.playIB
         timePlayTV = binding.timePlayTV
 
         viewModel.getTrackLD().observe(viewLifecycleOwner) {
             if (it.previewUrl != null) {
-                Toast.makeText(requireContext(), "viewModel.preparePlayer", Toast.LENGTH_LONG).show()
                 viewModel.preparePlayer(it.previewUrl)
                 playBtn.setOnClickListener { viewModel.playbackControl() }
             }
@@ -84,15 +78,6 @@ class PlayerFragment : Fragment() {
                         R.id.action_playerFragment_to_createPlayListFragment,
                         null
                     )
-
-/*
-                    val fragment = CreatePlayListFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.playerFragmentContainerView, fragment)
-                        .addToBackStack(null)
-                        .commit()*/
-                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
                 }
             }
             recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -108,7 +93,7 @@ class PlayerFragment : Fragment() {
                 binding.yearTv.text = it.releaseDate.substring(0, 4)
             }
 
-            Glide.with(this)
+            Glide.with(requireActivity())
                 .load(it.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
                 .fitCenter()
                 .placeholder(R.drawable.placeholder_player)
@@ -145,7 +130,6 @@ class PlayerFragment : Fragment() {
                 ) { et -> addTrackToPlayList(et) }
                 else -> {}
             }
-            /*Toast.makeText(this, "Click on item ${et.name}", Toast.LENGTH_LONG).show()*/
         }
         viewModel.observeTrackToPlist().observe(viewLifecycleOwner) {
             when (it) {
@@ -169,12 +153,7 @@ class PlayerFragment : Fragment() {
 
 
         if (json != null) {
-            //Toast.makeText(requireContext(), "viewModel.prepare($json)", Toast.LENGTH_LONG).show()
-            Log.d("mytag", "viewModel.prepare(${json.take(10)})")
             viewModel.prepare(json)
-        }else {
-            //Toast.makeText(requireContext(), "json = null", Toast.LENGTH_LONG).show()
-            Log.d("mytag", "viewModel.not prepare(json=null)")
         }
     }
 
@@ -189,19 +168,10 @@ class PlayerFragment : Fragment() {
         viewModel.resetAddTrackToPlist()
     }
 
-    /*    override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            binding = ActivityPlayerBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-            bottomSheetBehavior = BottomSheetBehavior.from(binding.addPlBottomSheet)
-            setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
-            setBackListener()
-        }*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("mytag", "onCreateView:$this")
         binding = FragmentPlayerBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -209,7 +179,6 @@ class PlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.overlay.visibility = View.GONE
-        Log.d("mytag", "onViewCreated:$this")
         bottomSheetBehavior = BottomSheetBehavior.from(binding.addPlBottomSheet)
         bottomSheetBehavior.addBottomSheetCallback(
             object : BottomSheetBehavior.BottomSheetCallback() {
@@ -232,38 +201,9 @@ class PlayerFragment : Fragment() {
         setBackListener()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("mytag", "onCreate:$this")
-    }
-    override fun onStart() {
-        super.onStart()
-        Log.d("mytag", "onStart:$this")
-    }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("mytag", "onResume:$this")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("mytag", "onStop:$this")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("mytag", "onDestroyView:$this")
-
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("mytag", "onDestroy:$this")
-    }
     override fun onPause() {
-        Log.d("mytag", "onPause:$this")
         super.onPause()
-        //viewModel.get
         viewModel.pausePlayer()
     }
 }

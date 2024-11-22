@@ -10,7 +10,6 @@ import gen.test.android.playlistmaker.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRootBinding
-   // private lateinit var bnv:BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBinding.inflate(layoutInflater)
@@ -29,7 +28,4 @@ class RootActivity : AppCompatActivity() {
             }
         }
     }
-   /* fun visibleBNV(visible:Boolean){
-        bnv.isVisible=visible
-    }*/
 }

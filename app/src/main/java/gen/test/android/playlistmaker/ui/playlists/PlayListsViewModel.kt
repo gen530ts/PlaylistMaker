@@ -23,7 +23,6 @@ class PlayListsViewModel(
                 if (it.isEmpty()) {
                     liveData.postValue(ScreenState.Warning)
                 } else {
-                   /* val temp = it.map { track -> track.copy(isFavorite = true) }.reversed()*/
                     liveData.postValue(ScreenState.Success(it))
                 }
             }

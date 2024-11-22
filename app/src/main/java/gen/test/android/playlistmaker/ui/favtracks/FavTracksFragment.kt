@@ -77,7 +77,6 @@ class FavTracksFragment : Fragment() {
     private fun startPlayerFragment(track: Track) {
         findNavController().navigate(
             R.id.action_mediaFragment_to_playerFragment,
-          //  bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track))
         PlayerFragment.createArgs(Gson().toJson(track))
         )
     }

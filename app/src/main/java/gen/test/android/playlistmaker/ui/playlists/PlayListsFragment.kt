@@ -19,7 +19,6 @@ class PlayListsFragment : Fragment() {
 
     private val viewModel: PlayListsViewModel by viewModel()
     private lateinit var recycler: RecyclerView
-    //private lateinit var adapter: PlayListsAdapter
     private lateinit var binding: FragmentPlayListsBinding
 
 
@@ -35,7 +34,6 @@ class PlayListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = binding.playListsRecycler
-        //adapter=PlayListsAdapter()
         recycler.layoutManager = GridLayoutManager(requireContext(),2)
 
         binding.playListsBt.setOnClickListener { startCreatePL() }

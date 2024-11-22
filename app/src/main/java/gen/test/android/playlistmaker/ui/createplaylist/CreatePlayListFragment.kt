@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,18 +48,11 @@ class CreatePlayListFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri
             ->
             if (uri != null) {
-              //  binding.coverIvPl.setImageURI(uri)
                 Glide.with(requireActivity())
-                   // .asBitmap()
-
                     .load(uri)
-
-               //     .centerInside()
+                    .fitCenter()
                     .placeholder(R.drawable.add_photo)
                     .transform(RoundedCorners(8))
-
-                   //
-                   // .override(312, 312)
                     .into(binding.coverIvPl)
                 uriCover = uri
             }
@@ -71,13 +63,12 @@ class CreatePlayListFragment : Fragment() {
             if ((uriCover != null) || (binding.enterPlName.text.isNotEmpty()) || binding.enterPlDescr
                     .text.isNotEmpty()
             ) {
-                MaterialAlertDialogBuilder(context!!).setTitle("Завершить создание плейлиста?")
+                MaterialAlertDialogBuilder(requireContext()).setTitle("Завершить создание плейлиста?")
                     .setMessage("Все несохраненные данные будут потеряны")
                     .setNeutralButton("Отмена") { _, _ ->
-                        Toast.makeText(requireContext(), "Отмена", Toast.LENGTH_LONG).show()
+                 //       Toast.makeText(requireContext(), "Отмена", Toast.LENGTH_LONG).show()
                     }.setPositiveButton("Завершить") { _, _ ->
-                        Toast.makeText(requireContext(), "Завершить", Toast.LENGTH_LONG).show()
-                        //callback.Enabled
+                  //      Toast.makeText(requireContext(), "Завершить", Toast.LENGTH_LONG).show()
                         this.isEnabled = false
                         requireActivity().onBackPressedDispatcher.onBackPressed()
                     }.show()
@@ -148,25 +139,19 @@ class CreatePlayListFragment : Fragment() {
                 Environment.DIRECTORY_PICTURES
             ), "playlistmaker_album"
         )
-        Log.d("mytag", "filePath = $filePath")
-//создаем каталог, если он не создан
         if (!filePath.exists()) {
             filePath.mkdirs()
         }
-//создаём экземпляр класса File, который указывает на файл внутри каталога
 
         val file = File(filePath, imageSaveFileName!!)
         fullImageSaveFileName = file.toString()
-// создаём входящий поток байтов из выбранной картинки
         val inputStream = requireActivity().contentResolver.openInputStream(uriCover!!)
-// создаём исходящий поток байтов в созданный выше файл
         val outputStream = FileOutputStream(file)
-// записываем картинку с помощью BitmapFactory  requireActivity().contentResolver.
         val isSaved = BitmapFactory
             .decodeStream(inputStream)
             .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
 
-        Toast.makeText(requireContext(), "File save: $isSaved", Toast.LENGTH_LONG).show()
+   //     Toast.makeText(requireContext(), "File save: $isSaved", Toast.LENGTH_LONG).show()
 
     }
 

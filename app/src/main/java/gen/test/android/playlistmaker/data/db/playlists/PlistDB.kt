@@ -12,6 +12,5 @@ data class PlistDB(
     val description: String,
     val imagePath: String,
     val idTracks: String,
-    //val tracksNumber: Long?=null,
 
 )

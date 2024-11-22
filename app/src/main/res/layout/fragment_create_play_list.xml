@@ -20,12 +20,8 @@
                 android:id="@+id/backImageView"
                 android:layout_width="@dimen/dim48"
                 android:layout_height="@dimen/dim48"
-                android:contentDescription="@string/back"
-
                 android:padding="@dimen/dim12"
                 app:srcCompat="@drawable/back" />
-
-
 
         <Space
             android:layout_width="wrap_content"
@@ -46,25 +42,17 @@
             android:textFontWeight="500"
             android:textSize="@dimen/dim22sp" />
     </LinearLayout>
-    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
 
-        card_view:cardCornerRadius="@dimen/dim8"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dim24"
-        >
         <ImageView
             android:id="@+id/coverIvPl"
             android:layout_width="@dimen/dim312"
             android:layout_height="@dimen/dim312"
-
-
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dim24"
             android:background="@drawable/shape_iv_new_playlist"
             android:src="@drawable/add_photo"
-            android:scaleType="center"/>
-    </androidx.cardview.widget.CardView>
+            android:scaleType="centerInside"/>
 
     <EditText
         android:id="@+id/enterPlName"

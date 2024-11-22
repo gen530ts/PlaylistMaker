@@ -21,8 +21,6 @@ class MediaPlayerWrapperImpl(private val mediaPlayer: MediaPlayer) : MediaPlayer
         cbCompletion: () -> Unit
     ) {
         mediaPlayer.setDataSource(src)
-        //mediaPlayer.
-
         mediaPlayer.setOnPreparedListener {
             state = PlayerState.STATE_PREPARED
             cbPrepared()

@@ -57,8 +57,6 @@ class PlayerViewModel(
             }
 
         }
-
-       // val result=plistInteractor.addTrackToPlist(plist,track)
     }
 
     private var timerJob: Job? = null
@@ -70,7 +68,6 @@ class PlayerViewModel(
                 if (it.isEmpty()) {
                     playLists.postValue(ScreenState.Warning)
                 } else {
-                    /* val temp = it.map { track -> track.copy(isFavorite = true) }.reversed()*/
                     playLists.postValue(ScreenState.Success(it))
                 }
             }
@@ -117,22 +114,17 @@ class PlayerViewModel(
     override fun onCleared() {
         super.onCleared()
         playerInteractor.release()
-        Log.d("mytag", "Player:onCleared ")
     }
 
 
     fun preparePlayer(src: String) {
         if (isStart) {
-            Log.d("mytag", "isStart=true -> preparePlayer ")
             playerInteractor.preparePlayer(src, { modUI.value = ModifyUI.PlayBtn(true) }, {
-
                 modUI.value = ModifyUI.PlayBtnImagePlay(true)
                 timerJob?.cancel()
                 modUI.value = ModifyUI.TimePlayTV("0:00")
             })
             isStart = false
-        }else {
-        //    Log.d("mytag", "isStart=$isStart ->not preparePlayer ")
         }
 
         modUI.value = ModifyUI.TimePlayTV(
@@ -167,7 +159,6 @@ class PlayerViewModel(
                 pausePlayer()
             }
             PlayerState.STATE_PREPARED, PlayerState.STATE_PAUSED -> {
-                Log.d("mytag", "PlayerState.${playerInteractor.getState()}-->startPlayer()")
                 startPlayer()
             }
             else -> {}

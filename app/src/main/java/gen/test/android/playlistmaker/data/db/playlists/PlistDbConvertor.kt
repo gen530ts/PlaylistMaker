@@ -4,7 +4,7 @@ import gen.test.android.playlistmaker.domain.models.Plist
 
 class PlistDbConvertor {
     fun map(plist: PlistDB): Plist {
-        val tracksIds= strToListInt(plist.idTracks)//
+        val tracksIds= strToListInt(plist.idTracks)
         return Plist(
             name = plist.name,
             description = plist.description,
@@ -21,7 +21,6 @@ class PlistDbConvertor {
             description = plist.description,
             imagePath = plist.imagePath,
             idTracks = plist.idTracks.toString(),
-           // tracksNumber = plist.tracksNumber
         )
     }
 

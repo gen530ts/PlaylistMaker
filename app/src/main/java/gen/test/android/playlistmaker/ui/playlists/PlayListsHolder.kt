@@ -1,6 +1,5 @@
 package gen.test.android.playlistmaker.ui.playlists
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,27 +16,14 @@ class PlayListsHolder (view: View): RecyclerView.ViewHolder(view) {
     fun bind(plist: Plist) {
         val uriStr=plist.imagePath
         if(uriStr.isNotEmpty()){
-          //  img.setImageURI(uriStr.toUri())
             Glide.with(itemView)
                 .load(uriStr)
                  .placeholder(R.drawable.play_list_default)
-                .centerCrop()
-                .transform( RoundedCorners(18))
-                .into(img)
-         /*   */
-/*            Glide.with(itemView)
-                .load(model.artworkUrl100)
                 .fitCenter()
-                .placeholder(R.drawable.placeholder_track)
-                .transform(RoundedCorners(rt))
-                .into(coverImgView)*/
+                .transform( RoundedCorners(8))
+                .into(img)
         }
-        Log.d("mytag", "uri=$uriStr")
-     //   if(uri!=null){.toUri()
 
-            //img.use{}
-            //setImageURI(strUri.toUri())
-      //  }
         title.text = plist.name
         description.text = plist.tracksNumber
     }

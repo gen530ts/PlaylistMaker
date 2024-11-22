@@ -67,14 +67,11 @@ class PlayerActivity : AppCompatActivity() {
                 favoriteIB.setOnClickListener { viewModel.onFavoriteClicked() }
                 addToPl.setOnClickListener { viewBottomSheet() }
                 playListsBt.setOnClickListener {
-                    //TODO move to createPL
                     val fragment = CreatePlayListFragment()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.playerFragmentContainerView, fragment)
                         .addToBackStack(null)
                         .commit()
-                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
                 }
             }
             recycler.layoutManager = LinearLayoutManager(this)
@@ -127,7 +124,6 @@ class PlayerActivity : AppCompatActivity() {
                 ) { et -> addTrackToPlayList(et) }
                 else -> {}
             }
-            /*Toast.makeText(this, "Click on item ${et.name}", Toast.LENGTH_LONG).show()*/
         }
         viewModel.observeTrackToPlist().observe(this) {
             when (it) {
@@ -175,12 +171,3 @@ class PlayerActivity : AppCompatActivity() {
 
 }
 
-
-/*
-Toast.makeText(this, "Click on item", Toast.LENGTH_LONG).show()
-bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-Log.d("mytag", "click on bottom")*/
-
-/*
-viewModel.findPlaylists()
-bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED*/

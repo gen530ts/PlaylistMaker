@@ -67,7 +67,6 @@ class SearchFragment : Fragment() {
             render(it)
 
         }
-        Log.d("mytag", "onViewCreated:SearchFragment ")
     }
 
 
@@ -109,10 +108,8 @@ class SearchFragment : Fragment() {
 
         findNavController().navigate(
             R.id.action_searchFragment_to_playerFragment,
-            //bundleOf(KEY_PLAYER_ACTIVITY to Gson().toJson(track))
         PlayerFragment.createArgs(Gson().toJson(track))
         )
-        //findNavController().saveState()
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -231,7 +228,6 @@ class SearchFragment : Fragment() {
         adapter.clearItems()
         adapter.setItems(movies)
         adapter.notifyDataSetChanged()
-        Log.d("mytag", "--------------fun showContent movies:${movies.toString().take(40)}")
     }
 
     private fun showHistory(movies: Collection<Track>) {
