@@ -63,16 +63,6 @@ class CreatePlayListFragment : Fragment() {
             if ((uriCover != null) || (binding.enterPlName.text.isNotEmpty()) || binding.enterPlDescr
                     .text.isNotEmpty()
             ) {
-               /* MaterialAlertDialogBuilder(requireContext()).setTitle("Завершить создание плейлиста?")
-                    .setMessage("Все несохраненные данные будут потеряны")
-                    .setNeutralButton("Отмена") { _, _ ->
-                 //       Toast.makeText(requireContext(), "Отмена", Toast.LENGTH_LONG).show()
-                    }.setPositiveButton("Завершить") { _, _ ->
-                  //      Toast.makeText(requireContext(), "Завершить", Toast.LENGTH_LONG).show()
-                        this.isEnabled = false
-                        requireActivity().onBackPressedDispatcher.onBackPressed()
-                    }.show()*/
-                //requireContext().
                 val dial=MaterialAlertDialogBuilder(requireContext()).setTitle("Завершить создание" +
                         " плейлиста?")
                     .setMessage("Все несохраненные данные будут потеряны")
@@ -158,8 +148,6 @@ class CreatePlayListFragment : Fragment() {
         val isSaved = BitmapFactory
             .decodeStream(inputStream)
             .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
-
-   //     Toast.makeText(requireContext(), "File save: $isSaved", Toast.LENGTH_LONG).show()
 
     }
 

@@ -85,6 +85,8 @@ class SearchViewModel(
     override fun onCleared() {
         searchJob?.cancel()
     }
+
+
 }
 
 

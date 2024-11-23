@@ -155,7 +155,6 @@ class PlayerViewModel(
 
         when (playerInteractor.getState()) {
             PlayerState.STATE_PLAYING -> {
-                Log.d("mytag", "PlayerState.STATE_PLAYING-->pausePlayer()")
                 pausePlayer()
             }
             PlayerState.STATE_PREPARED, PlayerState.STATE_PAUSED -> {

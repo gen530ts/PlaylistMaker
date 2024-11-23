@@ -77,6 +77,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--android:visibility="gone"-->
-    <!--tools:layoutDirection="rtl"-->

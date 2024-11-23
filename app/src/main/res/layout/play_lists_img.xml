@@ -49,14 +49,3 @@
         tools:text="Описание" />
 </LinearLayout>
 
-<!--
-<androidx.cardview.widget.CardView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-card_view:cardCornerRadius="@dimen/dim8"
-    >
-    </androidx.cardview.widget.CardView>
-    android:src="@drawable/play_list_default"
-android:background="?attr/colorPrimary"
-android:background="@drawable/plist_image_bg"
-    -->

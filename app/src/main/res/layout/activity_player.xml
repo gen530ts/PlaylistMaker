@@ -275,13 +275,3 @@
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!--tools:visibility="gone"-->
-    <!--    android:background="#323233"-->
-    <!--tools:context=".ui.player.activity.PlayerActivity"-->
-    <!--tools:context=".MainActivity"-->
-    <!--
-        tools:visibility="gone"-->
-
-<!--
-
-    />-->

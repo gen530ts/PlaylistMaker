@@ -46,7 +46,6 @@ class PlayerFragment : Fragment() {
 
     private fun setBackListener() {
         val back = binding.backButton
-        //findViewById<ImageButton>(R.id.backButton)
         back.setOnClickListener {
             findNavController().popBackStack()
         }
