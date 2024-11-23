@@ -63,7 +63,7 @@ class CreatePlayListFragment : Fragment() {
             if ((uriCover != null) || (binding.enterPlName.text.isNotEmpty()) || binding.enterPlDescr
                     .text.isNotEmpty()
             ) {
-                MaterialAlertDialogBuilder(requireContext()).setTitle("Завершить создание плейлиста?")
+               /* MaterialAlertDialogBuilder(requireContext()).setTitle("Завершить создание плейлиста?")
                     .setMessage("Все несохраненные данные будут потеряны")
                     .setNeutralButton("Отмена") { _, _ ->
                  //       Toast.makeText(requireContext(), "Отмена", Toast.LENGTH_LONG).show()
@@ -71,13 +71,21 @@ class CreatePlayListFragment : Fragment() {
                   //      Toast.makeText(requireContext(), "Завершить", Toast.LENGTH_LONG).show()
                         this.isEnabled = false
                         requireActivity().onBackPressedDispatcher.onBackPressed()
+                    }.show()*/
+                //requireContext().
+                val dial=MaterialAlertDialogBuilder(requireContext()).setTitle("Завершить создание" +
+                        " плейлиста?")
+                    .setMessage("Все несохраненные данные будут потеряны")
+                    .setNeutralButton("Отмена") { _, _ ->
+                    }.setPositiveButton("Завершить") { _, _ ->
+                        this.isEnabled = false
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
                     }.show()
+                dial.window?.setBackgroundDrawableResource(R.color.yp_blue)
             } else {
                 this.isEnabled = false
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
-
-
         }
     }
 
