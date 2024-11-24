@@ -18,7 +18,7 @@ class PlBottomHolder  (view: View): RecyclerView.ViewHolder(view) {
             .load(plist.imagePath)
             .fitCenter()
             .placeholder(R.drawable.placeholder_track)
-            .transform(RoundedCorners(8))
+            .transform(RoundedCorners(2))
             .into(img)
         title.text = plist.name
         description.text = plist.tracksNumber

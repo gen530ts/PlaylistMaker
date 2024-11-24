@@ -2,11 +2,8 @@ package gen.test.android.playlistmaker.ui.createplaylist
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +22,6 @@ import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.FragmentCreatePlayListBinding
 import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
-import java.io.FileOutputStream
 
 
 class CreatePlayListFragment : Fragment() {
@@ -34,8 +29,6 @@ class CreatePlayListFragment : Fragment() {
     private val viewModel: CreatePlayListViewModel by viewModel()
     private lateinit var binding: FragmentCreatePlayListBinding
     private var uriCover: Uri? = null
-    private var imageSaveFileName: String? = null
-    private var fullImageSaveFileName: String? = null
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission())
         { isGranted: Boolean ->
@@ -54,6 +47,7 @@ class CreatePlayListFragment : Fragment() {
                     .placeholder(R.drawable.add_photo)
                     .transform(RoundedCorners(8))
                     .into(binding.coverIvPl)
+
                 uriCover = uri
             }
         }
@@ -103,7 +97,7 @@ class CreatePlayListFragment : Fragment() {
         binding.backImageView.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-        activity?.onBackPressedDispatcher?.addCallback(this, callback)
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
 
         viewModel.observeData().observe(viewLifecycleOwner) {
             when (it) {
@@ -131,25 +125,6 @@ class CreatePlayListFragment : Fragment() {
         }
     }
 
-    private fun savePhoto() {
-        val filePath = File(
-            requireActivity().getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), "playlistmaker_album"
-        )
-        if (!filePath.exists()) {
-            filePath.mkdirs()
-        }
-
-        val file = File(filePath, imageSaveFileName!!)
-        fullImageSaveFileName = file.toString()
-        val inputStream = requireActivity().contentResolver.openInputStream(uriCover!!)
-        val outputStream = FileOutputStream(file)
-        val isSaved = BitmapFactory
-            .decodeStream(inputStream)
-            .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
-
-    }
 
     private fun saveInDb() {
         viewModel.addPlaylist(
