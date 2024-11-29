@@ -35,7 +35,9 @@
         android:src="@drawable/not_media"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/playListsTV"
@@ -49,7 +51,29 @@
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playListsRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dim16"
+        android:layout_marginBottom="@dimen/dim16"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:spanCount="2"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/playListsBt"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:itemCount="5"
+
+        tools:layout_editor_absoluteX="16dp"
+        tools:listitem="@layout/play_lists_img" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

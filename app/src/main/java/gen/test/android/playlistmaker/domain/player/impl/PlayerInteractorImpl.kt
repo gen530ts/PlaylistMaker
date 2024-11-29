@@ -33,7 +33,10 @@ class PlayerInteractorImpl(
     }
 
     override fun pause(callback: () -> Unit) {
-        player.pause()
-        callback()
+        if(player.state==PlayerState.STATE_PLAYING){
+            player.pause()
+            callback()
+        }
+
     }
 }

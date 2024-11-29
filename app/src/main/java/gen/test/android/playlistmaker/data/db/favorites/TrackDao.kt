@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker.data.db
+package gen.test.android.playlistmaker.data.db.favorites
 
 import androidx.room.*
 
