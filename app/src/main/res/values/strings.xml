@@ -39,4 +39,9 @@
     <string name="itemMenu1">item1</string>
     <string name="itemMenu2">item2</string>
     <string name="itemMenu3">item3</string>
+    <string name="create_playlist">Новый плейлист</string>
+    <string name="create_pl_descr">Описание</string>
+    <string name="create_pl_name">Название*</string>
+    <string name="create_pl_start">Создать</string>
+    <string name="add_to_pl">Добавить в плейлист</string>
 </resources>

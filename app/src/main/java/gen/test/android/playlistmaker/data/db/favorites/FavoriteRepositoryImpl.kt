@@ -1,6 +1,7 @@
-package gen.test.android.playlistmaker.data.db
+package gen.test.android.playlistmaker.data.db.favorites
 
 
+import gen.test.android.playlistmaker.data.db.TrackDatabase
 import gen.test.android.playlistmaker.domain.db.FavoriteRepository
 import gen.test.android.playlistmaker.domain.models.Track
 import kotlinx.coroutines.flow.Flow

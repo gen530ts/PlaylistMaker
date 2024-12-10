@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim56"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dim4"
+        android:paddingVertical="@dimen/dim4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backImageView"
+            android:layout_width="@dimen/dim48"
+            android:layout_height="@dimen/dim48"
+            android:padding="@dimen/dim12"
+            app:srcCompat="@drawable/back" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/settingsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center"
+            android:paddingStart="@dimen/dim12"
+            android:paddingTop="10dp"
+            android:paddingEnd="86dp"
+            android:paddingBottom="@dimen/dim12"
+            android:text="@string/create_playlist"
+            android:textColor="?attr/colorOnPrimary"
+            android:textFontWeight="500"
+            android:textSize="@dimen/dim22sp" />
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/coverCardView"
+        android:layout_width="@dimen/dim0"
+        android:layout_height="@dimen/dim0"
+        android:layout_marginStart="@dimen/dim24"
+        android:layout_marginTop="@dimen/dim24"
+        android:layout_marginEnd="@dimen/dim24"
+        app:cardBackgroundColor="#00000000"
+        app:cardCornerRadius="@dimen/dim8"
+
+        app:cardElevation="@dimen/dim0"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/playlistNameTextLayout"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+            android:id="@+id/coverIvPl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_iv_new_playlist"
+            android:scaleType="center"
+            android:src="@drawable/add_photo" />
+
+    </androidx.cardview.widget.CardView>
+    <!--+++++++++++++++++++++++++++++++++-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/playlistNameTextLayout"
+        style="@style/materialTIL"
+        android:layout_marginTop="@dimen/dim32"
+        android:hint="@string/create_pl_name"
+        app:layout_constraintBottom_toTopOf="@id/playlistDescriptionTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/coverCardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterPlName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ys_display_regular"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/dim16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!--+++++++++++++++++++++++++++++++++-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/playlistDescriptionTextLayout"
+        style="@style/materialTIL"
+        android:layout_marginTop="@dimen/dim16"
+        android:hint="@string/create_pl_descr"
+        app:layout_constraintTop_toBottomOf="@+id/playlistNameTextLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterPlDescr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ys_display_regular"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/dim16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/createPlBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim45"
+        android:layout_marginStart="@dimen/dim16"
+        android:layout_marginEnd="@dimen/dim16"
+        android:layout_marginBottom="@dimen/dim32"
+        android:background="@drawable/btn_new_playlist_bg"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/create_pl_start"
+        android:textColor="@color/yp_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

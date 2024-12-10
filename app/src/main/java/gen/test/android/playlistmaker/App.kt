@@ -3,6 +3,7 @@ package gen.test.android.playlistmaker
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
+import com.markodevcic.peko.PermissionRequester
 import gen.test.android.playlistmaker.di.dataModule
 import gen.test.android.playlistmaker.di.interactorModule
 import gen.test.android.playlistmaker.di.repositoryModule
@@ -42,5 +43,6 @@ class App : Application() {
         sharedPrefs = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE)
         darkTheme = sharedPrefs.getBoolean(DARK_THEME_KEY, false) == true
         switchTheme(darkTheme)
+        PermissionRequester.initialize(applicationContext)
     }
 }
