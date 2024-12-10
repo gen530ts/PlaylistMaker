@@ -2,6 +2,7 @@ package gen.test.android.playlistmaker.ui.player.activity
 
 
 import android.os.Bundle
+import android.os.Environment
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -23,6 +24,7 @@ import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
 import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 private const val ROUNDED_CORNERS_PLAYER = 8f
 const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
@@ -35,6 +37,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var timePlayTV: TextView
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private lateinit var recycler: RecyclerView
+    private lateinit var adapter:PlBottomAdapter
     private var currentPlist=""
 
     private fun setBackListener() {
@@ -75,6 +78,11 @@ class PlayerActivity : AppCompatActivity() {
                 }
             }
             recycler.layoutManager = LinearLayoutManager(this)
+            val filePath = File(getExternalFilesDir(
+                Environment
+                .DIRECTORY_PICTURES),"playlistmaker_album")
+            adapter=PlBottomAdapter({ et -> addTrackToPlayList(et) },filePath)
+            recycler.adapter=adapter
             if (it.collectionName.isNullOrEmpty()) {
                 binding.albumGroup.isVisible = false
             } else {
@@ -119,9 +127,10 @@ class PlayerActivity : AppCompatActivity() {
         }
         viewModel.observeData().observe(this) {
             when (it) {
-                is ScreenState.Success -> recycler.adapter = PlBottomAdapter(
-                    it.data
-                ) { et -> addTrackToPlayList(et) }
+                is ScreenState.Success -> {
+                    adapter.setData(it.data)
+                    adapter.notifyDataSetChanged()
+                }
                 else -> {}
             }
         }

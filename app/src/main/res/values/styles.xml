@@ -121,5 +121,18 @@
         <item name="android:textSize">@dimen/dim12</item>
     </style>
 
+    <style name="materialTIL" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="boxStrokeColor">@color/box_str_col_sel_grey</item>
+        <item name="boxStrokeWidth">@dimen/dim1</item>
+        <item name="android:textColorHint">?attr/colorOnPrimary</item>
+        <item name="hintTextColor">@color/yp_blue</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
     <dimen name="dim14sp">14sp</dimen>
 </resources>

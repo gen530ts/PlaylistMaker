@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class PlayListsViewModel(
     private val plistInteractor: PlistInteractor
 ) : ViewModel() {
-    private val liveData = MutableLiveData<ScreenState<List<Plist>>>(ScreenState.Warning)
+    private val liveData = MutableLiveData<ScreenState<List<Plist>>>()
 
 
     fun observeData(): LiveData<ScreenState<List<Plist>>> = liveData

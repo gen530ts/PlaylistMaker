@@ -1,6 +1,7 @@
 package gen.test.android.playlistmaker.ui.playlists
 
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import gen.test.android.playlistmaker.databinding.FragmentPlayListsBinding
 import gen.test.android.playlistmaker.domain.models.Plist
 import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 class PlayListsFragment : Fragment() {
 
@@ -62,7 +64,10 @@ class PlayListsFragment : Fragment() {
             playListsTV.isVisible = false
             playListsIV.isVisible = false
             playListsRecycler.isVisible=true
-            playListsRecycler.adapter= PlayListsAdapter(it.data)
+            val filePath = File(requireContext().getExternalFilesDir(
+                Environment
+                .DIRECTORY_PICTURES),"playlistmaker_album")
+            playListsRecycler.adapter= PlayListsAdapter(it.data,filePath)
         }
     }
 

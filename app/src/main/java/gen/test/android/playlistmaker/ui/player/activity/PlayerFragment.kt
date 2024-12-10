@@ -1,6 +1,8 @@
 package gen.test.android.playlistmaker.ui.player.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +28,7 @@ import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
 import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 
 class PlayerFragment : Fragment() {
@@ -42,6 +45,7 @@ class PlayerFragment : Fragment() {
     private lateinit var timePlayTV: TextView
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private lateinit var recycler: RecyclerView
+    private lateinit var adapter:PlBottomAdapter
     private var currentPlist = ""
 
     private fun setBackListener() {
@@ -51,8 +55,9 @@ class PlayerFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setInfo(rc: Int) {
-
+val reqResImg=false
         val json = requireArguments().getString(KEY_PLAYER_FRAGMENT)
         playBtn = binding.playIB
         timePlayTV = binding.timePlayTV
@@ -80,6 +85,10 @@ class PlayerFragment : Fragment() {
                 }
             }
             recycler.layoutManager = LinearLayoutManager(requireContext())
+            val filePath = File(requireContext().getExternalFilesDir(Environment
+                .DIRECTORY_PICTURES),"playlistmaker_album")
+            adapter = PlBottomAdapter ({ et -> addTrackToPlayList(et) },filePath)
+            recycler.adapter = adapter
             if (it.collectionName.isNullOrEmpty()) {
                 binding.albumGroup.isVisible = false
             } else {
@@ -106,6 +115,7 @@ class PlayerFragment : Fragment() {
                     timePlayTV.text = it.txt
 
                 }
+
                 is ModifyUI.PlayBtn -> {
                     playBtn.isEnabled = it.isEn
                 }
@@ -124,9 +134,10 @@ class PlayerFragment : Fragment() {
         }
         viewModel.observeData().observe(viewLifecycleOwner) {
             when (it) {
-                is ScreenState.Success -> recycler.adapter = PlBottomAdapter(
-                    it.data
-                ) { et -> addTrackToPlayList(et) }
+                is ScreenState.Success -> {
+                    adapter.setData(it.data)
+                    adapter.notifyDataSetChanged()
+                }
                 else -> {}
             }
         }
@@ -183,7 +194,7 @@ class PlayerFragment : Fragment() {
             object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN ,BottomSheetBehavior.STATE_COLLAPSED-> {
+                        BottomSheetBehavior.STATE_HIDDEN, BottomSheetBehavior.STATE_COLLAPSED -> {
                             binding.overlay.visibility = View.GONE
                         }
 

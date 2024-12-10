@@ -79,12 +79,11 @@ class PlayerViewModel(
         timerJob = viewModelScope.launch {
             while (true) {
                 delay(UPDATE_UI)
-                modUI.value = ModifyUI.TimePlayTV(
-                    Utils.millisToMmSs(
-                        playerInteractor
-                            .getCurrentPosition()
-                    )
+                val gcp=playerInteractor.getCurrentPosition()
+                val tst=Utils.millisToMmSs(gcp
+
                 )
+                modUI.value = ModifyUI.TimePlayTV(tst)
             }
         }
     }

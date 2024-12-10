@@ -40,7 +40,7 @@ class CreatePlayListFragment : Fragment() {
             if (uri != null) {
                 Glide.with(requireActivity())
                     .load(uri)
-                    .fitCenter()
+                    .centerCrop()
                     .placeholder(R.drawable.add_photo)
                     .transform(RoundedCorners(8))
                     .into(binding.coverIvPl)
@@ -51,8 +51,8 @@ class CreatePlayListFragment : Fragment() {
 
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if ((uriCover != null) || (binding.enterPlName.text.isNotEmpty()) || binding.enterPlDescr
-                    .text.isNotEmpty()
+            if ((uriCover != null) || (binding.enterPlName.text!!.isNotEmpty()) || binding.enterPlDescr
+                    .text!!.isNotEmpty()
             ) {
                 val dial=MaterialAlertDialogBuilder(requireContext()).setTitle("Завершить создание" +
                         " плейлиста?")

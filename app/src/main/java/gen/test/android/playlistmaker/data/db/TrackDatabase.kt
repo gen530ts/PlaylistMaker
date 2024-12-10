@@ -9,7 +9,7 @@ import gen.test.android.playlistmaker.data.db.playlists.PlistDao
 import gen.test.android.playlistmaker.data.db.tracksplists.TrackPlistDB
 import gen.test.android.playlistmaker.data.db.tracksplists.TrackPlistDao
 
-@Database(version = 1, entities = [TrackDB::class,PlistDB::class,TrackPlistDB::class])
+@Database(version = 1, entities = [TrackDB::class,PlistDB::class,TrackPlistDB::class], exportSchema = false)
 abstract class TrackDatabase : RoomDatabase(){
     abstract fun trackDao(): TrackDao
     abstract fun plistDao(): PlistDao
