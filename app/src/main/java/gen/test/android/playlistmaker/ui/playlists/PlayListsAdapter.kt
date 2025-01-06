@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.domain.models.Plist
-import java.io.File
 
 class PlayListsAdapter (
+    private val plistListener: PlistClickListener,
     private val plist: List<Plist>,
-    private val filePath: File
 ):
     RecyclerView.Adapter<PlayListsHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType:
@@ -25,6 +24,10 @@ class PlayListsAdapter (
     }
     override fun onBindViewHolder(holder: PlayListsHolder, position:
     Int) {
-        holder.bind(plist[position],filePath)
+        holder.bind(plist[position])
+        holder.itemView.setOnClickListener { plistListener.onPlistClick(plist[position]) }
+    }
+    fun interface PlistClickListener {
+        fun onPlistClick(item: Plist)
     }
 }

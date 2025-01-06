@@ -2,6 +2,7 @@ package gen.test.android.playlistmaker.domain.sharing.impl
 
 import gen.test.android.playlistmaker.data.sharing.ExternalNavigator
 import gen.test.android.playlistmaker.data.sharing.SharingRepository
+import gen.test.android.playlistmaker.domain.models.PlistViewScreen
 import gen.test.android.playlistmaker.domain.sharing.SharingInteractor
 import gen.test.android.playlistmaker.domain.sharing.model.EmailData
 
@@ -23,6 +24,12 @@ class SharingInteractorImpl(
         externalNavigator.openEmail(getSupportEmailData())
     }
 
+    override fun sharePlist(plistViewScreen: PlistViewScreen) {
+        externalNavigator.shareLink(getSharePlistString(plistViewScreen))
+    }
+
+    private fun getSharePlistString(plistViewScreen: PlistViewScreen):String =
+        sharingRepository.getSharePlistString(plistViewScreen)
     private fun getShareAppLink(): String = sharingRepository.getShareAppLink()
 
     private fun getSupportEmailData(): EmailData = sharingRepository.getSupportEmailData()

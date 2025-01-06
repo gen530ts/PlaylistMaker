@@ -1,5 +1,6 @@
 package gen.test.android.playlistmaker.ui.createplaylist
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,9 +16,9 @@ class CreatePlayListViewModel (
     private val liveData = MutableLiveData<ScreenState<String>>(ScreenState.Warning)
     fun observeData(): LiveData<ScreenState<String>> = liveData
 
-    fun addPlaylist(name:String,descr:String,imagePath: String) {
+    fun addPlaylist(name:String,descr:String,imageUri: Uri?) {
         viewModelScope.launch {
-            plistInteractor.addPlist(Plist(name=name, description = descr, imagePath = imagePath))
+            plistInteractor.addPlist(Plist(name=name, description = descr, imageUri = imageUri))//TODO
             liveData.postValue(ScreenState.Success(name))
         }
     }

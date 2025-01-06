@@ -40,4 +40,8 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
             Intent.createChooser(shareIntent, chooserTitle).addFlags(FLAG_ACTIVITY_NEW_TASK), null
         )
     }
+
+/*    override fun sharePlist(sharePlist: String) {
+        TODO("Not yet implemented")
+    }*/
 }

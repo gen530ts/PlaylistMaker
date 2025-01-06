@@ -1,7 +1,6 @@
 package gen.test.android.playlistmaker.ui.playlists
 
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.FragmentPlayListsBinding
 import gen.test.android.playlistmaker.domain.models.Plist
+import gen.test.android.playlistmaker.ui.playlist.PlistViewFragment
 import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
 
 class PlayListsFragment : Fragment() {
 
@@ -64,10 +63,7 @@ class PlayListsFragment : Fragment() {
             playListsTV.isVisible = false
             playListsIV.isVisible = false
             playListsRecycler.isVisible=true
-            val filePath = File(requireContext().getExternalFilesDir(
-                Environment
-                .DIRECTORY_PICTURES),"playlistmaker_album")
-            playListsRecycler.adapter= PlayListsAdapter(it.data,filePath)
+            playListsRecycler.adapter= PlayListsAdapter ({startPlistViewFragment(it)},it.data)
         }
     }
 
@@ -76,6 +72,14 @@ class PlayListsFragment : Fragment() {
             playListsTV.isVisible = true
             playListsIV.isVisible = true
             playListsRecycler.isVisible=false
+        }
+    }
+    private fun startPlistViewFragment(plist:Plist){
+        if(plist.id!=null){
+            findNavController().navigate(
+                R.id.action_mediaFragment_to_plistViewFragment,
+                PlistViewFragment.createArgs(plist.id)
+            )
         }
     }
 }

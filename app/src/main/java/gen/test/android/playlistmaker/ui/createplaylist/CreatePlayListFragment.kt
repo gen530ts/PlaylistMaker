@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
@@ -78,6 +79,10 @@ class CreatePlayListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -119,7 +124,14 @@ class CreatePlayListFragment : Fragment() {
         viewModel.addPlaylist(
             name = binding.enterPlName.text.toString(),
             descr = binding.enterPlDescr.text.toString(),
-            imagePath = uriCover?.toString() ?:""
+         //  imagePath = uriCover?.toString() ?:"",//TODO
+            imageUri = uriCover
         )
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+    }
+
 }

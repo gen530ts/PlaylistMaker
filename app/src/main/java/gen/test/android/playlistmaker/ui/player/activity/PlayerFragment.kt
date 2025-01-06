@@ -2,7 +2,6 @@ package gen.test.android.playlistmaker.ui.player.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,6 @@ import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
 import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
 
 
 class PlayerFragment : Fragment() {
@@ -57,7 +55,6 @@ class PlayerFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setInfo(rc: Int) {
-val reqResImg=false
         val json = requireArguments().getString(KEY_PLAYER_FRAGMENT)
         playBtn = binding.playIB
         timePlayTV = binding.timePlayTV
@@ -85,9 +82,7 @@ val reqResImg=false
                 }
             }
             recycler.layoutManager = LinearLayoutManager(requireContext())
-            val filePath = File(requireContext().getExternalFilesDir(Environment
-                .DIRECTORY_PICTURES),"playlistmaker_album")
-            adapter = PlBottomAdapter ({ et -> addTrackToPlayList(et) },filePath)
+            adapter = PlBottomAdapter { et -> addTrackToPlayList(et) }
             recycler.adapter = adapter
             if (it.collectionName.isNullOrEmpty()) {
                 binding.albumGroup.isVisible = false

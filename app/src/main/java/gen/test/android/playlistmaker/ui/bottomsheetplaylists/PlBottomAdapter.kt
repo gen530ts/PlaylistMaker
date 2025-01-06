@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.domain.models.Plist
-import java.io.File
 
 class PlBottomAdapter(
-    private val plListener: PlClickListener,
-    private val filePath: File
+    private val plListener: PlClickListener
 ) : RecyclerView.Adapter<PlBottomHolder>() {
 
     private var plist = listOf<Plist>()
@@ -33,7 +31,7 @@ class PlBottomAdapter(
         holder: PlBottomHolder, position:
         Int
     ) {
-        holder.bind(plist[position],filePath)
+        holder.bind(plist[position])
         holder.itemView.setOnClickListener { plListener.onPlClick(plist[position]) }
     }
 
