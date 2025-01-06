@@ -13,7 +13,7 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBinding.inflate(layoutInflater)
-       var bnv=binding.bottomNavigationView
+       val bnv=binding.bottomNavigationView
         setContentView(binding.root)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView)
                     as NavHostFragment
