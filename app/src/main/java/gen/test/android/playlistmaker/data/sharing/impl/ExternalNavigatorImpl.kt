@@ -42,6 +42,6 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
     }
 
 /*    override fun sharePlist(sharePlist: String) {
-        TODO("Not yet implemented")
+
     }*/
 }

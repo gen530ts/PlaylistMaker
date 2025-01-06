@@ -124,7 +124,7 @@ class CreatePlayListFragment : Fragment() {
         viewModel.addPlaylist(
             name = binding.enterPlName.text.toString(),
             descr = binding.enterPlDescr.text.toString(),
-         //  imagePath = uriCover?.toString() ?:"",//TODO
+         //  imagePath = uriCover?.toString() ?:"",
             imageUri = uriCover
         )
     }

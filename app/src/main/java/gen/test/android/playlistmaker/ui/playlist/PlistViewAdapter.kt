@@ -4,7 +4,7 @@ import gen.test.android.playlistmaker.domain.models.Track
 import gen.test.android.playlistmaker.ui.search.activity.SearchTrackHolder
 import gen.test.android.playlistmaker.ui.search.activity.TrackSearchAdapter
 
-class PlistViewAdapter(private val tlcl:TrackLongClickListener,private val tcl: TrackClickListener) :
+class PlistViewAdapter(private val tlcl:TrackLongClickListener, tcl: TrackClickListener) :
     TrackSearchAdapter
     (tcl){
     override fun onBindViewHolder(holder: SearchTrackHolder, position: Int) {

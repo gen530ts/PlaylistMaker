@@ -18,7 +18,7 @@ class CreatePlayListViewModel (
 
     fun addPlaylist(name:String,descr:String,imageUri: Uri?) {
         viewModelScope.launch {
-            plistInteractor.addPlist(Plist(name=name, description = descr, imageUri = imageUri))//TODO
+            plistInteractor.addPlist(Plist(name=name, description = descr, imageUri = imageUri))
             liveData.postValue(ScreenState.Success(name))
         }
     }
