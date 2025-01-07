@@ -9,15 +9,12 @@ interface PlistRepository {
     suspend fun addTrackToPlists(track: Track)
     suspend fun updatePlist(plist: Plist)
     suspend fun getAllPlists(): List<Plist>
-    //suspend fun getPlistViewData(idPlist:Long):PlistViewScreen
     fun getTracksByPlistId(id: Long): Flow<List<Track>>
     suspend fun getAllTracks():List<Track>
-
     fun getAllPlistsFlow(): Flow<List<Plist>>
-
     suspend fun getPlistById(id: Long):Plist
     suspend fun getPlistByIdFlow(id: Long):Flow<Plist>
     suspend fun delTrackPlistById(id: Int)
     suspend fun delPlistById(id: Long)
-   // fun del Track
+
 }

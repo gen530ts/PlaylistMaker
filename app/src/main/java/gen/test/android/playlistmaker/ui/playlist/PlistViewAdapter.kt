@@ -8,8 +8,7 @@ class PlistViewAdapter(private val tlcl:TrackLongClickListener, tcl: TrackClickL
     TrackSearchAdapter
     (tcl){
     override fun onBindViewHolder(holder: SearchTrackHolder, position: Int) {
-/*        holder.bind(tracks[position])
-        holder.itemView.setOnClickListener { trackListener.onTrackClick(tracks[position]) }*/
+
         super.onBindViewHolder(holder, position)
         holder.itemView.setOnLongClickListener {
             tlcl.onTrackLongClick(tracks[position])
@@ -21,9 +20,3 @@ class PlistViewAdapter(private val tlcl:TrackLongClickListener, tcl: TrackClickL
     }
 }
 
-/*private val callback = object : OnBackPressedCallback(true) {
-    override fun handleOnBackPressed() {
-        if ((uriCover != null) || (binding.enterPlName.text!!.isNotEmpty()) || binding.enterPlDescr
-                .text!!.isNotEmpty()*/
-
-//tlcl.onTrackLongClick(tracks[position])

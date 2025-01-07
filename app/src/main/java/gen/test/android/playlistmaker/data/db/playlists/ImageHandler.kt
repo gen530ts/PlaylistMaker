@@ -18,7 +18,7 @@ class ImageHandler(private val context: Context) {
         if (!filePath.exists()) {
             filePath.mkdirs()
         }
-        //val fileName = plist.name + plist.description + ".jpg"
+
         val file = File(filePath, plist.imagePath)
         val inputStream = context.contentResolver.openInputStream(uri)
         val outputStream = FileOutputStream(file)

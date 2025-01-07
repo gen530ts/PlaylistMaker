@@ -23,11 +23,7 @@ open class CreatePlayListViewModel (
             val namePl=if(idPl==null) name else ""
             liveData.postValue(ScreenState.Success(Plist(name=namePl)))
 
-            /*            if(idPl==null){      imagePath = uriCover?.toString() ?:""
-                liveData.postValue(ScreenState.Success(Plist(name=name)))
-            }else{
 
-            }*/
 
         }
     }

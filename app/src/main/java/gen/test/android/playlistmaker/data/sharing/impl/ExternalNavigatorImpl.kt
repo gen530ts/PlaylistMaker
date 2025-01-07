@@ -16,8 +16,7 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
         val shareIntent1 = Intent.createChooser(shareIntent, chooserTitle)
         shareIntent1.putExtra(Intent.EXTRA_TEXT, shareApp)
         shareIntent1.addFlags(FLAG_ACTIVITY_NEW_TASK)
-        //Toast.makeText(context, "ShareString:$shareApp", Toast.LENGTH_LONG).show()
-       //Log.d("mytag", "shareLink:$shareApp ")
+
         context.applicationContext.startActivity(shareIntent1)
     }
 
@@ -42,7 +41,5 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
         )
     }
 
-/*    override fun sharePlist(sharePlist: String) {
 
-    }*/
 }

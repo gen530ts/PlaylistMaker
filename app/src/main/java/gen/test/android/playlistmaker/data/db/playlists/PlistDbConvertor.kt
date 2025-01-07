@@ -39,7 +39,7 @@ class PlistDbConvertor(private val context: Context) {
             } else {
                 ""
             },
-            //plist.imagePath,
+
             idTracks = plist.idTracks.toString(),
         )
     }

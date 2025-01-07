@@ -12,7 +12,6 @@ interface PlistInteractor {
     fun getAllPlists(): Flow<List<Plist>>
     fun getTracksByPlistId(id: Long): Flow<List<Track>>
     suspend fun getPlistById(id:Long):Plist
-   // suspend fun getPlistViewData(id:Long):PlistViewScreen
     suspend fun getPlistViewDataFlow(id:Long):Flow<PlistViewScreen>
     suspend fun delTrackInPlist(plistId:Long,trackId:Int)
     suspend fun delPlistById(idPlist:Long)

@@ -7,7 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface TrackPlistDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTrack(track: TrackPlistDB)
     @Query("SELECT * FROM track_plist_table WHERE trackid = :id")
     suspend fun getTrackPlistById(id: Int):TrackPlistDB

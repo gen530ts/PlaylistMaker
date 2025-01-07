@@ -26,7 +26,6 @@ import org.koin.core.parameter.parametersOf
 
 class PlistViewFragment : Fragment() {
 
-    //private val qw:Long=requireArguments().getLong(PLIST_VIEW_FRAGMENT)
     private val viewModel: PlistViewViewModel by viewModel {
         parametersOf(requireArguments().getLong(PLIST_VIEW_FRAGMENT))
     }
@@ -83,22 +82,19 @@ class PlistViewFragment : Fragment() {
                 binding.tracksTimeTextView.text = it.durationAllTracks
                 val items = arrayListOf<Track>()
                 if (it.tracks.isNotEmpty()) {
-                   /* val temp= mutableListOf<Track>()
-                    temp+=it.tracks
-                    temp.sortedBy { tr->tr.createAt }*/
+
                     isTracksInPlist = true
 
-                    items.addAll(it.tracks)// += it.tracks  it.tracks as ArrayList<Track>
-                    //Log.d("mytag", "items=$items")
+                    items.addAll(it.tracks)
+
                 } else {
                     isTracksInPlist = false
                 }
                 tracksAdapter?.setItems(items)
                 tracksAdapter?.notifyDataSetChanged()
-                // Log.d("mytag", "it.tracks = ${it.tracks}")
             }else requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-//val tst= buildString {  }
+
 
     }
 
@@ -168,7 +164,6 @@ class PlistViewFragment : Fragment() {
             }
         })
 
-        //binding.bottomSheetMenu.playlistView.playlistNameTextView
     }
 
     private fun initRecycleView() {
@@ -184,7 +179,6 @@ class PlistViewFragment : Fragment() {
     }
 
     private fun startPlayer(track: Track) {
-        //Toast.makeText(requireContext(), "id=$id ", Toast.LENGTH_LONG).show()
         findNavController().navigate(
             R.id.action_plistViewFragment_to_playerFragment,
             PlayerFragment.createArgs(Gson().toJson(track))
@@ -212,4 +206,3 @@ class PlistViewFragment : Fragment() {
     }
 }
 
-//

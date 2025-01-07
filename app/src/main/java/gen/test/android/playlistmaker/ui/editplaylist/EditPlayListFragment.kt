@@ -30,7 +30,6 @@ class EditPlayListFragment:CreatePlayListFragment() {
 
     override fun observe() {
         viewModel.observeData().observe(viewLifecycleOwner) {
-            //if (it.data)
             when (it) {
                 is ScreenState.Success -> initInfo(it.data)
                 else -> {}
@@ -39,12 +38,12 @@ class EditPlayListFragment:CreatePlayListFragment() {
     }
 
     override fun btnOnClick() {
-        //Toast.makeText(requireContext(), "click on btn", Toast.LENGTH_LONG).show()
+
         saveInDb()
     }
 
     override fun addOnBackPressedCallback() {
-        //super.addOnBackPressedCallback()
+
     }
 
             private fun initInfo(plist: Plist) {

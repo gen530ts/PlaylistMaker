@@ -141,7 +141,6 @@ open class CreatePlayListFragment : Fragment() {
             idPl = plistId,
             name = binding.enterPlName.text.toString(),
             descr = binding.enterPlDescr.text.toString(),
-         //  imagePath = uriCover?.toString() ?:"",
             imageUri = uriCover
         )
     }

@@ -24,7 +24,7 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
     }
 
     override fun getAllPlists(): Flow<List<Plist>> {
-       // return plistRepository.getAllPlists()
+
         return plistRepository.getAllPlistsFlow()
     }
 
@@ -36,18 +36,12 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
         return plistRepository.getPlistById(id)
     }
 
-/*    override suspend fun getPlistViewData(id: Long): PlistViewScreen {
-        val tst= coroutineScope {
-           val qq= plistRepository.getAllPlists().collect{it}
-        }
-        return plistRepository.getPlistViewData(id)
-    }*/
+
 
     override suspend fun getPlistViewDataFlow(id: Long): Flow<PlistViewScreen> {
        return plistRepository.getPlistByIdFlow(id).map { pl ->
            getPlistViewScreen(pl)
-/*           PlistViewScreen(name = pl.name,
-           description = pl.description, imageUri = pl.imageUri)*/
+
        }
     }
 
@@ -64,7 +58,7 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
                 plistRepository.updatePlist(plist)
             }
         }
-        if(!isTrackInOtherPlist) plistRepository.delTrackPlistById(trackId)//()
+        if(!isTrackInOtherPlist) plistRepository.delTrackPlistById(trackId)
     }
 
     override suspend fun delPlistById(idPlist: Long) {
@@ -89,14 +83,12 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
     }
 
     private suspend fun getPlistViewScreen(plist:Plist):PlistViewScreen{
-       // return coroutineScope {   async {}.await()
-      //  delay(2000)
+
             val tracksAll= plistRepository.getAllTracks()
 
-       // Log.d("mytag", "1_getPlistViewScreen:tracksAll.size: ${tracksAll.size}")
             var numOfTracks=0
             var timeOfTracks=0
-           // var mut=mutableListOf<Track>()
+
             val tracksInPlist=mutableListOf<Track>()
             for (track in tracksAll) {
                 if (plist.idTracks.contains(track.trackId)) {
@@ -105,7 +97,7 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
                     timeOfTracks += track.trackTimeMillis
                 }
             }
-       // Log.d("mytag", "2_getPlistViewScreen:tracksAll.size: ${tracksAll.size}")
+
           return  PlistViewScreen(
               id=plist.id,
               name=plist.name,
@@ -132,12 +124,12 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
         val i1 = i % 10
         val i2 = i / 10
         val first= "$number "
-        var pos= if ((i1 == 1) && (i2 != 1)) 0//" трек"
-        else if ((i1 > 1) && (i1 < 5) && (i2 != 1)) 1//" трека"
-        else 2//" треков"
-       // println("$pos")
+        var pos= if ((i1 == 1) && (i2 != 1)) 0
+        else if ((i1 > 1) && (i1 < 5) && (i2 != 1)) 1
+        else 2
+
         if(param==ParamPlist.Time) pos+=3
-       // println("$pos")
+
         val second=when(pos){
             0->"трек"
             1->"трека"
@@ -151,14 +143,5 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
     }
 }
 
-//  }
-//val listTracks=plistRepository.getAllTracks()
 
-/*        return coroutineScope {
-            val plist= async {plistDbConvertor.map(trackDatabase.plistDao().getPlistById
-                (idPlist))}.await()
-            val allTracks= async {trackDatabase.trackPlistDao().getAllTracks().map { tr->trackPlDbConvertor
-                .map(tr) }}.await()
-            // val plist=plistDef.await()
-            PlistViewScreen(name=plist.name, description = plist.description)
-        }*/
+

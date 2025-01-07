@@ -84,18 +84,5 @@ class PlistRepositoryImpl(
     }
 }
 
-   /* override suspend fun getPlistViewData(idPlist: Long): PlistViewScreen {
-       return coroutineScope {
-            val plist= async {plistDbConvertor.map(trackDatabase.plistDao().getPlistById
-                (idPlist))}.await()
-            val allTracks= async {trackDatabase.trackPlistDao().getAllTracks().map { tr->trackPlDbConvertor
-                .map(tr) }}.await()
-          // val plist=plistDef.await()
-            PlistViewScreen(name=plist.name, description = plist.description)
-        }*/
 
-       // return PlistViewScreen(name=plist.)
-        //val currentPlistTracks = listOf<Track>()
-       // allTracks.forEach { tr-> if()}
-      //  return PlistViewScreen(name="name")
 
