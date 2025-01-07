@@ -16,10 +16,12 @@ open class CreatePlayListViewModel (
     val liveData = MutableLiveData<ScreenState<Plist>>(ScreenState.Warning)
     fun observeData(): LiveData<ScreenState<Plist>> = liveData
 
+    var listIdTracks= listOf<Int>()
+
     fun addPlaylist(idPl:Long?,name:String,descr:String,imageUri: Uri?) {
         viewModelScope.launch {
             plistInteractor.addPlist(Plist(id=idPl,name=name, description = descr, imageUri =
-            imageUri))
+            imageUri, idTracks = listIdTracks))
             val namePl=if(idPl==null) name else ""
             liveData.postValue(ScreenState.Success(Plist(name=namePl)))
 

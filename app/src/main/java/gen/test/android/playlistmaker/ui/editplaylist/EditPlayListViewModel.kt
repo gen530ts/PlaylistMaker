@@ -15,6 +15,7 @@ class EditPlayListViewModel (
         viewModelScope.launch {
             val plist = plistInteractor.getPlistById(playlistId)
             liveData.postValue(ScreenState.Success(plist))
+            listIdTracks=plist.idTracks
         }
     }
 }
