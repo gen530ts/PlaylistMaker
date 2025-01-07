@@ -73,6 +73,14 @@
         <action
             android:id="@+id/action_plistViewFragment_to_playerFragment"
             app:destination="@id/playerFragment" />
+        <action
+            android:id="@+id/action_plistViewFragment_to_editPlayListFragment"
+            app:destination="@id/editPlayListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editPlayListFragment"
+        android:name="gen.test.android.playlistmaker.ui.editplaylist.EditPlayListFragment"
+        android:label="EditPlayListFragment"
+        tools:layout="@layout/fragment_create_play_list"/>
 </navigation>
 

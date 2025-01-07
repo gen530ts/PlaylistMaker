@@ -13,6 +13,7 @@
         app:cardCornerRadius="2dp"
         app:cardElevation="@dimen/dim0">
 
+
         <ImageView
             android:id="@+id/coverPlIv"
             android:layout_width="match_parent"

@@ -20,7 +20,7 @@ class RootActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if((destination.id == R.id.createPlayListFragment)||(destination.id == R.id.playerFragment)||(destination.id == R.id.plistViewFragment) ) {
+            if((destination.id == R.id.createPlayListFragment)||(destination.id == R.id.playerFragment)||(destination.id == R.id.plistViewFragment)||(destination.id == R.id.editPlayListFragment) ) {
                 bnv.visibility = View.GONE
             } else {
 

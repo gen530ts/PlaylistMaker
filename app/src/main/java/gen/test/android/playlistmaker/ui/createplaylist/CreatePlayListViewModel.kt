@@ -10,18 +10,28 @@ import gen.test.android.playlistmaker.domain.models.Plist
 import gen.test.android.playlistmaker.utils.ScreenState
 import kotlinx.coroutines.launch
 
-class CreatePlayListViewModel (
-    private val plistInteractor: PlistInteractor
+open class CreatePlayListViewModel (
+    val plistInteractor: PlistInteractor
 ) : ViewModel() {
-    private val liveData = MutableLiveData<ScreenState<String>>(ScreenState.Warning)
-    fun observeData(): LiveData<ScreenState<String>> = liveData
+    val liveData = MutableLiveData<ScreenState<Plist>>(ScreenState.Warning)
+    fun observeData(): LiveData<ScreenState<Plist>> = liveData
 
-    fun addPlaylist(name:String,descr:String,imageUri: Uri?) {
+    fun addPlaylist(idPl:Long?,name:String,descr:String,imageUri: Uri?) {
         viewModelScope.launch {
-            plistInteractor.addPlist(Plist(name=name, description = descr, imageUri = imageUri))
-            liveData.postValue(ScreenState.Success(name))
+            plistInteractor.addPlist(Plist(id=idPl,name=name, description = descr, imageUri =
+            imageUri))
+            val namePl=if(idPl==null) name else ""
+            liveData.postValue(ScreenState.Success(Plist(name=namePl)))
+
+            /*            if(idPl==null){      imagePath = uriCover?.toString() ?:""
+                liveData.postValue(ScreenState.Success(Plist(name=name)))
+            }else{
+
+            }*/
+
         }
     }
+
     fun resetLd() {
         liveData.value=ScreenState.Warning
     }

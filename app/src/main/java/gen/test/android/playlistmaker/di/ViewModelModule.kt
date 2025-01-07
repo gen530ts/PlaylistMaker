@@ -1,6 +1,7 @@
 package gen.test.android.playlistmaker.di
 
 import gen.test.android.playlistmaker.ui.createplaylist.CreatePlayListViewModel
+import gen.test.android.playlistmaker.ui.editplaylist.EditPlayListViewModel
 import gen.test.android.playlistmaker.ui.favtracks.FavTracksViewModel
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
 import gen.test.android.playlistmaker.ui.playlist.PlistViewViewModel
@@ -34,6 +35,10 @@ val viewModelModule = module {
 
     viewModel {
         CreatePlayListViewModel(get())
+    }
+
+    viewModel { (trackId: Long) ->
+        EditPlayListViewModel(trackId,get())
     }
 
     viewModel { (trackId: Long) ->

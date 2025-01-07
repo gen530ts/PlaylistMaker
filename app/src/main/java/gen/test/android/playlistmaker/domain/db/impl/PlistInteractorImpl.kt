@@ -135,9 +135,9 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
         var pos= if ((i1 == 1) && (i2 != 1)) 0//" трек"
         else if ((i1 > 1) && (i1 < 5) && (i2 != 1)) 1//" трека"
         else 2//" треков"
-        println("$pos")
+       // println("$pos")
         if(param==ParamPlist.Time) pos+=3
-        println("$pos")
+       // println("$pos")
         val second=when(pos){
             0->"трек"
             1->"трека"

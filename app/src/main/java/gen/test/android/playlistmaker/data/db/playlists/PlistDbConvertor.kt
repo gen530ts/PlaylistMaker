@@ -31,7 +31,7 @@ class PlistDbConvertor(private val context: Context) {
 
     fun map(plist: Plist): PlistDB {
         return PlistDB(
-            id = null,
+            id = plist.id,
             name = plist.name,
             description = plist.description,
             imagePath = if (plist.imageUri != null) {

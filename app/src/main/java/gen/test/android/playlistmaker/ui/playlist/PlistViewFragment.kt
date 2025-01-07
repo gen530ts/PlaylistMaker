@@ -18,6 +18,7 @@ import com.google.gson.Gson
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.databinding.FragmentPlistViewBinding
 import gen.test.android.playlistmaker.domain.models.Track
+import gen.test.android.playlistmaker.ui.editplaylist.EditPlayListFragment
 import gen.test.android.playlistmaker.ui.player.activity.PlayerFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -58,6 +59,7 @@ class PlistViewFragment : Fragment() {
         binding.shareImageView.setOnClickListener {sharePlist()}
         binding.shareTVBSMenu.setOnClickListener { sharePlist() }
         binding.deletePListTVBSMenu.setOnClickListener { delPlist() }
+        binding.editInfoTVBSMenu.setOnClickListener { editPlist() }
         initBottomSheetsMenu()
         binding.moreImageView.setOnClickListener {
             bottomSheetBehaviorMenu.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -98,6 +100,13 @@ class PlistViewFragment : Fragment() {
         }
 //val tst= buildString {  }
 
+    }
+
+    private fun editPlist() {
+        findNavController().navigate(
+            R.id.action_plistViewFragment_to_editPlayListFragment,
+            EditPlayListFragment.createArgs(requireArguments().getLong(PLIST_VIEW_FRAGMENT))
+        )
     }
 
     private fun sharePlist() {

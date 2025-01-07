@@ -43,7 +43,7 @@
         <ImageView
             android:id="@+id/backImageView"
             android:src="@drawable/back_arrow_plist_view"
-            app:tint="?attr/colorOnPrimary"
+            app:tint="@color/yp_black"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -249,37 +249,3 @@
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-<!--
-<ProgressBar
-android:id="@+id/progressBar"
-android:layout_width="@dimen/dim45"
-android:layout_height="@dimen/dim45"
-android:layout_gravity="center"
-android:layout_marginTop="@dimen/dim24"
-android:indeterminateTint="#3772e7"
-android:visibility="gone" />
-
-<ImageView
-android:id="@+id/placeholder_no_playlist_image"
-android:layout_width="@dimen/dim80"
-android:layout_height="@dimen/dim80"
-android:layout_gravity="center"
-android:layout_marginTop="@dimen/dim24"
-android:contentDescription="error"
-android:src="@drawable/error_search"
-android:visibility="gone" />
-
-<TextView
-android:id="@+id/emptyPlaylistTextView"
-android:fontFamily=""
-android:textSize=""
-android:textColor=""
-style="@style/PlaceholderText"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="center"
-android:layout_marginTop="@dimen/margin_24"
-android:gravity="center"
-android:text="@string/playlist_have_no_tracks"
-android:visibility="gone" />-->
