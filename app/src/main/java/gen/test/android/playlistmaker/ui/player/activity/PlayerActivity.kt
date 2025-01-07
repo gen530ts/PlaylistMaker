@@ -2,18 +2,29 @@ package gen.test.android.playlistmaker.ui.player.activity
 
 
 import android.os.Bundle
+import android.os.Environment
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import gen.test.android.playlistmaker.R
 import gen.test.android.playlistmaker.Utils
 import gen.test.android.playlistmaker.databinding.ActivityPlayerBinding
+import gen.test.android.playlistmaker.domain.models.Plist
+import gen.test.android.playlistmaker.ui.bottomsheetplaylists.PlBottomAdapter
+import gen.test.android.playlistmaker.ui.createplaylist.CreatePlayListFragment
 import gen.test.android.playlistmaker.ui.player.model.ModifyUI
 import gen.test.android.playlistmaker.ui.player.view_model.PlayerViewModel
+import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 private const val ROUNDED_CORNERS_PLAYER = 8f
 const val KEY_PLAYER_ACTIVITY = "KEY_PLAYER_ACTIVITY"
@@ -24,6 +35,10 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlayerBinding
     private lateinit var playBtn: ImageButton
     private lateinit var timePlayTV: TextView
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private lateinit var recycler: RecyclerView
+    private lateinit var adapter:PlBottomAdapter
+    private var currentPlist=""
 
     private fun setBackListener() {
         val back = findViewById<ImageButton>(R.id.backButton)
@@ -49,10 +64,25 @@ class PlayerActivity : AppCompatActivity() {
                 artistTV.text = it.artistName
                 genreTv.text = it.primaryGenreName
                 countryTv.text = it.country
+                recycler = listPlBotSh
+
                 timeTv.text = Utils.millisToMmSs(it.trackTimeMillis)
                 favoriteIB.setOnClickListener { viewModel.onFavoriteClicked() }
+                addToPl.setOnClickListener { viewBottomSheet() }
+                playListsBt.setOnClickListener {
+                    val fragment = CreatePlayListFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.playerFragmentContainerView, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
-
+            recycler.layoutManager = LinearLayoutManager(this)
+            val filePath = File(getExternalFilesDir(
+                Environment
+                .DIRECTORY_PICTURES),"playlistmaker_album")
+            adapter=PlBottomAdapter({ et -> addTrackToPlayList(et) },filePath)
+            recycler.adapter=adapter
             if (it.collectionName.isNullOrEmpty()) {
                 binding.albumGroup.isVisible = false
             } else {
@@ -95,15 +125,50 @@ class PlayerActivity : AppCompatActivity() {
                 else R.drawable.isnot_favorite
             )
         }
+        viewModel.observeData().observe(this) {
+            when (it) {
+                is ScreenState.Success -> {
+                    adapter.setData(it.data)
+                    adapter.notifyDataSetChanged()
+                }
+                else -> {}
+            }
+        }
+        viewModel.observeTrackToPlist().observe(this) {
+            when (it) {
+                is ScreenState.Success -> if (it.data > 0) {
+                    bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
+                    Toast.makeText(this, "Добавлено в плейлист $currentPlist", Toast.LENGTH_LONG).show()
+                } else Toast.makeText(this, "Трек уже добавлен в плейлист $currentPlist", Toast
+                    .LENGTH_LONG).show()
+
+                else -> {}
+            }
+
+        }
+
+
         if (json != null) {
             viewModel.prepare(json)
         }
+    }
+
+    private fun viewBottomSheet() {
+        viewModel.findPlaylists()
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+    }
+
+    private fun addTrackToPlayList(plist: Plist) {
+        currentPlist=plist.name
+        viewModel.addTrackToPlist(plist)
+        viewModel.resetAddTrackToPlist()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.addPlBottomSheet)
         setInfo(Utils.dpToPx(ROUNDED_CORNERS_PLAYER, this))
         setBackListener()
     }
@@ -114,3 +179,4 @@ class PlayerActivity : AppCompatActivity() {
     }
 
 }
+

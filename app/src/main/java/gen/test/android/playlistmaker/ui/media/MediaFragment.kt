@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker.ui.media.activity
+package gen.test.android.playlistmaker.ui.media
 
 import android.os.Bundle
 import android.view.LayoutInflater

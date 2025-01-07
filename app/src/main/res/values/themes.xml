@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
 
         <!-- Customize your theme here. -->
+        <!--<item name="android:textColorHint">@color/teal_700</item>-->
         <item name="colorOnSurface">@color/yp_text_gray</item>
         <item name="testColor">@color/yp_text_gray</item>
          <!--<item name="android:colorBackground">?attr/colorPrimary</item>-->

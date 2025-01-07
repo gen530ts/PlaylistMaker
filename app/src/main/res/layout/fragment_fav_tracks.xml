@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:overScrollMode="ifContentScrolls"
-    tools:context=".ui.media.activity.FavTracksFragment">
+    tools:context=".ui.favtracks.FavTracksFragment">
 
     <LinearLayout
         android:id="@+id/dataLL"

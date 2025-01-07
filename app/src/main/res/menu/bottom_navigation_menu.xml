@@ -20,5 +20,3 @@
         android:icon="@drawable/settings_dark_bnv"
         android:title="@string/settings_str" />
 </menu>
-
-<!--    android:icon="@drawable/ic_text"-->

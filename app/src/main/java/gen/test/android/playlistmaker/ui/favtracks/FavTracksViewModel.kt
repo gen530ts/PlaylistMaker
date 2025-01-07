@@ -1,4 +1,4 @@
-package gen.test.android.playlistmaker.ui.media.view_model
+package gen.test.android.playlistmaker.ui.favtracks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ class FavTracksViewModel(
     private val favoriteInteractor: FavoriteInteractor
 ) : ViewModel() {
 
-    private val liveData = MutableLiveData<ScreenState<List<Track>>>(ScreenState.Warning)
+    private val liveData = MutableLiveData<ScreenState<List<Track>>>()
     fun observeData(): LiveData<ScreenState<List<Track>>> = liveData
 
     fun findFavorites() {

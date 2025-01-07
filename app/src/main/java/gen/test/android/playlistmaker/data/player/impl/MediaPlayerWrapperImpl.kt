@@ -21,20 +21,24 @@ class MediaPlayerWrapperImpl(private val mediaPlayer: MediaPlayer) : MediaPlayer
         cbCompletion: () -> Unit
     ) {
         mediaPlayer.setDataSource(src)
-        mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener {
             state = PlayerState.STATE_PREPARED
             cbPrepared()
         }
+        mediaPlayer.prepareAsync()
         mediaPlayer.setOnCompletionListener {
-            state = PlayerState.STATE_PREPARED
+            state = PlayerState.STATE_COMPLETED
+            it.stop()
+            state = PlayerState.STATE_STOPPED
+            it.prepareAsync()
             cbCompletion()
         }
     }
 
     override fun play() {
-        mediaPlayer.start()
         state = PlayerState.STATE_PLAYING
+        mediaPlayer.start()
+
     }
 
     override fun pause() {

@@ -25,7 +25,9 @@ class SearchViewModel(
     private fun renderState(state: SearchTrackState) {
         stateLiveData.postValue(state)
     }
-
+    fun resetLD() {
+        stateLiveData.postValue(SearchTrackState.Default)
+    }
     private var searchJob: Job? = null
 
     fun searchDebounce(str: String) {
@@ -83,6 +85,8 @@ class SearchViewModel(
     override fun onCleared() {
         searchJob?.cancel()
     }
+
+
 }
 
 

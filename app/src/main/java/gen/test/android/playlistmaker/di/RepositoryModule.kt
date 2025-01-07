@@ -1,7 +1,11 @@
 package gen.test.android.playlistmaker.di
 
-import gen.test.android.playlistmaker.data.db.FavoriteRepositoryImpl
-import gen.test.android.playlistmaker.data.db.TrackDbConvertor
+import gen.test.android.playlistmaker.data.db.favorites.FavoriteRepositoryImpl
+import gen.test.android.playlistmaker.data.db.favorites.TrackDbConvertor
+import gen.test.android.playlistmaker.data.db.playlists.ImageHandler
+import gen.test.android.playlistmaker.data.db.playlists.PlistDbConvertor
+import gen.test.android.playlistmaker.data.db.playlists.PlistRepositoryImpl
+import gen.test.android.playlistmaker.data.db.tracksplists.TrackPlDbConvertor
 import gen.test.android.playlistmaker.data.player.impl.GetTrackRepositoryImpl
 import gen.test.android.playlistmaker.data.search.HistoryRepository
 import gen.test.android.playlistmaker.data.search.SearchRepository
@@ -11,6 +15,7 @@ import gen.test.android.playlistmaker.data.settings.impl.ThemeRepositoryImpl
 import gen.test.android.playlistmaker.data.sharing.SharingRepository
 import gen.test.android.playlistmaker.data.sharing.impl.SharingRepositoryImpl
 import gen.test.android.playlistmaker.domain.db.FavoriteRepository
+import gen.test.android.playlistmaker.domain.db.PlistRepository
 import gen.test.android.playlistmaker.domain.player.GetTrackRepository
 import gen.test.android.playlistmaker.domain.settings.ThemeRepository
 import org.koin.android.ext.koin.androidApplication
@@ -41,7 +46,15 @@ val repositoryModule = module {
 
     factory { TrackDbConvertor() }
 
+    factory { TrackPlDbConvertor() }
+
+    factory { PlistDbConvertor() }
+
+    factory { ImageHandler(androidContext()) }
+
     single<FavoriteRepository> { FavoriteRepositoryImpl(get(), get()) }
+
+    single<PlistRepository> { PlistRepositoryImpl(get(), get(), get(), get()) }
 
 }
 

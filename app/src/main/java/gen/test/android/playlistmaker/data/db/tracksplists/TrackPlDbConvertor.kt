@@ -1,9 +1,9 @@
-package gen.test.android.playlistmaker.data.db
+package gen.test.android.playlistmaker.data.db.tracksplists
 
 import gen.test.android.playlistmaker.domain.models.Track
 
-class TrackDbConvertor {
-    fun map(track: TrackDB): Track {
+class TrackPlDbConvertor {
+    fun map(track: TrackPlistDB): Track {
         return Track(
             track.trackName,
             track.artistName,
@@ -18,8 +18,8 @@ class TrackDbConvertor {
         )
     }
 
-    fun map(track: Track): TrackDB {
-        return TrackDB(
+    fun map(track: Track): TrackPlistDB {
+        return TrackPlistDB(
             track.trackId,
             track.artworkUrl100,
             track.trackName,

@@ -13,6 +13,7 @@
         white
         <!-- Customize your theme here. -->
         <item name="colorOnSurface">@color/yp_white</item>
+        <item name="testColor">@color/yp_white</item>
         <!--  <item name="android:colorBackground">@color/yp_white</item>-->
       </style>
   </resources>
