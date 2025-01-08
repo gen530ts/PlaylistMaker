@@ -190,7 +190,7 @@ class PlistViewFragment : Fragment() {
 
     private fun delTrack(id: Int) {
         confirmDialog.setTitle("Удалить трек")
-            .setMessage("Хотите удалить трек")
+            .setMessage("Хотите удалить трек?")
             .setNegativeButton("Нет") { _, _ -> }
             .setPositiveButton("Да") { _, _ ->
                 viewModel.delTrackInPlist(id)
