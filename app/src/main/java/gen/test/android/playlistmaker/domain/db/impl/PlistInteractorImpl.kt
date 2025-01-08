@@ -46,19 +46,7 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
     }
 
     override suspend fun delTrackInPlist(plistId: Long, trackId: Int) {
-       val plists=plistRepository.getAllPlists()
-        var isTrackInOtherPlist=false
-        for(pl in plists){
-            if((pl.idTracks.contains(trackId)) && (pl.id!=plistId)) isTrackInOtherPlist=true
-            if (pl.id==plistId){
-                val tmpList = mutableListOf<Int>()
-                tmpList.addAll(pl.idTracks)
-                tmpList.remove(trackId)
-                val plist=pl.copy(idTracks = tmpList)
-                plistRepository.updatePlist(plist)
-            }
-        }
-        if(!isTrackInOtherPlist) plistRepository.delTrackPlistById(trackId)
+        plistRepository.delTrackInPlist(plistId,trackId)
     }
 
     override suspend fun delPlistById(idPlist: Long) {
@@ -142,6 +130,21 @@ class PlistInteractorImpl(private val plistRepository: PlistRepository): PlistIn
         return  "$first$second"
     }
 }
+
+
+/*       val plists=plistRepository.getAllPlists()
+        var isTrackInOtherPlist=false
+        for(pl in plists){
+            if((pl.idTracks.contains(trackId)) && (pl.id!=plistId)) isTrackInOtherPlist=true
+            if (pl.id==plistId){
+                val tmpList = mutableListOf<Int>()
+                tmpList.addAll(pl.idTracks)
+                tmpList.remove(trackId)
+                val plist=pl.copy(idTracks = tmpList)
+                plistRepository.updatePlist(plist)
+            }
+        }
+        if(!isTrackInOtherPlist) plistRepository.delTrackPlistById(trackId)*/
 
 
 

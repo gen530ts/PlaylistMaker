@@ -33,18 +33,19 @@ class PlistRepositoryImpl(
     }
 
     override suspend fun getAllPlists(): List<Plist> {
-        val plists = trackDatabase.plistDao().getAllPlists().map { pl -> plistDbConvertor.map(pl)
+        val plists = trackDatabase.plistDao().getAllPlists().map { pl ->
+            plistDbConvertor.map(pl)
         }
         return plists
     }
 
 
-
-
-
     override fun getAllPlistsFlow(): Flow<List<Plist>> {
-       return trackDatabase.plistDao().getAllPlistsFlow().map { pl -> pl.map { item ->
-           plistDbConvertor.map(item) } }
+        return trackDatabase.plistDao().getAllPlistsFlow().map { pl ->
+            pl.map { item ->
+                plistDbConvertor.map(item)
+            }
+        }
     }
 
 
@@ -60,7 +61,7 @@ class PlistRepositoryImpl(
     }
 
     override suspend fun getAllTracks(): List<Track> {
-      return  trackDatabase.trackPlistDao().getAllTracks().map { tr -> trackPlDbConvertor.map(tr) }
+        return trackDatabase.trackPlistDao().getAllTracks().map { tr -> trackPlDbConvertor.map(tr) }
     }
 
     override suspend fun getPlistById(id: Long): Plist {
@@ -69,10 +70,10 @@ class PlistRepositoryImpl(
 
     override suspend fun getPlistByIdFlow(id: Long): Flow<Plist> {
         return trackDatabase.plistDao().getPlistByIdFlow(id).map { pl ->
-            if(pl!=null){
-            plistDbConvertor.map(pl)
-        }else Plist(name = "")
-             }
+            if (pl != null) {
+                plistDbConvertor.map(pl)
+            } else Plist(name = "")
+        }
     }
 
     override suspend fun delTrackPlistById(id: Int) {
@@ -81,6 +82,22 @@ class PlistRepositoryImpl(
 
     override suspend fun delPlistById(id: Long) {
         trackDatabase.plistDao().delPlistById(id)
+    }
+
+    override suspend fun delTrackInPlist(plistId: Long, trackId: Int) {
+        val plists = getAllPlists()
+        var isTrackInOtherPlist = false
+        for (pl in plists) {
+            if ((pl.idTracks.contains(trackId)) && (pl.id != plistId)) isTrackInOtherPlist = true
+            if (pl.id == plistId) {
+                val tmpList = mutableListOf<Int>()
+                tmpList.addAll(pl.idTracks)
+                tmpList.remove(trackId)
+                val plist = pl.copy(idTracks = tmpList)
+                updatePlist(plist)
+            }
+        }
+        if (!isTrackInOtherPlist) delTrackPlistById(trackId)
     }
 }
 

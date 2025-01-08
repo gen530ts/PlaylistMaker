@@ -55,11 +55,11 @@ class PlistViewFragment : Fragment() {
         binding.backImageView.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+        initBottomSheetsMenu()
         binding.shareImageView.setOnClickListener {sharePlist()}
         binding.shareTVBSMenu.setOnClickListener { sharePlist() }
         binding.deletePListTVBSMenu.setOnClickListener { delPlist() }
         binding.editInfoTVBSMenu.setOnClickListener { editPlist() }
-        initBottomSheetsMenu()
         binding.moreImageView.setOnClickListener {
             bottomSheetBehaviorMenu.state = BottomSheetBehavior.STATE_COLLAPSED
         }
@@ -89,6 +89,8 @@ class PlistViewFragment : Fragment() {
 
                 } else {
                     isTracksInPlist = false
+                    Toast.makeText(requireContext(),"В этом плейлисте нет " +
+                            "треков",Toast.LENGTH_LONG).show()
                 }
                 tracksAdapter?.setItems(items)
                 tracksAdapter?.notifyDataSetChanged()
@@ -106,6 +108,7 @@ class PlistViewFragment : Fragment() {
     }
 
     private fun sharePlist() {
+        bottomSheetBehaviorMenu.state = BottomSheetBehavior.STATE_HIDDEN
        if(isTracksInPlist) viewModel.sharePlist()
         else Toast.makeText(requireContext(),"В этом плейлисте нет " +
                "списка треков, которым можно поделиться",Toast.LENGTH_LONG).show()
@@ -187,19 +190,20 @@ class PlistViewFragment : Fragment() {
 
     private fun delTrack(id: Int) {
         confirmDialog.setTitle("Удалить трек")
-            .setMessage("Вы уверены, что хотите удалить трек из плейлиста?")
-            .setNegativeButton("Отмена") { _, _ -> }
-            .setPositiveButton("Удалить") { _, _ ->
+            .setMessage("Хотите удалить трек")
+            .setNegativeButton("Нет") { _, _ -> }
+            .setPositiveButton("Да") { _, _ ->
                 viewModel.delTrackInPlist(id)
             }
             .show()
     }
 
     private fun delPlist() {
+        bottomSheetBehaviorMenu.state = BottomSheetBehavior.STATE_HIDDEN
         confirmDialog.setTitle("Удалить плейлист")
             .setMessage("Хотите удалить плейлист?")
-            .setNegativeButton("Отмена") { _, _ -> }
-            .setPositiveButton("Удалить") { _, _ ->
+            .setNegativeButton("Нет") { _, _ -> }
+            .setPositiveButton("Да") { _, _ ->
                 viewModel.delPlist()
             }
             .show()

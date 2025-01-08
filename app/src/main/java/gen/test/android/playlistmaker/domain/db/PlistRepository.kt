@@ -16,5 +16,6 @@ interface PlistRepository {
     suspend fun getPlistByIdFlow(id: Long):Flow<Plist>
     suspend fun delTrackPlistById(id: Int)
     suspend fun delPlistById(id: Long)
+    suspend fun delTrackInPlist(plistId:Long,trackId:Int)
 
 }
