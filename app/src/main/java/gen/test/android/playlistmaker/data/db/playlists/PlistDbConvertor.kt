@@ -1,25 +1,45 @@
 package gen.test.android.playlistmaker.data.db.playlists
 
+import android.content.Context
+import android.os.Environment
+import androidx.core.net.toUri
 import gen.test.android.playlistmaker.domain.models.Plist
+import java.io.File
 
-class PlistDbConvertor {
+class PlistDbConvertor(private val context: Context) {
     fun map(plist: PlistDB): Plist {
-        val tracksIds= strToListInt(plist.idTracks)
+        val tracksIds = strToListInt(plist.idTracks)
+        val iU = if (plist.imagePath.isNotEmpty()) {
+            val filePath = File(
+                context.getExternalFilesDir(
+                    Environment.DIRECTORY_PICTURES
+                ), "playlistmaker_album"
+            )
+            val file = File(filePath, plist.imagePath)
+            file.toUri()
+        } else null
         return Plist(
+            id = plist.id,
             name = plist.name,
             description = plist.description,
             imagePath = plist.imagePath,
             idTracks = tracksIds,
-            tracksNumber = getStr(tracksIds.size)
+            tracksNumber = getStr(tracksIds.size),
+            imageUri = iU
         )
     }
 
     fun map(plist: Plist): PlistDB {
         return PlistDB(
-            id = null,
+            id = plist.id,
             name = plist.name,
             description = plist.description,
-            imagePath = plist.imagePath,
+            imagePath = if (plist.imageUri != null) {
+                plist.name + plist.description + ".jpg"
+            } else {
+                ""
+            },
+
             idTracks = plist.idTracks.toString(),
         )
     }
@@ -34,9 +54,10 @@ class PlistDbConvertor {
         else " треков"
         return firstStr + secondStr
     }
-    private fun strToListInt(str:String):List<Int>{
-        if(str=="[]") return listOf()
-        return str.removeSurrounding("[","]").replace(" ","").split(",").map { it.toInt() }
+
+    private fun strToListInt(str: String): List<Int> {
+        if (str == "[]") return listOf()
+        return str.removeSurrounding("[", "]").replace(" ", "").split(",").map { it.toInt() }
     }
 
 }

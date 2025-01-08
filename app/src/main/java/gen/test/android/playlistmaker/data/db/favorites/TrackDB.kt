@@ -15,6 +15,6 @@ data class TrackDB(
     val country:String,
     val trackTime: String,
     val previewUrl:String?,
-    val create_at : Long
+    val createAt : Long
 )
 

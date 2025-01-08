@@ -48,7 +48,7 @@ val repositoryModule = module {
 
     factory { TrackPlDbConvertor() }
 
-    factory { PlistDbConvertor() }
+    factory { PlistDbConvertor(androidContext()) }
 
     factory { ImageHandler(androidContext()) }
 

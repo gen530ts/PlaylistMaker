@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
@@ -21,11 +23,13 @@ import gen.test.android.playlistmaker.utils.ScreenState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CreatePlayListFragment : Fragment() {
+open class CreatePlayListFragment : Fragment() {
 
-    private val viewModel: CreatePlayListViewModel by viewModel()
-    private lateinit var binding: FragmentCreatePlayListBinding
+    open val viewModel: CreatePlayListViewModel by viewModel()
+    lateinit var headerTV:TextView
+    lateinit var binding: FragmentCreatePlayListBinding
     private var uriCover: Uri? = null
+    var plistId:Long?=null
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission())
         { isGranted: Boolean ->
@@ -78,9 +82,14 @@ class CreatePlayListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        headerTV=binding.settingsTextView
         binding.enterPlName.addTextChangedListener(
             onTextChanged = { charSequence, _, _, _ ->
                 binding.createPlBtn.isEnabled = charSequence?.isEmpty() != true
@@ -88,17 +97,29 @@ class CreatePlayListFragment : Fragment() {
         )
         binding.coverIvPl.setOnClickListener { loadPhoto() }
         binding.createPlBtn.setOnClickListener {
-            saveInDb()
-            findNavController().popBackStack()
+            btnOnClick()
         }
         binding.backImageView.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
+        addOnBackPressedCallback()
 
+        observe()
+    }
+
+    open fun addOnBackPressedCallback() {
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
+    }
+
+    open fun btnOnClick() {
+        saveInDb()
+        findNavController().popBackStack()
+    }
+
+    open fun observe() {
         viewModel.observeData().observe(viewLifecycleOwner) {
             when (it) {
-                is ScreenState.Success -> showSuccess(it.data)
+                is ScreenState.Success -> showSuccess(it.data.name)
                 else -> {}
             }
         }
@@ -115,11 +136,18 @@ class CreatePlayListFragment : Fragment() {
     }
 
 
-    private fun saveInDb() {
+    fun saveInDb() {
         viewModel.addPlaylist(
+            idPl = plistId,
             name = binding.enterPlName.text.toString(),
             descr = binding.enterPlDescr.text.toString(),
-            imagePath = uriCover?.toString() ?:""
+            imageUri = uriCover
         )
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+    }
+
 }

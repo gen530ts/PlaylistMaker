@@ -44,4 +44,9 @@
     <string name="create_pl_name">Название*</string>
     <string name="create_pl_start">Создать</string>
     <string name="add_to_pl">Добавить в плейлист</string>
+    <string name="share_bs_menu">Поделиться</string>
+    <string name="edit_bs_menu">Редактировать информацию</string>
+    <string name="delete_bs_menu">Удалить плейлист</string>
+    <string name="edit_plist">Редактировать</string>
+    <string name="save_plist">Сохранить</string>
 </resources>

@@ -14,7 +14,8 @@ class TrackDbConvertor {
             track.releaseDate,
             track.primaryGenreName,
             track.country,
-            track.previewUrl
+            track.previewUrl,
+            createAt = track.createAt
         )
     }
 
@@ -30,7 +31,7 @@ class TrackDbConvertor {
             track.country,
             track.trackTimeMillis.toString(),
             track.previewUrl,
-            create_at = System.currentTimeMillis()
+            createAt = System.currentTimeMillis()
         )
     }
 }

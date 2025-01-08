@@ -11,14 +11,17 @@ import gen.test.android.playlistmaker.domain.sharing.model.EmailData
 class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
     private val chooserTitle = "Выберите приложение"
     override fun shareLink(shareApp: String) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, shareApp)
+            type = "text/plain"
+        }
 
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        val shareIntent1 = Intent.createChooser(shareIntent, chooserTitle)
-        shareIntent1.putExtra(Intent.EXTRA_TEXT, shareApp)
-        shareIntent1.addFlags(FLAG_ACTIVITY_NEW_TASK)
-       
-        context.applicationContext.startActivity(shareIntent1)
+        val shareIntent = Intent.createChooser(sendIntent, chooserTitle)
+        shareIntent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(shareIntent)
     }
+
 
     override fun openLink(termsLink: String) {
         val uri: Uri = Uri.parse(termsLink)
@@ -40,4 +43,6 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
             Intent.createChooser(shareIntent, chooserTitle).addFlags(FLAG_ACTIVITY_NEW_TASK), null
         )
     }
+
+
 }

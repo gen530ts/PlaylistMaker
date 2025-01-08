@@ -32,4 +32,5 @@
     <dimen name="dim32">32dp</dimen>
     <dimen name="dim312">312dp</dimen>
     <dimen name="dim2">2dp</dimen>
+    <dimen name="dim80">80dp</dimen>
 </resources>
